@@ -19,7 +19,7 @@
 - **Punto de bifurcación:** `27ded2add8c36b3130115e8a3fd1f89967bc0114` (2024-11-15).
 - **Núcleo `moonlight-common-c`:** fork de ClassicOldSong `c999436858471dfefa7617af3b7dc03ec1644ce4` fusionado con upstream `874ac9548f1bd6f095ef2b435c42cdde460e7821` (v12.2). Merge local de referencia: `cb182ee904c378f99b01ce25c1bc1a82f49d6751`.
 - **Resultado:** APK release y debug generados; el release queda **sin firmar** y el debug firmado con la clave de Android Studio.
-- **Copia automática:** cada compilación de `nonRoot_game` deja los APK en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` con el nombre `artemis*.apk` (ver 6.5).
+- **Copia automática:** cada compilación de `nonRoot_game` deja en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` solo `artemis.apk` (release arm64 sin firmar) y `artemis-debug.apk` (debug arm64 firmado), más `LEEME_APK.txt` (ver 6.5).
 - **Incidencia abierta:** “drift fantasma” con un mando Xbox que **no** tiene drift real, solo en **algunos juegos y frontends de emulación**. Ver sección 8.
 
 ---
@@ -634,6 +634,10 @@ Debug (firmado con clave debug de Android):
 - Release: `com.limelight.noir`, label **Artemis**, **sin firmar**. Para publicar hay
   que firmarlo con la keystore habitual.
 
+> Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI.
+> La carpeta curada `Release` solo recibe `artemis.apk` y `artemis-debug.apk`
+> (arm64-v8a); el resto queda en `app/build/outputs/apk/` para quien lo necesite.
+
 ### 6.5 Salida automática a `artemis_V2026\Release`
 
 Cada compilación de `nonRoot_game` deja los APK exportados en:
@@ -644,16 +648,15 @@ E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release
 
 Nombres:
 
-| Archivo exportado | Origen | Firma |
-|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | Sin firmar |
-| `artemis-armeabi-v7a.apk` | `release/...-armeabi-v7a-...apk` | Sin firmar |
-| `artemis-x86.apk` | `release/...-x86-...apk` | Sin firmar |
-| `artemis-x86_64.apk` | `release/...-x86_64-...apk` | Sin firmar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | Firmado con clave debug |
-| `artemis-debug-armeabi-v7a.apk` | `debug/...-armeabi-v7a-...apk` | Firmado con clave debug |
-| `artemis-debug-x86.apk` | `debug/...-x86-...apk` | Firmado con clave debug |
-| `artemis-debug-x86_64.apk` | `debug/...-x86_64-...apk` | Firmado con clave debug |
+| Archivo exportado | Origen | Firma | Uso |
+|---|---|---|---|
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | Sin firmar | Firmar y publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `LEEME_APK.txt` | — | — | Explica cuál usar |
+
+Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
+para evitar duplicados y confusión. Si hicieran falta, se generan en
+`app/build/outputs/apk/nonRoot_game/`.
 
 Se implementó en `app/build.gradle` con dos tareas `Copy`:
 
@@ -981,14 +984,14 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | UI-02 | `MaterialToolbar` en `PcView` y `AppView` con título, búsqueda, ajustes y añadir | 1 | Hecho |
 | UI-03 | Tarjetas modernas de PC con estado, versión y acciones | 1 | Hecho |
 | UI-04 | Tarjetas modernas de apps con scrim, título y badges | 1 | Hecho |
-| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Parcial (PC; apps pendiente) |
-| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Parcial (insets existentes revisados) |
-| UI-07 | Estados vacíos, carga y skeletons | 1 | Parcial (vacíos/carga; skeletons pendientes) |
+| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Parcial — cerrar en Fase 2 (apps) |
+| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Parcial — revisar en Fase 2 |
+| UI-07 | Estados vacíos, carga y skeletons | 1 | Parcial — skeletons en Fase 2 |
 | UI-08 | Corregir resumen español de deadzone (valores negativos) | 1 | Hecho |
-| UI-09 | Ajustes por secciones con búsqueda y valores actuales | 2 | Pendiente |
-| UI-10 | Menú en juego como bottom sheet con iconos y secciones | 2 | Pendiente |
-| UI-11 | Perfiles como tarjetas con acciones y estado activo | 2 | Pendiente |
-| UI-12 | Tarjeta de anfitrión Apollo y capacidades del host | 2 | Pendiente |
+| UI-09 | Ajustes por secciones con búsqueda y valores actuales | 2 | Pendiente (Fase 2) |
+| UI-10 | Menú en juego como bottom sheet con iconos y secciones | 2 | Pendiente (Fase 2) |
+| UI-11 | Perfiles como tarjetas con acciones y estado activo | 2 | Pendiente (Fase 2) |
+| UI-12 | Tarjeta de anfitrión Apollo y capacidades del host | 2 | Pendiente (Fase 2) |
 | UI-13 | Control tester con ejes, botones, gatillos y visualizador de deadzone | 3 | Pendiente |
 | UI-14 | Editor OSC/teclado con rejilla, snapping, presets y undo/redo | 3 | Pendiente |
 | UI-15 | Onboarding y emparejamiento con PIN/QR | 3 | Pendiente |
@@ -1104,9 +1107,58 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
   - Bottom sheet de acciones para apps (UI-05).
   - Skeletons reales (UI-07).
   - Revisión visual en dispositivo/tablet/TV.
-  - Fases 2–3 (ajustes, menú en juego, perfiles, diagnóstico, temas, onboarding).
+  - Fases 2–3; el alcance y orden de la Fase 2 está detallado en 13.7.
 
-### 13.7 Riesgos y no objetivos
+### 13.7 Fase 2 — Alcance, orden y criterios de aceptación
+
+**Objetivo:** cerrar los pendientes de la Fase 1 y modernizar las pantallas de uso
+diario sin tocar el pipeline de vídeo, entrada o streaming.
+
+**Alcance:**
+
+| ID | Entrega | Archivos principales | Criterio de aceptación |
+|---|---|---|---|
+| UI-05 | Bottom sheet de acciones de apps | `AppView.java`, `AppGridAdapter.java`, layout/helper de acciones, `menu/app_view_menu.xml` | Long-press/click abre la hoja; conserva iniciar/reanudar, salir, acceso directo, ocultar, detalles, exportar; sin duplicar el menú contextual |
+| UI-06 | Revisión de insets/edge-to-edge | `UiHelper.java`, layouts de `PcView`/`AppView`, `styles.xml` | Toolbar bajo la barra de estado; nada tapado por navegación; correcto en portrait, landscape, tablet, DeX y TV |
+| UI-07 | Skeletons de carga | `pc_grid_item.xml`, `app_grid_item.xml`, drawables de skeleton, adaptadores | Placeholder mientras carga; sin saltos de layout; estados vacíos estables |
+| UI-12 | Tarjeta de anfitrión Apollo | `PcView.java`, `ComputerDetails`, layout de host card, `UiHelper` | Muestra Apollo/versión/plataforma/driver/estado; modo offline claro; campos desconocidos ocultos |
+| UI-09 | Ajustes por secciones + búsqueda | `preferences.xml`, `StreamSettings.java`, layouts de preferencias, strings | Todas las preferencias actuales siguen accesibles; búsqueda funciona; valor actual visible; reset/import/export sin regresiones |
+| UI-11 | Perfiles como tarjetas | `ProfilesActivity.java`, `ProfilesAdapter.java`, `row_profile.xml`, `activity_profiles.xml`, `EditProfileActivity` | Estado activo visible; activar/editar/duplicar/exportar/eliminar; estado vacío; sin pérdida de datos |
+| UI-10 | Menú en juego como bottom sheet | `GameMenu.java`, `activity_game.xml`, layout de menú, strings | Conserva todas las acciones actuales; secciones e iconos; landscape; foco con mando/TV; sin fugas de entrada |
+
+**Orden de implementación recomendado:**
+
+1. **UI-05** — bottom sheet de apps (cierra Fase 1).
+2. **UI-06/UI-07** — insets y skeletons (cierra Fase 1).
+3. **UI-12** — tarjeta de anfitrión Apollo (bajo riesgo, alto valor).
+4. **UI-09** — ajustes por secciones.
+5. **UI-11** — perfiles como tarjetas.
+6. **UI-10** — menú en juego (mayor riesgo; probar en dispositivo).
+
+**Definición de terminado (Fase 2):**
+
+- [ ] Build release y debug correctos.
+- [ ] `Release` solo contiene `artemis.apk` y `artemis-debug.apk` (+ `LEEME_APK.txt`).
+- [ ] Sin regresiones en conexión, vídeo, audio, mandos, teclado, perfiles ni pantalla externa.
+- [ ] Probado en teléfono/tablet/landscape; TV si aplica.
+- [ ] Documentación actualizada y commit subido a GitHub.
+- [ ] APK debug firmado para pruebas.
+
+**Riesgos y mitigaciones:**
+
+- **Ajustes:** perder alguna clave al reorganizar `preferences.xml`.
+  Mitigación: mantener todas las `android:key` existentes y probar cada sección.
+- **Menú en juego:** fugas de foco/entrada al abrir la hoja.
+  Mitigación: probar con mando, teclado y táctil; conservar el comportamiento de `GameMenu`.
+- **Perfiles:** corrupción o pérdida de perfiles al cambiar el adaptador.
+  Mitigación: no tocar el formato JSON; probar activar/editar/borrar/exportar.
+- **TV/DeX:** navegación con D-pad y layout.
+  Mitigación: probar foco y `nextFocus*` en tablets/TV.
+
+**No incluido en Fase 2:** control tester, editor OSC, onboarding/QR, selector de
+temas, branding y diagnóstico de red (Fase 3).
+
+### 13.8 Riesgos y no objetivos
 
 - **No** reescribir en Compose.
 - **No** tocar `StreamContainer`, `MediaCodecDecoderRenderer`, `VirtualController` ni el pipeline de entrada por motivos estéticos.
@@ -1121,8 +1173,11 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 
 - [x] Actualizar la traducción española del resumen de deadzone.
 - [x] Fase 1 de interfaz: tokens, toolbar, tarjetas, búsqueda, bottom sheet y ajustes de insets.
-- [x] Copia automática de APK a `artemis_V2026\Release\artemis*.apk`.
+- [x] Copia automática de APK a `artemis_V2026\Release` (solo `artemis.apk` y `artemis-debug.apk`).
+- [x] Limpieza de APK antiguos y variantes ABI no usadas.
 - [x] Incluir esta memoria en el repositorio.
+- [ ] Fase 2: UI-05, UI-06, UI-07, UI-12, UI-09, UI-11 y UI-10 (ver 13.7).
+- [ ] Probar la Fase 1 en dispositivo/tablet/TV.
 - [ ] Implementar `MotionRange.getFlat()` como deadzone mínima de sticks.
 - [ ] Evaluar auto-centrado al conectar.
 - [ ] Corregir el `|=` de fusión de ejes/gatillos.
@@ -1131,6 +1186,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - [ ] Probar el mando Xbox en los juegos/frontends afectados y documentar resultados.
 - [ ] Firmar el release con la keystore definitiva.
 - [ ] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
+- [ ] Crear tag/release de GitHub cuando el APK release esté firmado.
 - [ ] Añadir changelog de la versión 58 en `fastlane` si se publica.
 - [ ] Actualizar este documento tras cada nueva actualización.
 
@@ -1140,7 +1196,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
-- **Estado:** publicado; `main` = `ce94e26` (2026-11-20).
+- **Estado:** publicado; rama `main` activa. Primer commit `ce94e26`; los commits posteriores incluyen documentación y limpieza de APK. Consultar `git log -1` para el HEAD actual.
 - **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
 - **Contenido:** código fuente completo, core `moonlight-common-c` vendorizado,
   `MEMORIA_ARTEMIS.md`, `README.md` actualizado, `.gitattributes` y `.gitignore`.

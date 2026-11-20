@@ -199,11 +199,11 @@ dependencies {
 // ---------------------------------------------------------------------------
 // Exportación automática de APKs a artemis_V2026/Release
 //
-// Cada vez que se compile una variante nonRoot_game se copia el APK a
-//   <artemis_V2026>/Release/artemis.apk                (arm64-v8a release)
-//   <artemis_V2026>/Release/artemis-<abi>.apk          (otras ABI release)
-//   <artemis_V2026>/Release/artemis-debug.apk          (arm64-v8a debug)
-//   <artemis_V2026>/Release/artemis-debug-<abi>.apk    (otras ABI debug)
+// Solo se exporta la variante arm64-v8a para evitar duplicados:
+//   Release/artemis.apk        -> release arm64 (sin firmar)
+//   Release/artemis-debug.apk  -> debug arm64 (firmado con clave debug)
+//
+// Las demás ABI siguen generándose en app/build/outputs/apk si se necesitan.
 // ---------------------------------------------------------------------------
 def artemisExportDir = rootProject.file("../../Release")
 
@@ -212,18 +212,6 @@ tasks.register("exportArtemisReleaseApks", Copy) {
         include "*-arm64-v8a-*.apk"
         rename { "artemis.apk" }
     }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/release")) {
-        include "*-armeabi-v7a-*.apk"
-        rename { "artemis-armeabi-v7a.apk" }
-    }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/release")) {
-        include "*-x86-*.apk"
-        rename { "artemis-x86.apk" }
-    }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/release")) {
-        include "*-x86_64-*.apk"
-        rename { "artemis-x86_64.apk" }
-    }
     into artemisExportDir
 }
 
@@ -231,18 +219,6 @@ tasks.register("exportArtemisDebugApks", Copy) {
     from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/debug")) {
         include "*-arm64-v8a-*.apk"
         rename { "artemis-debug.apk" }
-    }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/debug")) {
-        include "*-armeabi-v7a-*.apk"
-        rename { "artemis-debug-armeabi-v7a.apk" }
-    }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/debug")) {
-        include "*-x86-*.apk"
-        rename { "artemis-debug-x86.apk" }
-    }
-    from(layout.buildDirectory.dir("outputs/apk/nonRoot_game/debug")) {
-        include "*-x86_64-*.apk"
-        rename { "artemis-debug-x86_64.apk" }
     }
     into artemisExportDir
 }
