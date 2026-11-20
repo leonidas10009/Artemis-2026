@@ -1281,6 +1281,10 @@ Configuración del host:
 
 #### 13.9.6 Estado de pruebas
 
+- **Commit Artemis:** `b39ed02` — *Energía remota: endpoint /servercmd y botones
+  apagar/reiniciar*.
+- **Commit Apollo:** `e5b72c9f` — *Add authenticated /servercmd endpoint for remote
+  server commands*.
 - Host recompilado y desplegado.
 - Servicio reiniciado con UAC; log confirma `server_cmd`:
   `Bubbles`, `Apagar PC`, `Reiniciar PC`, `Cancelar apagado`.
