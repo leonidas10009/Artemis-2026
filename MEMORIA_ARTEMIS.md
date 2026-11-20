@@ -1000,6 +1000,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | UI-18 | Accesibilidad: 48 dp, TalkBack, contraste, escalado, reducir movimiento | 1–3 | Pendiente |
 | UI-19 | Diagnóstico de red/códec/logs y “copiar diagnóstico” | 3 | Pendiente |
 | UI-20 | Animaciones y microinteracciones | 3 | Pendiente |
+| UI-21 | Gestión de energía remota: apagar/reiniciar el PC anfitrión | 2A/3B | Pendiente (ver 13.9) |
 
 ### 13.4 Detalle por pantalla
 
@@ -1167,6 +1168,100 @@ temas, branding y diagnóstico de red (Fase 3).
 - **No** romper la navegación con mando/TV ni el modo inmersivo del stream.
 - **No** cambiar package IDs ni la firma.
 
+### 13.9 Gestión de energía remota (apagar/reiniciar el PC anfitrión)
+
+**Idea:** añadir botones dedicados en Artemis para apagar o reiniciar el PC donde
+corre Apollo, con confirmación y permisos.
+
+#### 13.9.1 Qué existe ya en Apollo
+
+Apollo ya tiene un sistema de **comandos de servidor**:
+
+- `server_cmd` en `sunshine.conf` es una lista de comandos con nombre, comando y
+  `elevated`.
+- El host los envía al cliente emparejado en `serverinfo`
+  (`src/nvhttp.cpp`), solo si el cliente tiene el permiso `server_cmd`.
+- El cliente Artemis los recibe en `ComputerDetails.serverCommands` y los muestra
+  en el menú de juego (`GameMenu.showServerCmd`).
+- Al pulsar uno, Artemis envía el índice por el control stream
+  (`Game.sendExecServerCmd` → `MoonBridge` → `LiSendExecServerCmd`).
+- El host valida `PERM::server_cmd` y ejecuta el comando en `src/stream.cpp`
+  (`IDX_EXEC_SERVER_CMD`), con `elevated` si está configurado.
+
+Por tanto, **para apagar/reiniciar durante una sesión de streaming no hace falta
+tocar el código C++ de Apollo**: basta con configurar los comandos en el host y
+añadir botones dedicados en el cliente.
+
+#### 13.9.2 Fase 2A — botones dentro del juego (sin cambios en Apollo)
+
+1. En `_update\Release\config\sunshine.conf`, añadir a `server_cmd`:
+   ```ini
+   server_cmd = [{"name":"Bubbles","cmd":"bubbles.scr","elevated":false},{"name":"Apagar PC","cmd":"shutdown /s /t 5","elevated":true},{"name":"Reiniciar PC","cmd":"shutdown /r /t 5","elevated":true},{"name":"Cancelar apagado","cmd":"shutdown /a","elevated":true}]
+   ```
+   - Mantener los comandos existentes.
+   - `elevated:true` es necesario en Windows para `shutdown`.
+   - `/t 5` deja 5 segundos para cancelar con `shutdown /a`.
+   - En Linux: `systemctl poweroff` / `systemctl reboot`.
+2. En Apollo Web UI → Clients, conceder `server_cmd` al cliente Artemis.
+3. En Artemis, añadir una sección **Energía** en `GameMenu`:
+   - Buscar por nombre en `game.getServerCmds()` (sin distinguir mayúsculas):
+     `apagar`, `shutdown`, `poweroff`; `reiniciar`, `restart`, `reboot`;
+     `cancelar`, `shutdown /a`.
+   - Si existen, mostrar botones dedicados “Apagar PC” y “Reiniciar PC” con
+     confirmación.
+   - Si no existen, mantener el menú actual de “Comandos de servidor”.
+4. Confirmación obligatoria:
+   - Diálogo: “¿Apagar el PC anfitrión? Se cerrará la sesión.”
+   - Para reiniciar, el mismo aviso.
+   - Opcional: cuenta atrás de 3–5 segundos y opción “Cancelar”.
+
+**Ventajas:** funciona ya, sin protocolo nuevo, y usa el permiso existente.
+**Limitación:** solo está disponible **durante una sesión** (el control stream está
+activo).
+
+#### 13.9.3 Fase 3B — botones fuera de la sesión (requiere cambios en Apollo)
+
+Para apagar/reiniciar desde la lista de PCs o la lista de apps (sin estar
+transmitiendo), el cliente no tiene canal de comandos: `LiSendExecServerCmd` solo
+funciona con un control stream activo. Habría que añadir en Apollo:
+
+- Un endpoint autenticado, por ejemplo `POST /api/power` con
+  `{ "action": "shutdown" | "reboot" }` en `confighttp.cpp` o `nvhttp.cpp`.
+- Validación de cliente emparejado y permiso `server_cmd` (o un permiso nuevo
+  `power`).
+- Flag de configuración `enable_power_commands = false` por defecto.
+- Rate limit, log de auditoría y confirmación en el host.
+- Comandos configurables (`power_off_cmd`, `power_reboot_cmd`) o reutilizar
+  `server_cmd`.
+- Cliente: botones “Apagar”/“Reiniciar” en el bottom sheet de acciones del PC,
+  con confirmación y llamada HTTP autenticada.
+
+**Seguridad:** apagar el host es una acción destructiva. Debe estar deshabilitada
+por defecto, requerir emparejamiento, permiso explícito, confirmación y registro.
+No exponer el endpoint a Internet sin HTTPS/VPN.
+
+#### 13.9.4 Recomendación
+
+- **Ahora:** implementar **Fase 2A** (host config + botones en `GameMenu`). Es
+  rápido, seguro y no requiere recompilar Apollo.
+- **Más adelante:** evaluar **Fase 3B** si se quieren botones en la lista de PCs.
+- **No** añadir un botón de apagado sin confirmación ni permiso.
+
+#### 13.9.5 Archivos afectados
+
+| Lado | Archivo | Cambio |
+|---|---|---|
+| Host | `_update/Release/config/sunshine.conf` | Añadir `server_cmd` de energía |
+| Host | `src/stream.cpp` | Ya existe; no tocar en 2A |
+| Host | `src/crypto.h` | Permiso `server_cmd` ya existe |
+| Host | `src/nvhttp.cpp` | Ya publica los nombres; no tocar en 2A |
+| Cliente | `GameMenu.java` | Sección Energía + confirmación |
+| Cliente | `Game.java` | Ya expone `getServerCmds` y `sendExecServerCmd` |
+| Cliente | `NvConnection.java` / `MoonBridge.java` | Ya existe el envío |
+| Cliente | strings | “Apagar PC”, “Reiniciar PC”, avisos |
+| Host (3B) | `confighttp.cpp`/`nvhttp.cpp` | Endpoint autenticado de energía |
+| Cliente (3B) | `PcView.java`/`AppView.java`/`NvHTTP.java` | Botones y llamada HTTP |
+
 ---
 
 ## 14. Pendientes
@@ -1177,6 +1272,8 @@ temas, branding y diagnóstico de red (Fase 3).
 - [x] Limpieza de APK antiguos y variantes ABI no usadas.
 - [x] Incluir esta memoria en el repositorio.
 - [ ] Fase 2: UI-05, UI-06, UI-07, UI-12, UI-09, UI-11 y UI-10 (ver 13.7).
+- [ ] UI-21 Fase 2A: comandos de energía en `sunshine.conf` + botones en `GameMenu`.
+- [ ] UI-21 Fase 3B: endpoint autenticado de energía + botones en la lista de PCs.
 - [ ] Probar la Fase 1 en dispositivo/tablet/TV.
 - [ ] Implementar `MotionRange.getFlat()` como deadzone mínima de sticks.
 - [ ] Evaluar auto-centrado al conectar.
