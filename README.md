@@ -1,5 +1,9 @@
 # Artemis 2026
 
+[![Release](https://img.shields.io/github/v/release/leonidas10009/Artemis-2026?label=release)](https://github.com/leonidas10009/Artemis-2026/releases)
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE.txt)
+[![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Android%20TV-green)](https://github.com/leonidas10009/Artemis-2026/releases)
+
 Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moonlight Noir)** y **Moonlight**.
 
 > **Versión:** `1.0.0` (versionCode `1`)  
@@ -16,7 +20,8 @@ Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moon
 
 - **Moonlight original:** <https://github.com/moonlight-stream/moonlight-android>
 - **Artemis / Moonlight Noir:** <https://github.com/ClassicOldSong/moonlight-android>
-- **Apollo (host):** <https://github.com/ClassicOldSong/Apollo>
+- **Apollo 2026 (host de este fork):** <https://github.com/leonidas10009/Apollo_2026>
+- **Apollo original:** <https://github.com/ClassicOldSong/Apollo>
 - **Este fork:** <https://github.com/leonidas10009/Artemis-2026>
 - **Licencia:** GPL-3.0. Consulta [`LICENSE.txt`](LICENSE.txt).
 
@@ -72,7 +77,8 @@ Consulta [`CHANGELOG.md`](CHANGELOG.md) para el detalle.
 - OpenGL ES 3.0.
 - `arm64-v8a`, `armeabi-v7a` o `x86_64`.
 - Host Apollo/Sunshine accesible por red.
-- Apollo recomendado para pantalla virtual, portapapeles y comandos de energía.
+- **Apollo 2026** recomendado para pantalla virtual, portapapeles y comandos de energía:
+  <https://github.com/leonidas10009/Apollo_2026>.
 
 ## Compilación
 
