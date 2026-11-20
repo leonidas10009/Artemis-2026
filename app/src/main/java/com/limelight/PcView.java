@@ -46,7 +46,9 @@ import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -355,8 +357,17 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
                 Service.BIND_AUTO_CREATE);
 
         pcGridAdapter = new PcGridAdapter(this, PreferenceConfiguration.readPreferences(this));
+        pcGridAdapter.setLoading(true);
 
         initializeViews();
+
+        // Avoid an endless skeleton if the initial discovery never reports a host.
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (!isFinishing() && pcGridAdapter != null && pcGridAdapter.isLoading()) {
+                pcGridAdapter.setLoading(false);
+                updateNoPcFoundVisibility();
+            }
+        }, 4000);
     }
 
     private void startComputerUpdates() {
@@ -809,6 +820,9 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         final ComputerObject computer = (ComputerObject) pcGridAdapter.getItem(info.position);
+        if (computer == null) {
+            return true;
+        }
         return handlePcAction(item.getItemId(), computer);
     }
 
@@ -906,6 +920,7 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
         stopComputerUpdates(false);
 
         BottomSheetDialog dialog = new BottomSheetDialog(this);
+        UiHelper.configureBottomSheetForTablets(this, dialog);
         LinearLayout container = new LinearLayout(this);
         container.setOrientation(LinearLayout.VERTICAL);
         container.setBackgroundResource(R.drawable.bg_bottom_sheet);
@@ -1192,6 +1207,7 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
             pcGridAdapter.addComputer(new ComputerObject(details));
         }
 
+        pcGridAdapter.setLoading(false);
         updateNoPcFoundVisibility();
 
         // Notify the view that the data has changed
@@ -1211,6 +1227,9 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
                                     long id) {
                 ComputerObject computer = (ComputerObject) pcGridAdapter.getItem(pos);
+                if (computer == null) {
+                    return;
+                }
                 if (computer.details.state == ComputerDetails.State.UNKNOWN ||
                     computer.details.state == ComputerDetails.State.OFFLINE) {
                     // Show the actions sheet if a PC is offline or refreshing
@@ -1225,6 +1244,9 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
         });
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             ComputerObject computer = (ComputerObject) pcGridAdapter.getItem(position);
+            if (computer == null) {
+                return true;
+            }
             showPcActions(computer);
             return true;
         });

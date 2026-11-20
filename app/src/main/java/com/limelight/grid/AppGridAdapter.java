@@ -102,6 +102,8 @@ public class AppGridAdapter extends GenericGridAdapter<AppView.AppObject> {
 
         // This will trigger the view to reload with the new layout
         setLayoutId(getLayoutIdForPreferences(prefs));
+        setSkeletonLayoutId(prefs.smallIconMode ?
+                R.layout.app_grid_item_skeleton_small : R.layout.app_grid_item_skeleton);
     }
 
     public void cancelQueuedOperations() {

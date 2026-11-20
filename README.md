@@ -10,7 +10,8 @@
 > Este fork conserva las implementaciones propias de Artemis y añade la base de
 > Moonlight v12.2, el núcleo `moonlight-common-c` fusionado con los parches de
 > Apollo, la Fase 1 de la interfaz Apollo 2026, las acciones de apps en bottom
-> sheet y los botones de energía remota (apagar/reiniciar) de la Fase 3B.
+> sheet, los skeletons de carga, la interfaz responsive móvil/tablet, el icono
+> Artemis 2026 y los botones de energía remota (apagar/reiniciar) de la Fase 3B.
 >
 > **Compilación:** JDK 17+, Android SDK Platform 37, NDK 29.0.14206865 y Gradle
 > 9.7.1 (wrapper). El núcleo `moonlight-common-c` está vendorizado; no hace falta

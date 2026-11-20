@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Artemis.Card"
+    android:layout_width="@dimen/artemis_pc_card_width"
+    android:layout_height="@dimen/artemis_pc_card_min_height"
+    android:layout_margin="@dimen/artemis_grid_spacing">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/artemis_spacing_md">
+
+        <View
+            android:layout_width="@dimen/artemis_pc_icon"
+            android:layout_height="@dimen/artemis_pc_icon"
+            android:background="@drawable/bg_skeleton_block" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="@dimen/artemis_spacing_md"
+            android:background="@drawable/bg_skeleton_bar" />
+
+        <View
+            android:layout_width="72dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="@dimen/artemis_spacing_sm"
+            android:background="@drawable/bg_skeleton_bar" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

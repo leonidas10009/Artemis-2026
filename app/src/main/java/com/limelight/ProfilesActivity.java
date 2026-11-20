@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.ImageButton;
@@ -27,7 +27,14 @@ public class ProfilesActivity extends AppCompatActivity implements ProfilesManag
 
         // Setup RecyclerView
         recyclerView = findViewById(R.id.profilesRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int spanCount = 1;
+        if (getResources().getConfiguration().smallestScreenWidthDp >= 900) {
+            spanCount = 3;
+        } else if (UiHelper.isTablet(this)) {
+            spanCount = 2;
+        }
+        recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
+        UiHelper.applyTabletContentWidth(this, recyclerView);
 
         adapter = new ProfilesAdapter(this);
         recyclerView.setAdapter(adapter);

@@ -29,6 +29,7 @@ public class PcGridAdapter extends GenericGridAdapter<PcView.ComputerObject> {
 
     public PcGridAdapter(Context context, PreferenceConfiguration prefs) {
         super(context, getLayoutIdForPreferences(prefs));
+        setSkeletonLayoutId(R.layout.pc_grid_item_skeleton);
     }
 
     private static int getLayoutIdForPreferences(PreferenceConfiguration prefs) {

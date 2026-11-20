@@ -37,7 +37,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -131,7 +133,16 @@ public class AppView extends AppCompatActivity implements AdapterFragmentCallbac
                         return;
                     }
 
+                    appGridAdapter.setLoading(true);
                     appGridAdapter.updateHiddenApps(hiddenAppIds, true);
+
+                    // Avoid an endless skeleton if the host never returns an app list.
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        if (!isFinishing() && appGridAdapter != null && appGridAdapter.isLoading()) {
+                            appGridAdapter.setLoading(false);
+                            updateEmptyState();
+                        }
+                    }, 6000);
 
                     // Now make the binder visible. We must do this after appGridAdapter
                     // is set to prevent us from reaching updateUiWithServerinfo() and
@@ -524,6 +535,7 @@ public class AppView extends AppCompatActivity implements AdapterFragmentCallbac
         }
 
         BottomSheetDialog dialog = new BottomSheetDialog(this);
+        UiHelper.configureBottomSheetForTablets(this, dialog);
         LinearLayout container = new LinearLayout(this);
         container.setOrientation(LinearLayout.VERTICAL);
         container.setBackgroundResource(R.drawable.bg_bottom_sheet);
@@ -839,6 +851,7 @@ public class AppView extends AppCompatActivity implements AdapterFragmentCallbac
                 if (updated) {
                     appGridAdapter.notifyDataSetChanged();
                 }
+                appGridAdapter.setLoading(false);
                 updateEmptyState();
             }
         });
@@ -859,6 +872,9 @@ public class AppView extends AppCompatActivity implements AdapterFragmentCallbac
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
                                     long id) {
                 AppObject app = (AppObject) appGridAdapter.getItem(pos);
+                if (app == null) {
+                    return;
+                }
 
                 // Only open the context menu if something is running, otherwise start it
                 if (lastRunningAppId != 0) {
@@ -883,6 +899,9 @@ public class AppView extends AppCompatActivity implements AdapterFragmentCallbac
         });
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             AppObject app = (AppObject) appGridAdapter.getItem(position);
+            if (app == null) {
+                return true;
+            }
             showAppActions(app, view);
             return true;
         });

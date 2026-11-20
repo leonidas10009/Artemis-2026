@@ -38,7 +38,7 @@
 | Paquete debug | `com.limelight.noirdebug` |
 | Paquete root | `com.limelight.root` |
 | Label release | `Artemis` |
-| Label debug | `Diana` |
+| Label debug | `Artemis` (paquete `com.limelight.noirdebug`) |
 | minSdk | 21 |
 | targetSdk | 36 |
 | compileSdk | 37 |
@@ -464,7 +464,7 @@ Se hizo un **merge real de 3 vías con Git**:
 
 | Archivo | Decisión |
 |---|---|
-| `app/build.gradle` | Se conservaron flavors `root`/`nonRoot_game`, labels Artemis/Diana, splits ABI y tests. Se adoptaron NDK 29, compileSdk 37, targetSdk 36, Java 17, desugaring, packaging y versiones nuevas de dependencias. |
+| `app/build.gradle` | Se conservaron flavors `root`/`nonRoot_game`, labels Artemis/Artemis (debug y release), splits ABI y tests. Se adoptaron NDK 29, compileSdk 37, targetSdk 36, Java 17, desugaring, packaging y versiones nuevas de dependencias. |
 | `build.gradle` (raíz) | AGP **9.4.0**. |
 | `gradle-wrapper.properties` | Gradle **9.7.1**. |
 | `Game.java` | Se conservaron `prefConfig.fullScreen`, bloqueo de orientación y lógica immersive/multiwindow. Se adoptaron captura de teclado Android 16.1, `getModifierState(keyCode)` y Shift para `+`. |
@@ -615,28 +615,29 @@ Release (sin firmar):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.148.136 B | `76E0758DB93E2E799F52CCB505776206A86D069503BEB658B0BC5522BA5B2AEC` |
-| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.350.314 B | `315359E686645E783138B35F4DBF4EB6578317245191DDEF5C272B34AC59D1DB` |
-| `release/app-nonRoot_game-x86-release-unsigned.apk` | 47.947.958 B | `5BCC61023ABB6F324C1DDA41B9D87E1199140A9EA822891049F927E74C85E791` |
-| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.400.805 B | `FFC9F8682ECB0CAD2631C2960765A25C3389E47D8583B68B339149DB05F819F0` |
+| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.360.259 B | `570023A87D72B9CC2F5297629558A9685830421691D1BF84F62FF1960351F12D` |
+| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.562.437 B | `16D462E2DE9F2ED7F9C50226C747FB46497233A9E21054D9121C68B426CA4688` |
+| `release/app-nonRoot_game-x86-release-unsigned.apk` | 48.160.081 B | `AA2B02DA9CF3FBD35758C5E1183344461532C7EC3452CE9E89C5C0E60E93B715` |
+| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.612.928 B | `F3ECE03F5C45C94BD397497124BE69A8EA90F8F202AF5C529BF79AFDFF665884` |
 
 Debug (firmado con clave debug de Android):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 45.410.851 B | `D20416447FE8AEDECC47A5EC415BCA8201118DCE86BFAEC599F12747E2D4F462` |
-| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 42.233.217 B | `0E2B328FA3F2A060D437E81B8F7D99375D1F092EA4B1FC8C8E9E871EE0E6867E` |
-| `debug/app-nonRoot_game-x86-debug.apk` | 54.558.641 B | `5B7CC6A9E6D989C7405CF87D49F54934B00E4B01C6A9511A363AB5DECF605F7B` |
-| `debug/app-nonRoot_game-x86_64-debug.apk` | 61.245.652 B | `C7B26EE963ECE54A09C66D248BF0F776BA808988B73258E918E2D7BE65C5D003` |
+| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 47.182.950 B | `20EE13266907AB5A629F4FD70838D7DBC01F9E654323384AAC95B4E20D70C4B8` |
+| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 44.005.316 B | `0F07A85CB493206FCA22696A04DB12E673FA59672016F6B5458BC7C7EA398E51` |
+| `debug/app-nonRoot_game-x86-debug.apk` | 56.330.740 B | `56A715152F2CA30118F7DEE0CABECF0A60597E17CF02D75460E4A737B62C758F` |
+| `debug/app-nonRoot_game-x86_64-debug.apk` | 63.017.751 B | `665B9C0FEF20DFA29DAEB62420DC5F58F9D0043EE668F001B332A34C14851BBD` |
 
-- Debug: `com.limelight.noirdebug`, label **Diana**, firmado con el certificado
+- Debug: `com.limelight.noirdebug`, label **Artemis**, firmado con el certificado
   `CN=Android Debug` (SHA-256 `c4db76d6bf9440f12ddee1a98c5e2e088a8ceb437e381280b5b9529195cce937`).
 - Release: `com.limelight.noir`, label **Artemis**, **sin firmar**. Para publicar hay
   que firmarlo con la keystore habitual.
 
 > Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI,
 > correspondiente a la compilación del **2026-11-20** que incluye la Fase 1 de
-> interfaz, UI-05 (acciones de apps) y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
+> interfaz, UI-05 (acciones de apps), UI-07 (skeletons), optimización tablet,
+> el icono Artemis 2026 y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
 > `artemis.apk` y `artemis-debug.apk` (arm64-v8a); el resto queda en
 > `app/build/outputs/apk/` para quien lo necesite.
 
@@ -652,8 +653,8 @@ Nombres:
 
 | Archivo exportado | Origen | Tamaño | SHA-256 | Firma | Uso |
 |---|---|---:|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.148.136 B | `76E0758DB93E2E799F52CCB505776206A86D069503BEB658B0BC5522BA5B2AEC` | Sin firmar | Firmar y publicar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.410.851 B | `D20416447FE8AEDECC47A5EC415BCA8201118DCE86BFAEC599F12747E2D4F462` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.360.259 B | `570023A87D72B9CC2F5297629558A9685830421691D1BF84F62FF1960351F12D` | Sin firmar | Firmar y publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 47.182.950 B | `20EE13266907AB5A629F4FD70838D7DBC01F9E654323384AAC95B4E20D70C4B8` | Firmado con clave debug | **Pruebas en dispositivo** |
 | `LEEME_APK.txt` | — | — | — | — | Explica cuál usar |
 
 Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
@@ -913,7 +914,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | Versión | versionCode | Base | Notas |
 |---|---:|---|---|
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
-| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + UI-05 + energía 3B; build OK |
+| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + UI-05 + UI-07 + tablet + icono + energía 3B; build OK |
 | — | — | — | Próxima: decidir si se sube a 20.3.x o se mantiene la línea 20.2.x |
 
 ---
@@ -944,7 +945,8 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 > (`Apollo-git/src_assets/common/assets/web`) sin perder las funciones propias de
 > Artemis ni reescribir el cliente en Compose.
 >
-> Estado: Fase 1 implementada y UI-05 completada. Quedan UI-06/07 y las fases 2–3.
+> Estado: Fase 1 cerrada (UI-05/06/07) y optimización tablet. Quedan UI-12,
+> UI-09, UI-11 (resto) y UI-10; la Fase 3 sigue pendiente.
 
 ### 13.1 Diagnóstico actual
 
@@ -991,22 +993,23 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | UI-03 | Tarjetas modernas de PC con estado, versión y acciones | 1 | Hecho |
 | UI-04 | Tarjetas modernas de apps con scrim, título y badges | 1 | Hecho |
 | UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Hecho (Fase 2) |
-| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Parcial — revisar en Fase 2 |
-| UI-07 | Estados vacíos, carga y skeletons | 1 | Parcial — skeletons en Fase 2 |
+| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Hecho (móvil/tablet en emulador) |
+| UI-07 | Estados vacíos, carga y skeletons | 1 | Hecho (móvil/tablet) |
 | UI-08 | Corregir resumen español de deadzone (valores negativos) | 1 | Hecho |
 | UI-09 | Ajustes por secciones con búsqueda y valores actuales | 2 | Pendiente (Fase 2) |
 | UI-10 | Menú en juego como bottom sheet con iconos y secciones | 2 | Pendiente (Fase 2) |
-| UI-11 | Perfiles como tarjetas con acciones y estado activo | 2 | Pendiente (Fase 2) |
+| UI-11 | Perfiles como tarjetas con acciones y estado activo | 2 | Parcial — tarjetas, estado activo y grid; faltan duplicar/exportar |
 | UI-12 | Tarjeta de anfitrión Apollo y capacidades del host | 2 | Pendiente (Fase 2) |
 | UI-13 | Control tester con ejes, botones, gatillos y visualizador de deadzone | 3 | Pendiente |
 | UI-14 | Editor OSC/teclado con rejilla, snapping, presets y undo/redo | 3 | Pendiente |
 | UI-15 | Onboarding y emparejamiento con PIN/QR | 3 | Pendiente |
 | UI-16 | Selector de temas (Apollo Dark/Light/System/OLED) | 3 | Pendiente |
-| UI-17 | Branding: logo, icono adaptativo, splash y store assets | 3 | Pendiente |
+| UI-17 | Branding: logo, icono adaptativo, splash y store assets | 3 | Parcial — icono adaptativo nuevo; faltan splash/store |
 | UI-18 | Accesibilidad: 48 dp, TalkBack, contraste, escalado, reducir movimiento | 1–3 | Pendiente |
 | UI-19 | Diagnóstico de red/códec/logs y “copiar diagnóstico” | 3 | Pendiente |
 | UI-20 | Animaciones y microinteracciones | 3 | Pendiente |
 | UI-21 | Gestión de energía remota: apagar/reiniciar el PC anfitrión | 2A/3B | Hecho (3B); 2A opcional |
+| UI-22 | Diseño responsive móvil/tablet con recursos `sw600dp` | 1–2 | Hecho (emulador) |
 
 ### 13.4 Detalle por pantalla
 
@@ -1090,7 +1093,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - [x] Tarjetas de PC y apps con el nuevo estilo.
 - [x] Al menos un menú contextual convertido a bottom sheet (PC).
 - [x] Insets/edge-to-edge revisados en pantallas no críticas.
-- [x] Estados de carga/vacío revisados (skeletons quedan para Fase 2).
+- [x] Estados de carga/vacío y skeletons (UI-07) revisados en móvil/tablet.
 - [x] Resumen español de deadzone corregido.
 - [x] Build release y debug correctos.
 - [x] `Release\artemis.apk` actualizado.
@@ -1110,11 +1113,12 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
   - Estados vacíos “No se encontraron PCs/apps” y spinner de búsqueda.
   - Resumen español de deadzone corregido.
   - Exportación automática de APK a `Release\artemis*.apk`.
-- Pendiente inmediato:
-  - UI-05 completado en Fase 2 (ver 13.10).
-  - Skeletons reales (UI-07).
-  - Revisión visual en dispositivo/tablet/TV.
-  - Fases 2–3; el alcance y orden de la Fase 2 está detallado en 13.7.
+- Cerrado después de la Fase 1:
+  - UI-05 completado (ver 13.10).
+  - UI-07 completado y verificado con la base de PCs vacía (ver 13.11).
+  - Optimización tablet y compatibilidad móvil verificadas en emulador (13.12).
+  - Icono Artemis 2026 aplicado (13.13).
+  - Quedan UI-12, UI-09, UI-11 (resto), UI-10 y la Fase 3.
 
 ### 13.7 Fase 2 — Alcance, orden y criterios de aceptación
 
@@ -1136,7 +1140,7 @@ diario sin tocar el pipeline de vídeo, entrada o streaming.
 **Orden de implementación recomendado:**
 
 1. **UI-05** — bottom sheet de apps (hecho; cierra Fase 1, ver 13.10).
-2. **UI-06/UI-07** — insets y skeletons (cierra Fase 1).
+2. **UI-06/UI-07** — insets y skeletons (hecho; cierra Fase 1).
 3. **UI-12** — tarjeta de anfitrión Apollo (bajo riesgo, alto valor).
 4. **UI-09** — ajustes por secciones.
 5. **UI-11** — perfiles como tarjetas.
@@ -1144,12 +1148,12 @@ diario sin tocar el pipeline de vídeo, entrada o streaming.
 
 **Definición de terminado (Fase 2):**
 
-- [ ] Build release y debug correctos.
-- [ ] `Release` solo contiene `artemis.apk` y `artemis-debug.apk` (+ `LEEME_APK.txt`).
+- [x] Build release y debug correctos.
+- [x] `Release` solo contiene `artemis.apk` y `artemis-debug.apk` (+ `LEEME_APK.txt`).
 - [ ] Sin regresiones en conexión, vídeo, audio, mandos, teclado, perfiles ni pantalla externa.
-- [ ] Probado en teléfono/tablet/landscape; TV si aplica.
-- [ ] Documentación actualizada y commit subido a GitHub.
-- [ ] APK debug firmado para pruebas.
+- [x] Interfaz probada en móvil y tablet simulada; TV y dispositivo físico pendientes.
+- [x] Documentación actualizada y commit subido a GitHub.
+- [x] APK debug firmado para pruebas.
 
 **Riesgos y mitigaciones:**
 
@@ -1345,8 +1349,65 @@ Pruebas realizadas:
 Pendiente:
 
 - Prueba en teléfono/tablet/TV físico y revisión del texto en español.
-- El cliente de pruebas `pruebas` tiene permiso `50331648`, sin `server_cmd`;
-  no se usó para probar energía.
+- El cliente de pruebas `pruebas` quedó con `server_cmd` (`perm 51380224`) para
+  validar la sección **POWER** en el emulador. Se puede revocar desde Apollo.
+
+### 13.11 Resultado UI-07 — skeletons de carga (2026-11-20)
+
+**Estado: implementado; build debug y release correctos.**
+
+- `GenericGridAdapter` admite un modo de carga con 6 placeholders y dos tipos de
+  vista, por lo que el `GridView` conserva la cuadrícula y no salta al llegar los
+  datos reales.
+- `PcGridAdapter` y `AppGridAdapter` activan el modo al crearse.
+- `PcView` lo desactiva al recibir el primer PC y tiene un timeout de 4 s para no
+  dejar el skeleton eterno si no hay hosts.
+- `AppView` lo desactiva al recibir la lista de apps (caché o red) y tiene un
+  timeout de 6 s.
+- Layouts nuevos: `pc_grid_item_skeleton.xml`, `app_grid_item_skeleton.xml`,
+  `app_grid_item_skeleton_small.xml`, `bg_skeleton_block.xml` y
+  `bg_skeleton_bar.xml`.
+- Los clics sobre placeholders se ignoran (`getItem()` devuelve `null`).
+- Verificado en emulador vaciando solo `databases/computers4.db` y desactivando la
+  red: aparecen 6 tarjetas skeleton; al restaurar la base y la red vuelve la lista
+  real. Captura: `artemis_V2026\capturas\26_skeleton_pc.png`.
+
+### 13.12 Optimización tablet sin romper móvil (2026-11-20)
+
+**Estado: implementado y probado en emulador.**
+
+La app usa recursos responsivos; **no hay una variante excluyente**:
+
+- `values/dimens.xml` conserva los valores de móvil.
+- `values-sw600dp/dimens.xml` solo sobrescribe en tablet:
+  - tarjetas de PC y apps de 220 dp (frente a 176 dp);
+  - iconos de PC de 112 dp;
+  - tarjetas de apps de 220x285 dp;
+  - rejilla con padding de 24 dp y separación de 8 dp;
+  - ancho máximo de contenido de 900 dp.
+- `UiHelper.isTablet()`, `configureBottomSheetForTablets()` y
+  `applyTabletContentWidth()`:
+  - hojas de acciones centradas y con máximo de 560 dp;
+  - ajustes y editor de perfil centrados con ancho legible.
+- Perfiles: `GridLayoutManager` de 1 columna en móvil, 2 en tablet y 3 en tablet
+  grande; `row_profile.xml` ahora es una tarjeta Material con estado activo.
+- Pruebas:
+  - móvil: 1080x2400, densidad 420 (sin cambios visuales);
+  - tablet simulada: 1600x2560, densidad 240 (1066 dp de ancho);
+  - capturas en `artemis_V2026\capturas`.
+
+### 13.13 Icono Artemis 2026 (2026-11-20)
+
+- Fuente original: `E:\ProyectoProgramacion\apolo_V2026\artemis_2026.png`.
+- Icono clásico y foreground adaptativo generados en todas las densidades.
+- Se conserva el **fondo original continuo** (`#04081B`); el contenido se reduce
+  al **78%** y se centra por su caja real para que la máscara del launcher no lo
+  corte. Android sigue aplicando su máscara exterior (círculo/squircle).
+- Etiqueta visible en debug y release: **Artemis** (los paquetes siguen siendo
+  `com.limelight.noirdebug` y `com.limelight.noir`).
+- Se retiró el `monochrome` para no perder el fondo en iconos temáticos.
+- Vista previa: `artemis_V2026\iconos\artemis_icon_preview.png`.
+- Captura real en launcher: `artemis_V2026\iconos\artemis_icon_launcher.png`.
 
 ---
 
@@ -1358,12 +1419,18 @@ Pendiente:
 - [x] Limpieza de APK antiguos y variantes ABI no usadas.
 - [x] Incluir esta memoria en el repositorio.
 - [x] UI-05: acciones de apps en bottom sheet.
-- [ ] Fase 2: UI-06, UI-07, UI-12, UI-09, UI-11 y UI-10 (ver 13.7).
+- [x] UI-06: insets y edge-to-edge revisados en móvil/tablet.
+- [x] UI-07: skeletons de carga en PCs y apps.
+- [x] UI-22: diseño responsive móvil/tablet con `sw600dp`.
+- [x] Icono Artemis 2026 con fondo original.
+- [ ] Fase 2: UI-12, UI-09, UI-11 (duplicar/exportar) y UI-10 (ver 13.7).
 - [x] UI-21 Fase 3B: endpoint autenticado de energía + botones en la lista de PCs.
 - [ ] UI-21 Fase 2A (opcional): botones de energía también en el menú en juego.
 - [ ] Prueba end-to-end de energía desde un dispositivo Artemis.
 - [x] Probar UI-05 en emulador Android 17 contra el host real.
-- [ ] Probar la Fase 1 en dispositivo/tablet/TV físico.
+- [x] Probar la interfaz en emulador móvil (1080x2400) y tablet simulada (1600x2560).
+- [x] Verificar la sección POWER en el cliente del emulador (sin ejecutar el apagado).
+- [ ] Probar en dispositivo/tablet/TV físico.
 - [ ] Implementar `MotionRange.getFlat()` como deadzone mínima de sticks.
 - [ ] Evaluar auto-centrado al conectar.
 - [ ] Corregir el `|=` de fusión de ejes/gatillos.

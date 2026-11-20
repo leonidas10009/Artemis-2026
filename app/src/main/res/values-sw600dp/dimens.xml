@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tablet overrides: phone values stay in values/dimens.xml -->
+    <dimen name="artemis_pc_card_width">220dp</dimen>
+    <dimen name="artemis_pc_card_min_height">220dp</dimen>
+    <dimen name="artemis_pc_icon_frame">120dp</dimen>
+    <dimen name="artemis_pc_icon">112dp</dimen>
+    <dimen name="artemis_pc_title_size">18sp</dimen>
+    <dimen name="artemis_app_card_width">220dp</dimen>
+    <dimen name="artemis_app_card_height">285dp</dimen>
+    <dimen name="artemis_app_title_size">18sp</dimen>
+    <dimen name="artemis_app_card_width_small">150dp</dimen>
+    <dimen name="artemis_app_card_height_small">200dp</dimen>
+    <dimen name="artemis_app_title_size_small">14sp</dimen>
+    <dimen name="artemis_grid_padding">24dp</dimen>
+    <dimen name="artemis_grid_spacing">8dp</dimen>
+    <dimen name="artemis_grid_bottom_padding">112dp</dimen>
+    <dimen name="artemis_content_max_width">900dp</dimen>
+
+</resources>

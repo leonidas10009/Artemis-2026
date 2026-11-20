@@ -8,9 +8,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    android:horizontalSpacing="@dimen/artemis_spacing_xs"
+    android:horizontalSpacing="@dimen/artemis_grid_spacing"
     android:numColumns="auto_fit"
-    android:padding="@dimen/artemis_spacing_sm"
-    android:paddingBottom="96dp"
+    android:padding="@dimen/artemis_grid_padding"
+    android:paddingBottom="@dimen/artemis_grid_bottom_padding"
     android:stretchMode="spacingWidthUniform"
-    android:verticalSpacing="@dimen/artemis_spacing_xs" />
+    android:verticalSpacing="@dimen/artemis_grid_spacing" />

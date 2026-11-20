@@ -16,12 +16,18 @@ import android.os.LocaleList;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.limelight.AppView;
 import com.limelight.Game;
 import com.limelight.LimeLog;
@@ -106,6 +112,64 @@ public class UiHelper {
         }
 
         activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
+    }
+
+    public static boolean isTablet(Context context) {
+        return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    }
+
+    /**
+     * Keeps action sheets readable on tablets without changing the phone layout.
+     */
+    public static void configureBottomSheetForTablets(Activity activity, BottomSheetDialog dialog) {
+        if (!isTablet(activity)) {
+            return;
+        }
+
+        dialog.setOnShowListener(ignored -> {
+            View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            if (sheet == null) {
+                return;
+            }
+
+            int maxWidth = (int) activity.getResources().getDimension(R.dimen.artemis_sheet_max_width);
+            int screenWidth = activity.getResources().getDisplayMetrics().widthPixels;
+            int margin = (int) dpToPx(activity, 48);
+            int width = Math.min(maxWidth, screenWidth - margin);
+
+            ViewGroup.LayoutParams params = sheet.getLayoutParams();
+            params.width = width;
+            if (params instanceof FrameLayout.LayoutParams) {
+                ((FrameLayout.LayoutParams) params).gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+            }
+            sheet.setLayoutParams(params);
+            sheet.requestLayout();
+        });
+    }
+
+    /**
+     * Centers preference/profile content on tablets while leaving phones untouched.
+     */
+    public static void applyTabletContentWidth(Activity activity, View view) {
+        if (!isTablet(activity) || view == null || view.getLayoutParams() == null) {
+            return;
+        }
+
+        int maxWidth = (int) activity.getResources().getDimension(R.dimen.artemis_content_max_width);
+        int screenWidth = activity.getResources().getDisplayMetrics().widthPixels;
+        int margin = (int) dpToPx(activity, 64);
+        int width = Math.min(maxWidth, screenWidth - margin);
+
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = width;
+        if (params instanceof RelativeLayout.LayoutParams) {
+            ((RelativeLayout.LayoutParams) params).addRule(RelativeLayout.CENTER_HORIZONTAL);
+        } else if (params instanceof LinearLayout.LayoutParams) {
+            ((LinearLayout.LayoutParams) params).gravity = Gravity.CENTER_HORIZONTAL;
+        } else if (params instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) params).gravity = Gravity.CENTER_HORIZONTAL;
+        }
+        view.setLayoutParams(params);
     }
 
     public static void applyStatusBarPadding(View view) {

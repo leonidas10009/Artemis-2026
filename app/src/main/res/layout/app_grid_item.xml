@@ -2,9 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.Artemis.Card"
-    android:layout_width="170dp"
-    android:layout_height="220dp"
-    android:layout_margin="@dimen/artemis_spacing_xs">
+    android:layout_width="@dimen/artemis_app_card_width"
+    android:layout_height="@dimen/artemis_app_card_height"
+    android:layout_margin="@dimen/artemis_grid_spacing">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:maxLines="2"
                 android:textAlignment="viewStart"
                 android:textColor="@color/artemis_text"
-                android:textSize="15sp"
+                android:textSize="@dimen/artemis_app_title_size"
                 android:textStyle="bold" />
 
         </RelativeLayout>

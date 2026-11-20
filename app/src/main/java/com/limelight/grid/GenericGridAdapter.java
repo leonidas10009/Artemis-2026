@@ -15,8 +15,12 @@ import com.limelight.R;
 import java.util.ArrayList;
 
 public abstract class GenericGridAdapter<T> extends BaseAdapter {
+    private static final int SKELETON_COUNT = 6;
+
     protected final Context context;
     private int layoutId;
+    private int skeletonLayoutId;
+    private boolean loading;
     final ArrayList<T> itemList = new ArrayList<>();
     private final LayoutInflater inflater;
 
@@ -36,18 +40,34 @@ public abstract class GenericGridAdapter<T> extends BaseAdapter {
         }
     }
 
+    void setSkeletonLayoutId(int skeletonLayoutId) {
+        this.skeletonLayoutId = skeletonLayoutId;
+    }
+
+    public void setLoading(boolean loading) {
+        boolean effectiveLoading = loading && skeletonLayoutId != 0;
+        if (this.loading != effectiveLoading) {
+            this.loading = effectiveLoading;
+            notifyDataSetChanged();
+        }
+    }
+
+    public boolean isLoading() {
+        return loading;
+    }
+
     public void clear() {
         itemList.clear();
     }
 
     @Override
     public int getCount() {
-        return itemList.size();
+        return loading ? SKELETON_COUNT : itemList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return itemList.get(i);
+        return loading ? null : itemList.get(i);
     }
 
     @Override
@@ -55,10 +75,27 @@ public abstract class GenericGridAdapter<T> extends BaseAdapter {
         return i;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return loading ? 1 : 0;
+    }
+
     public abstract void populateView(View parentView, ImageView imgView, RelativeLayout gridMask, ProgressBar prgView, TextView txtView, ImageView overlayView, T obj);
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if (loading) {
+            if (convertView == null) {
+                convertView = inflater.inflate(skeletonLayoutId, viewGroup, false);
+            }
+            return convertView;
+        }
+
         if (convertView == null) {
             convertView = inflater.inflate(layoutId, viewGroup, false);
         }
