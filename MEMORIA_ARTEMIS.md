@@ -944,7 +944,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 > (`Apollo-git/src_assets/common/assets/web`) sin perder las funciones propias de
 > Artemis ni reescribir el cliente en Compose.
 >
-> Estado: Fase 1 implementada. Quedan pendientes menores de UI-05/06/07 y las fases 2–3.
+> Estado: Fase 1 implementada y UI-05 completada. Quedan UI-06/07 y las fases 2–3.
 
 ### 13.1 Diagnóstico actual
 
@@ -1125,7 +1125,7 @@ diario sin tocar el pipeline de vídeo, entrada o streaming.
 
 | ID | Entrega | Archivos principales | Criterio de aceptación |
 |---|---|---|---|
-| UI-05 | Bottom sheet de acciones de apps | `AppView.java`, `AppGridAdapter.java`, layout/helper de acciones, `menu/app_view_menu.xml` | Long-press/click abre la hoja; conserva iniciar/reanudar, salir, acceso directo, ocultar, detalles, exportar; sin duplicar el menú contextual |
+| UI-05 | Bottom sheet de acciones de apps | `AppView.java`, `values/strings.xml`, `values-es/strings.xml` | Long-press/click abre la hoja; conserva iniciar/reanudar, salir, acceso directo, ocultar/mostrar, detalles y exportar; sin duplicar el menú contextual |
 | UI-06 | Revisión de insets/edge-to-edge | `UiHelper.java`, layouts de `PcView`/`AppView`, `styles.xml` | Toolbar bajo la barra de estado; nada tapado por navegación; correcto en portrait, landscape, tablet, DeX y TV |
 | UI-07 | Skeletons de carga | `pc_grid_item.xml`, `app_grid_item.xml`, drawables de skeleton, adaptadores | Placeholder mientras carga; sin saltos de layout; estados vacíos estables |
 | UI-12 | Tarjeta de anfitrión Apollo | `PcView.java`, `ComputerDetails`, layout de host card, `UiHelper` | Muestra Apollo/versión/plataforma/driver/estado; modo offline claro; campos desconocidos ocultos |
@@ -1135,7 +1135,7 @@ diario sin tocar el pipeline de vídeo, entrada o streaming.
 
 **Orden de implementación recomendado:**
 
-1. **UI-05** — bottom sheet de apps (cierra Fase 1).
+1. **UI-05** — bottom sheet de apps (hecho; cierra Fase 1, ver 13.10).
 2. **UI-06/UI-07** — insets y skeletons (cierra Fase 1).
 3. **UI-12** — tarjeta de anfitrión Apollo (bajo riesgo, alto valor).
 4. **UI-09** — ajustes por secciones.
