@@ -615,28 +615,30 @@ Release (sin firmar):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.100.163 B | `0805EEB2AEF6EA3250FC93C4AE4E4F1228CED1888A94990BDD5C2964205F7614` |
-| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.302.341 B | `2523C1FB0737647407C3DB0D3543F8153C514A63AC7D43D99FDE3750185132D8` |
-| `release/app-nonRoot_game-x86-release-unsigned.apk` | 47.899.985 B | `3ED201232F37E31A081A1406A4E5C058B8D3873D0FC3BE65A60025AE4D09A4A9` |
-| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.352.832 B | `8AA282CD03E5863FB3913B9B05143E6C7CFD81F58290F1D2425FF9ADC641EC4B` |
+| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.147.332 B | `435238643A0547DBBD49678150D6850D8968705F3CFFB495DA4770AAAB5A83FD` |
+| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.349.510 B | `D52BFB1EBE7B401910440195FBA7A2C3FE50BCC116AA6B7D2EB4AADEA14BAC93` |
+| `release/app-nonRoot_game-x86-release-unsigned.apk` | 47.947.154 B | `9B227E151343C0A71ECAED4BFA3FCCEE1671B4278C25F27F15509E2649988DDB` |
+| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.400.001 B | `01FB403B7E7894CD196C354EDC42248EE7CDE75A0DF835714D29A93BC7895772` |
 
 Debug (firmado con clave debug de Android):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 43.223.672 B | `6188082B2EB7989D22FBF8F1FC93065B312BFACE0BAB0CF2E7CE932B7757CAF0` |
-| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 40.046.031 B | `8C255468A71352BF2CCF8C29B62208670D5A8298F794EF3416FE00E9887D5678` |
-| `debug/app-nonRoot_game-x86-debug.apk` | 52.371.450 B | `8B80DE2615CFD6E2FFF01E4AF8EA507DDF6A206F008D164099110A3D86DEA681` |
-| `debug/app-nonRoot_game-x86_64-debug.apk` | 59.058.461 B | `449BF97C3CD25953EF7785CBE6BBE04BFDD6EEDE520081C24CB46ABDAD2B9653` |
+| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 45.522.603 B | `E2EDB5CFD8BCA29D5CCDE99C5917983E885334D5E6AB3198AE712C0ECAD12FAC` |
+| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 42.344.981 B | `12BF9606D1C437DF1363D9943A195A23B25D8A60DB30F89EE67F64F5C514DC79` |
+| `debug/app-nonRoot_game-x86-debug.apk` | 54.670.385 B | `C1F73FFB621F437ED293A06350E891DEEDF140172622DD40F2C7FD1E232995DA` |
+| `debug/app-nonRoot_game-x86_64-debug.apk` | 61.357.404 B | `FDBBD43DD410B29974AB127776BAD6AB4C2C1713289E59620E80BC210A8CA773` |
 
 - Debug: `com.limelight.noirdebug`, label **Diana**, firmado con el certificado
   `CN=Android Debug` (SHA-256 `c4db76d6bf9440f12ddee1a98c5e2e088a8ceb437e381280b5b9529195cce937`).
 - Release: `com.limelight.noir`, label **Artemis**, **sin firmar**. Para publicar hay
   que firmarlo con la keystore habitual.
 
-> Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI.
-> La carpeta curada `Release` solo recibe `artemis.apk` y `artemis-debug.apk`
-> (arm64-v8a); el resto queda en `app/build/outputs/apk/` para quien lo necesite.
+> Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI,
+> correspondiente a la compilación del **2026-11-20** que incluye la Fase 1 de
+> interfaz y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
+> `artemis.apk` y `artemis-debug.apk` (arm64-v8a); el resto queda en
+> `app/build/outputs/apk/` para quien lo necesite.
 
 ### 6.5 Salida automática a `artemis_V2026\Release`
 
@@ -648,11 +650,11 @@ E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release
 
 Nombres:
 
-| Archivo exportado | Origen | Firma | Uso |
-|---|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | Sin firmar | Firmar y publicar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | Firmado con clave debug | **Pruebas en dispositivo** |
-| `LEEME_APK.txt` | — | — | Explica cuál usar |
+| Archivo exportado | Origen | Tamaño | SHA-256 | Firma | Uso |
+|---|---|---:|---|---|---|
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.147.332 B | `435238643A0547DBBD49678150D6850D8968705F3CFFB495DA4770AAAB5A83FD` | Sin firmar | Firmar y publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.522.603 B | `E2EDB5CFD8BCA29D5CCDE99C5917983E885334D5E6AB3198AE712C0ECAD12FAC` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `LEEME_APK.txt` | — | — | — | — | Explica cuál usar |
 
 Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
 para evitar duplicados y confusión. Si hicieran falta, se generan en
@@ -911,7 +913,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | Versión | versionCode | Base | Notas |
 |---|---:|---|---|
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
-| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización actual; build OK |
+| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + energía 3B; build OK |
 | — | — | — | Próxima: decidir si se sube a 20.3.x o se mantiene la línea 20.2.x |
 
 ---
@@ -1287,6 +1289,8 @@ Configuración del host:
   server commands*.
 - **Release Apollo:** `v1.0.1` — instalador y portable publicados en
   https://github.com/leonidas10009/Apollo_2026/releases/tag/v1.0.1.
+- **Documentación Apollo:** commit `bca7c729` actualiza `README.md`, `docs/building.md`,
+  `docs/changelog.md` y `docs/status.md` a la 1.0.1.
 - Host recompilado y desplegado; el log muestra `Apollo version: 1.0.1 commit: 60143517`.
 - Servicio reiniciado con UAC; log confirma `server_cmd`:
   `Bubbles`, `Apagar PC`, `Reiniciar PC`, `Cancelar apagado`.
@@ -1316,7 +1320,7 @@ Configuración del host:
 - [ ] Probar Virtual HID con `xseries`/`ds5`.
 - [ ] Probar el mando Xbox en los juegos/frontends afectados y documentar resultados.
 - [ ] Firmar el release con la keystore definitiva.
-- [ ] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
+- [x] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
 - [ ] Crear tag/release de GitHub cuando el APK release esté firmado.
 - [ ] Añadir changelog de la versión 58 en `fastlane` si se publica.
 - [ ] Actualizar este documento tras cada nueva actualización.
@@ -1327,7 +1331,9 @@ Configuración del host:
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
-- **Estado:** publicado; rama `main` activa. Primer commit `ce94e26`; los commits posteriores incluyen documentación y limpieza de APK. Consultar `git log -1` para el HEAD actual.
+- **Estado:** publicado; rama `main` activa. Commits relevantes: `b39ed02` (energía
+  remota), `ebbde69` (documentación de commits) y `50d119d` (release Apollo 1.0.1).
+  Consultar `git log -1` para el HEAD exacto.
 - **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
 - **Contenido:** código fuente completo, core `moonlight-common-c` vendorizado,
   `MEMORIA_ARTEMIS.md`, `README.md` actualizado, `.gitattributes` y `.gitignore`.
