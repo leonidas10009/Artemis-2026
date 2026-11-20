@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/artemis_surface" />
+    <corners
+        android:topLeftRadius="@dimen/artemis_radius_xl"
+        android:topRightRadius="@dimen/artemis_radius_xl" />
+</shape>

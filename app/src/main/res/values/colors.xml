@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Artemis / Apollo 2026 design tokens -->
+    <color name="artemis_bg">#0B0D13</color>
+    <color name="artemis_surface">#131620</color>
+    <color name="artemis_surface_raised">#1A1E2B</color>
+    <color name="artemis_border">#262B3B</color>
+
+    <color name="artemis_text">#E2E8F0</color>
+    <color name="artemis_text_muted">#94A3B8</color>
+    <color name="artemis_text_subtle">#64748B</color>
+
+    <color name="artemis_primary">#F59E0B</color>
+    <color name="artemis_primary_hover">#FBBF24</color>
+    <color name="artemis_primary_light">#33F59E0B</color>
+    <color name="artemis_on_primary">#0B0D13</color>
+
+    <color name="artemis_accent">#06B6D4</color>
+    <color name="artemis_accent_hover">#22D3EE</color>
+    <color name="artemis_accent_light">#3306B6D4</color>
+
+    <color name="artemis_success">#10B981</color>
+    <color name="artemis_success_light">#3310B981</color>
+    <color name="artemis_danger">#F43F5E</color>
+    <color name="artemis_danger_light">#33F43F5E</color>
+    <color name="artemis_warning">#F59E0B</color>
+
+    <!-- Legacy helpers used by Artemis -->
+    <color name="profileAccent">@color/artemis_primary</color>
+    <color name="grid_card_scrim">#CC0B0D13</color>
+    <color name="grid_card_scrim_transparent">#000B0D13</color>
+</resources>

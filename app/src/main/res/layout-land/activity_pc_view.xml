@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/artemis_bg"
+    tools:context=".PcView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Artemis.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_label"
+            app:titleTextAppearance="@style/TextAppearance.Artemis.Title" />
+
+        <FrameLayout
+            android:id="@+id/pcFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/no_pc_found_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/pcs_loading"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/artemis_primary" />
+
+        <TextView
+            android:id="@+id/no_pc_found_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/artemis_spacing_lg"
+            android:gravity="center"
+            android:text="@string/searching_pc"
+            android:textAppearance="@style/TextAppearance.Artemis.Subtitle" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/profilesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/artemis_spacing_xl"
+        android:contentDescription="@string/profile_manager_choose_profile"
+        android:text="@string/profile_manager_choose_profile"
+        android:textColor="@color/artemis_on_primary"
+        app:backgroundTint="@color/artemis_primary"
+        app:icon="@drawable/ic_profiles"
+        app:iconTint="@color/artemis_on_primary" />
+
+</FrameLayout>

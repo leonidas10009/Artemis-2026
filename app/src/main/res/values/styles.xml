@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Apollo 2026 design tokens -->
+        <item name="colorPrimary">@color/artemis_primary</item>
+        <item name="colorPrimaryVariant">@color/artemis_primary_hover</item>
+        <item name="colorOnPrimary">@color/artemis_on_primary</item>
+        <item name="colorSecondary">@color/artemis_accent</item>
+        <item name="colorSecondaryVariant">@color/artemis_accent_hover</item>
+        <item name="colorOnSecondary">@color/artemis_on_primary</item>
+        <item name="colorSurface">@color/artemis_surface</item>
+        <item name="colorOnSurface">@color/artemis_text</item>
+        <item name="colorError">@color/artemis_danger</item>
+        <item name="colorOnError">@color/artemis_on_primary</item>
+
+        <item name="android:colorBackground">@color/artemis_bg</item>
+        <item name="android:windowBackground">@color/artemis_bg</item>
+        <item name="android:statusBarColor">@color/artemis_bg</item>
+        <item name="android:navigationBarColor">@color/artemis_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:textColorPrimary">@color/artemis_text</item>
+        <item name="android:textColorSecondary">@color/artemis_text_muted</item>
+    </style>
+
+    <style name="StreamBaseTheme" parent="AppBaseTheme">
+        <!-- Transparent streaming background to avoid extra overdraw -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!-- Stream activity theme -->
+    <style name="StreamTheme" parent="StreamBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- Added for API 34+ where ImageButton requires these color attrs to inflate -->
+        <item name="android:colorControlNormal">@android:color/white</item>
+        <item name="android:colorControlHighlight">@android:color/white</item>
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="android:colorControlActivated">@android:color/white</item>
+        <item name="android:colorButtonNormal">@android:color/white</item>
+        <!-- Duplicate non-prefixed color attributes for AppCompat widgets -->
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorButtonNormal">@android:color/white</item>
+    </style>
+
+    <style name="SettingsTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/artemis_bg</item>
+        <item name="android:navigationBarColor">@color/artemis_bg</item>
+        <item name="android:colorBackground">@color/artemis_bg</item>
+        <item name="android:windowBackground">@color/artemis_bg</item>
+    </style>
+
+    <style name="ExternalDisplayControllerTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <!-- Apollo-style toolbar -->
+    <style name="Widget.Artemis.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@color/artemis_surface</item>
+        <item name="titleTextColor">@color/artemis_text</item>
+        <item name="subtitleTextColor">@color/artemis_text_muted</item>
+        <item name="navigationIconTint">@color/artemis_text</item>
+    </style>
+
+    <!-- Apollo-style card -->
+    <style name="Widget.Artemis.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/artemis_surface</item>
+        <item name="strokeColor">@color/artemis_border</item>
+        <item name="strokeWidth">@dimen/artemis_card_stroke</item>
+        <item name="cardCornerRadius">@dimen/artemis_radius_lg</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardUseCompatPadding">false</item>
+    </style>
+
+    <style name="TextAppearance.Artemis.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/artemis_text</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Artemis.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/artemis_text_muted</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Artemis.Body" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/artemis_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Artemis.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/artemis_text_muted</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <declare-styleable name="ApertureViewGroup">
+        <attr name="aperture_color1" format="color" />
+        <attr name="aperture_color2" format="color" />
+        <attr name="aperture_border_width" format="dimension" />
+        <attr name="aperture_border_angle" format="dimension" />
+        <attr name="aperture_duration" format="integer" />
+        <attr name="aperture_middle_color" format="color" />
+    </declare-styleable>
+
+</resources>
