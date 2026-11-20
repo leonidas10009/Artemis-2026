@@ -6,7 +6,7 @@
 
 Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moonlight Noir)** y **Moonlight**.
 
-> **Versión:** `1.0.0` (versionCode `1`)  
+> **Versión:** `1.0.1` (versionCode `2`)  
 > **Paquete release:** `com.leonidas10009.artemis2026`  
 > **Paquete debug:** `com.leonidas10009.artemis2026.debug`  
 > **Base:** Artemis `20.2.7` + Moonlight `v12.2` (`b48494c`)  
@@ -31,19 +31,19 @@ Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artem
 
 | APK | Uso recomendado |
 |---|---|
-| `Artemis-1.0.0-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
-| `Artemis-1.0.0-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
-| `Artemis-1.0.0-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
-| `Artemis-1.0.0-universal.apk` | Fallback si el instalador rechaza el APK de una ABI; incluye todas |
+| `Artemis-1.0.1-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
+| `Artemis-1.0.1-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
+| `Artemis-1.0.1-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
+| `Artemis-1.0.1-universal.apk` | Fallback si el instalador rechaza el APK de una ABI; incluye todas |
 
 ### SHA-256
 
 | APK | SHA-256 |
 |---|---|
-| `Artemis-1.0.0-arm64-v8a.apk` | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
-| `Artemis-1.0.0-armeabi-v7a.apk` | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
-| `Artemis-1.0.0-x86_64.apk` | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
-| `Artemis-1.0.0-universal.apk` | `21F0315616FC65501002443550F1E3D9E38F5E6391CE932123282BF0691D0983` |
+| `Artemis-1.0.1-arm64-v8a.apk` | `22E742BCCB139C441CA8C86B1C01162239B387313CA4F991DB41EBE02E6F4040` |
+| `Artemis-1.0.1-armeabi-v7a.apk` | `A5B1111CDFF44C59CD00FACF35B8FA702D43C6F845F689BE1DE5937E15E6E9CB` |
+| `Artemis-1.0.1-x86_64.apk` | `E9338C0E1430A6342B2541A0C3E8992FFD58057822AF131B6F319DA3E7335110` |
+| `Artemis-1.0.1-universal.apk` | `F4CD75C88A537112647F8F716DD7FD989FCC1947521C7960AB649518B681A4C9` |
 
 ### Android TV
 
@@ -58,8 +58,20 @@ El APK incluye la actividad **LEANBACK_LAUNCHER**, banner de TV y no exige panta
 
 > El `applicationId` es distinto del Artemis oficial, así que puede convivir con él. No comparte datos ni emparejamientos con la app oficial.
 
-## Novedades de la versión 1.0.0
 
+### Play Protect
+
+Si Android muestra **“Aplicación bloqueada para proteger tu dispositivo”**, es Play Protect, no la firma del APK. Puede ocurrir con paquetes nuevos que declaran accesibilidad o permisos sensibles.
+
+- La versión **1.0.1** elimina los permisos heredados que disparaban el aviso.
+- Si Play Protect sigue bloqueando, desactiva temporalmente **Play Store → perfil → Play Protect → ajustes → Escanear apps con Play Protect**, instala y vuelve a activarlo.
+- En Samsung, revisa también **Auto Blocker**; en Android 16, **Protección avanzada**.
+- Alternativa: instalar por ADB con `verifier_verify_adb_installs=0` y restaurarlo después.
+
+
+## Novedades de la versión 1.0.1
+
+- **1.0.1:** eliminados `CAPTURE_KEYBOARD` y los permisos heredados de LiteRT (`READ_PHONE_STATE`, almacenamiento externo) que podían hacer que Play Protect bloqueara la instalación.
 - Base actualizada a Artemis `20.2.7` + Moonlight `v12.2`.
 - Interfaz Apollo 2026: tokens, toolbar, tarjetas, búsqueda, estados vacíos y skeletons de carga.
 - Hoja de acciones para apps: iniciar/reanudar, cerrar, ocultar/mostrar, detalles, acceso directo y exportar `.art`.

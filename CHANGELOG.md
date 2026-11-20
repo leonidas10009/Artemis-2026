@@ -1,5 +1,16 @@
 # Changelog
 
+## Artemis 2026 1.0.1 - 2026-11-21
+
+Corrección de instalación y Play Protect.
+
+- Eliminado el permiso `CAPTURE_KEYBOARD`, que el original Artemis no declara y el código no usa.
+- Eliminados los permisos heredados de `org.tensorflow.lite.gpu.api`:
+  `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE` y `WRITE_EXTERNAL_STORAGE`.
+- Se conserva el servicio de accesibilidad para captura de teclado, igual que Artemis original.
+- APKs arm64, armv7, x86_64 y universal firmados.
+- Verificado en Android 13 y 16 x86_64: instalación y arranque correctos.
+
 ## Artemis 2026 1.0.0 - 2026-11-20
 
 Primera release pública del fork Artemis 2026, basada en Artemis 20.2.7 y Moonlight v12.2.
