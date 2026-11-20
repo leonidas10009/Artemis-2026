@@ -320,4 +320,9 @@
     <string name="power_command_sent">Comando de energía enviado</string>
     <string name="power_command_failed">No se pudo enviar el comando de energía: %1$s</string>
     <string name="power_permission_denied">El host denegó el permiso de comandos de servidor.</string>
+    <string name="title_software_update">Actualización de software</string>
+    <string name="summary_software_update">Artemis 2026: visita GitHub Releases para la última versión firmada</string>
+    <string name="title_follow_update">Ver releases</string>
+    <string name="summary_follow_update">Abre la página de releases de Artemis 2026 en GitHub</string>
+
 </resources>

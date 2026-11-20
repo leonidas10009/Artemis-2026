@@ -20,6 +20,10 @@ gen/
 # Local configuration file (sdk path, etc)
 local.properties
 key/
+keystore/
+keystore.properties
+*.jks
+*.keystore
 
 # Windows thumbnail db
 Thumbs.db

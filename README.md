@@ -1,104 +1,161 @@
-# Artemis Android
+# Artemis 2026
 
-> **Artemis 2026** · Cliente Android de Apollo 2026
->
-> - Versión: **20.2.7 (58)**
-> - Base: **Moonlight v12.2** (`b48494c`)
-> - Repositorio: <https://github.com/leonidas10009/Artemis-2026>
-> - Memoria técnica: [`MEMORIA_ARTEMIS.md`](MEMORIA_ARTEMIS.md)
->
-> Este fork conserva las implementaciones propias de Artemis y añade la base de
-> Moonlight v12.2, el núcleo `moonlight-common-c` fusionado con los parches de
-> Apollo, la Fase 1 de la interfaz Apollo 2026, las acciones de apps en bottom
-> sheet, los skeletons de carga, la interfaz responsive móvil/tablet, el icono
-> Artemis 2026 y los botones de energía remota (apagar/reiniciar) de la Fase 3B.
->
-> **Compilación:** JDK 17+, Android SDK Platform 37, NDK 29.0.14206865 y Gradle
-> 9.7.1 (wrapper). El núcleo `moonlight-common-c` está vendorizado; no hace falta
-> ejecutar `git submodule update`.
->
-> **APK:** `app/build/outputs/apk/nonRoot_game/`. Cada compilación también copia
-> los APK a `../Release/` con el nombre `artemis*.apk`.
+Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moonlight Noir)** y **Moonlight**.
 
-Previously named Moonlight Noir
+> **Versión:** `1.0.0` (versionCode `1`)  
+> **Paquete release:** `com.leonidas10009.artemis2026`  
+> **Paquete debug:** `com.leonidas10009.artemis2026.debug`  
+> **Base:** Artemis `20.2.7` + Moonlight `v12.2` (`b48494c`)  
+> **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>  
+> **Releases:** <https://github.com/leonidas10009/Artemis-2026/releases>  
+> **Memoria técnica:** [`MEMORIA_ARTEMIS.md`](MEMORIA_ARTEMIS.md)
 
-An open source client for [Apollo](https://github.com/ClassicOldSong/Apollo)/[Sunshine](https://github.com/LizardByte/Sunshine).
+**Este es un fork no oficial.** No está afiliado a ClassicOldSong, Moonlight Stream ni LizardByte.
 
-Artemis Android will allow you to stream your collection of games from your Windows PC to your Android device,
-whether in your own home or over the internet.
+## Origen y atribución
 
-Artemis is currently the best fork of Moonlight with loads of optimizations for office usage.
+- **Moonlight original:** <https://github.com/moonlight-stream/moonlight-android>
+- **Artemis / Moonlight Noir:** <https://github.com/ClassicOldSong/moonlight-android>
+- **Apollo (host):** <https://github.com/ClassicOldSong/Apollo>
+- **Este fork:** <https://github.com/leonidas10009/Artemis-2026>
+- **Licencia:** GPL-3.0. Consulta [`LICENSE.txt`](LICENSE.txt).
 
-A more seamless experience with virtual display will be Artemis paired with [Apollo](https://github.com/ClassicOldSong/Apollo).
+## Descargas e instalación
 
-# Features
+Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artemis-2026/releases) y están firmados con la clave de release del proyecto.
 
-If you switch back to the main stream version, you'll be missing the following awesome features which are very unlikely to be added there:
+| APK | Uso recomendado |
+|---|---|
+| `Artemis-1.0.0-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
+| `Artemis-1.0.0-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
+| `Artemis-1.0.0-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
 
-1. Custom virtual buttons with import and export support.
-2. [Custom resolutions](https://github.com/moonlight-stream/moonlight-android/pull/1349).
-3. Custom bitrates.
-4. [Multiple mouse mode switching](https://github.com/moonlight-stream/moonlight-android/pull/1304) (normal mouse, [multi-touch](https://github.com/moonlight-stream/moonlight-android/pull/1364), touchpad, disabled, local cursor mode).
-5. Optimized virtual gamepad skins and free joystick.
-6. External monitor mode.
-7. Joycon D-pad support.
-8. Simplified performance information display.
-9. [Game back menu](https://github.com/moonlight-stream/moonlight-android/pull/1171).
-10. Custom shortcut commands.
-11. Easy soft keyboard switching.
-12. Portrait mode.
-13. Display on top mode, useful for foldable phones.
-14. [Virtual touchpad space and sensitivity adjustment](https://github.com/moonlight-stream/moonlight-android/issues/1348#issuecomment-2236344729) for playing right-click view games, such as Warcraft.
-15. Force use device's own vibration motor (in case your gamepad's vibration is not effective).
-16. Gamepad debugging page to view gamepad vibration and gyroscope information, as well as Android kernel version information.
-17. Trackpad tap/scrolling support
-18. Natural track pad mode with touch screen
-19. Non-QWERTY keyboard layout support
-20. Quick Meta key with physical BACK button
-21. Frame rate lock fix for some devices
-22. Video scale mode: Fit/Fill/Stretch
-23. View pan/zoom support
-24. Rotate screen in-game
-25. Add option to quit app directly
-26. Samsung DeX scrolling support
-27. Proper click/scroll/right-click for trackpad on generic Android tablet when using local cursor
-28. Virtual Display integration with [Apollo](https://github.com/ClassicOldSong/Apollo)
-29. Server Command integration with [Apollo](https://github.com/ClassicOldSong/Apollo)
-30. Clipboard sync (requires Apollo)
-31. SBS 3D for external Displays (Using AI MiDaS v2 Lite)
+### Android TV
 
-# Disclaimer
+El APK incluye la actividad **LEANBACK_LAUNCHER**, banner de TV y no exige pantalla táctil. Funciona en Android TV/Google TV con mando o gamepad; el APK `arm64-v8a` o `armeabi-v7a` es el adecuado según el dispositivo.
 
-This is the `go away` version of Moonlight Android.
+### Instalación
 
-I got kicked from Moonlight and Sunshine's Discord server literally for helping people out.
+1. Descarga el APK correspondiente a la arquitectura del dispositivo.
+2. Permite la instalación desde fuentes desconocidas para el navegador o gestor de archivos.
+3. Instala y abre **Artemis**.
+4. Añade o descubre tu PC con Apollo/Sunshine y empareja el cliente.
 
-This is what I got for finding a bug, opened an issue, getting no response, troubleshoot myself, fixed the issue myself, shared it by PR to the main repo hoping my efforts can help someone else during the maintainance gap.
+> El `applicationId` es distinto del Artemis oficial, así que puede convivir con él. No comparte datos ni emparejamientos con la app oficial.
 
-Yes, I'm going away. Fixes and improvements on this fork are not necessarily be merged to the main repo either. I have also started [a fork of Sunshine called Apollo](https://github.com/ClassicOldSong/Apollo) and will add useful features that will never get merged by the main repo shortly. [Apollo](https://github.com/ClassicOldSong/Apollo) and [Moonlight Noir](https://github.com/ClassicOldSong/moonlight-android) will no longer be compatible with OG Sunshine and OG Moonlight eventually, but they'll work even better with much more carefully designed features.
+## Novedades de la versión 1.0.0
 
-The main repo had stayed silent for 5 months, with nobody actually responding to issues, and people are getting totally no help besides the limited FAQ in their Discord server. I tried to answer issues and questions, solve problems within my ablilty but I got kicked out just for helping others.
+- Base actualizada a Artemis `20.2.7` + Moonlight `v12.2`.
+- Interfaz Apollo 2026: tokens, toolbar, tarjetas, búsqueda, estados vacíos y skeletons de carga.
+- Hoja de acciones para apps: iniciar/reanudar, cerrar, ocultar/mostrar, detalles, acceso directo y exportar `.art`.
+- Gestión remota de energía desde la página del PC: apagar, reiniciar y cancelar apagado.
+  - Requiere Apollo `1.0.1` o posterior y el permiso `server_cmd` en el cliente.
+- Diseño responsive para móvil y tablet, sin variantes excluyentes:
+  - móvil: tarjetas de 176 dp;
+  - tablet: tarjetas de 220 dp, hojas centradas y ajustes con ancho máximo.
+- Icono Artemis 2026 con fondo original y foreground adaptativo.
+- APKs firmados y nueva identidad de paquete.
 
-**PRs for feature improvements are welcomed here unlike the main repo, your ideas are more likely to be appreciated and your efforts are actually being respected. We welcome people who can and willing to share their efforts, helping yourselves and other people in need.**
+Consulta [`CHANGELOG.md`](CHANGELOG.md) para el detalle.
 
-**Update**: They have contacted me and apologized for this incident, but the fact it **happened** still motivated me to start my own fork.
+## Requisitos
 
-## Downloads
-* [Download APK directly](https://github.com/ClassicOldSong/moonlight-android/releases)
-* [Use Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22com.limelight.noir%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FClassicOldSong%2Fmoonlight-android%22%2C%22author%22%3A%22ClassicOldSong%22%2C%22name%22%3A%22Artemis%22%2C%22additionalSettings%22%3A%22%7B%5C%22apkFilterRegEx%5C%22%3A%5C%22nonRoot%5C%22%2C%5C%22matchGroutToUse%5C%22%3A%5C%22%241%5C%22%2C%5C%22versionExtractionRegEx%5C%22%3A%5C%22v(.%2B)%5C%22%7D%22%7D) (recommended)
+- Android 5.0+ (API 21).
+- OpenGL ES 3.0.
+- `arm64-v8a`, `armeabi-v7a` o `x86_64`.
+- Host Apollo/Sunshine accesible por red.
+- Apollo recomendado para pantalla virtual, portapapeles y comandos de energía.
 
-## Building
-* Install Android Studio and the Android NDK
-* Run ‘git submodule update --init --recursive’ from within moonlight-android/
-* In moonlight-android/, create a file called ‘local.properties’. Add an ‘ndk.dir=’ property to the local.properties file and set it equal to your NDK directory.
-* Build the APK using Android Studio or gradle
+## Compilación
 
-## Authors
+Requisitos:
 
-* [Cameron Gutman](https://github.com/cgutman)  
-* [Diego Waxemberg](https://github.com/dwaxemberg)  
-* [Aaron Neyer](https://github.com/Aaronneyer)  
-* [Andrew Hennessy](https://github.com/yetanothername)
+- JDK 17+
+- Android SDK Platform 37
+- Android NDK `29.0.14206865`
+- Gradle wrapper `9.7.1`
 
-Moonlight is the work of students at [Case Western](http://case.edu) and was
-started as a project at [MHacks](http://mhacks.org).
+El núcleo `moonlight-common-c` está vendorizado; **no** hace falta ejecutar `git submodule update`.
+
+```powershell
+cd Artemis\moonlight-android-moonlight-noir
+.\gradlew.bat :app:assembleNonRoot_gameRelease --no-daemon
+```
+
+Salidas en `app/build/outputs/apk/nonRoot_game/release/`. La tarea también copia el APK arm64 a `../Release/artemis.apk`.
+
+### Firma de release
+
+La firma se lee de `keystore.properties` en la raíz del repo. Ese archivo y la keystore **no se versionan**.
+
+```properties
+storeFile=E:/ruta/segura/artemis-release.jks
+storePassword=...
+keyAlias=artemis
+keyPassword=...
+```
+
+Si el archivo existe, Gradle firma automáticamente el release. Para verificar:
+
+```powershell
+apksigner verify --print-certs app\build\outputs\apk\nonRoot_game\release\app-nonRoot_game-arm64-v8a-release.apk
+```
+
+**Importante:** guarda la keystore y su contraseña en un lugar seguro. Sin ellas no se podrán publicar actualizaciones compatibles.
+
+## Tests
+
+```powershell
+.\gradlew.bat :app:testNonRoot_gameDebugUnitTest --no-daemon
+```
+
+Estado actual: la compilación de tests pasa, pero el worker de tests de Gradle falla al arrancar en este entorno Windows (`ClassNotFoundException: Files`). La app se valida con build de release/debug y pruebas manuales en emulador; queda pendiente estabilizar la tarea de tests.
+
+## Seguridad
+
+- Los comandos de energía usan `server_cmd` de Apollo y requieren un cliente emparejado con ese permiso.
+- No concedas `server_cmd` a clientes no confiables.
+- No expongas Apollo a Internet sin HTTPS/VPN.
+- El APK de release está firmado; no publiques builds locales sin firmar.
+
+## Características heredadas de Artemis
+
+1. Botones virtuales personalizados con importación/exportación.
+2. Resoluciones y bitrates personalizados.
+3. Varios modos de ratón: normal, multitáctil, trackpad, desactivado y cursor local.
+4. Skins de gamepad virtual y joystick libre.
+5. Modo monitor externo.
+6. Soporte de D-pad de Joy-Con.
+7. Información de rendimiento simplificada.
+8. Menú de juego con botón Atrás.
+9. Comandos de acceso directo personalizados.
+10. Cambio rápido de teclado en pantalla.
+11. Modo retrato.
+12. Visualización en la parte superior para plegables.
+13. Ajuste de sensibilidad del trackpad virtual.
+14. Vibración del dispositivo como alternativa a la del mando.
+15. Página de depuración de mandos.
+16. Soporte de trackpad táctil y desplazamiento.
+17. Modo trackpad natural.
+18. Distribuciones de teclado no QWERTY.
+19. Tecla Meta rápida con el botón Atrás.
+20. Corrección del bloqueo de FPS en algunos dispositivos.
+21. Modos de escala de vídeo: ajustar, rellenar y estirar.
+22. Pan/zoom de la vista.
+23. Rotación de pantalla en juego.
+24. Salida directa de la app.
+25. Soporte de scroll en Samsung DeX.
+26. Clic/scroll/click derecho correctos en tablets con cursor local.
+27. Pantalla virtual con Apollo.
+28. Comandos de servidor con Apollo.
+29. Sincronización de portapapeles con Apollo.
+30. SBS 3D para pantallas externas.
+
+## Créditos
+
+- **Moonlight original:** Cameron Gutman, Diego Waxemberg, Aaron Neyer, Andrew Hennessy y colaboradores de Moonlight Stream.
+- **Artemis / Moonlight Noir:** ClassicOldSong y colaboradores.
+- **Apollo:** ClassicOldSong y colaboradores.
+- **Este fork Artemis 2026:** leonidas10009.
+
+Moonlight nació como proyecto de estudiantes de [Case Western](http://case.edu) en [MHacks](http://mhacks.org).

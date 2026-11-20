@@ -59,7 +59,7 @@ public class ProfilesActivityUiTest {
         assertNotNull(fab);
         fab.performClick();
 
-        Intent next = Shadows.shadowOf(activity).getNextStartedActivity();
+        Intent next = Shadows.shadowOf((android.content.ContextWrapper) activity).getNextStartedActivity();
         assertNotNull("FAB should launch EditProfileActivity", next);
         assertEquals("com.limelight.EditProfileActivity", next.getComponent().getClassName());
     }
