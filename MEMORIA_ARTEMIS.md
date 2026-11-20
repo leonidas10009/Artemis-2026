@@ -1013,7 +1013,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - `MaterialToolbar` con wordmark Artemis, badge de versión, búsqueda, ajustes, ayuda y añadir.
 - Tarjeta de anfitrión: Apollo 2026, versión, plataforma, driver de gamepad y estado.
 - Chips de perfil activo y filtro (Todos / Online / Favoritos).
-- PCs como `MaterialCardView`: nombre, icono/portada, punto de estado, “Online · Apollo 1.0.0”, última conexión.
+- PCs como `MaterialCardView`: nombre, icono/portada, punto de estado, “Online · Apollo 1.0.1”, última conexión.
 - Acciones: Despertar, Emparejar, Abrir Web UI, Detalles, Eliminar; en bottom sheet con iconos.
 - Búsqueda, orden (reciente/nombre/estado), pull-to-refresh y skeletons.
 - Estado vacío: “No hay PCs” + “Añadir manualmente” + “Buscar en red”.
@@ -1285,7 +1285,9 @@ Configuración del host:
   apagar/reiniciar*.
 - **Commit Apollo:** `e5b72c9f` — *Add authenticated /servercmd endpoint for remote
   server commands*.
-- Host recompilado y desplegado.
+- **Release Apollo:** `v1.0.1` — instalador y portable publicados en
+  https://github.com/leonidas10009/Apollo_2026/releases/tag/v1.0.1.
+- Host recompilado y desplegado; el log muestra `Apollo version: 1.0.1 commit: 60143517`.
 - Servicio reiniciado con UAC; log confirma `server_cmd`:
   `Bubbles`, `Apagar PC`, `Reiniciar PC`, `Cancelar apagado`.
 - Endpoint sin certificado: conexión abortada (protección TLS correcta).
