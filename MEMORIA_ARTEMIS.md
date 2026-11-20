@@ -1330,10 +1330,23 @@ Archivos:
 | `values/strings.xml` | “Show App” |
 | `values-es/strings.xml` | “Mostrar aplicación” |
 
+Pruebas realizadas:
+
+- Emulador **Android 17 / API 37** (`Medium_Phone_API_37.0`, 1080x2400) contra el
+  host Apollo real, cliente emparejado como **`pruebas`**.
+- Long-press sobre **Steam Big Picture** abre la hoja con título, PC y acciones.
+- **Hide App**: la app desaparece de la lista normal.
+- **View All Apps**: la app aparece atenuada y la hoja muestra **Show App**.
+- **Show App**: la app vuelve a la lista normal.
+- **View Details**: diálogo con nombre, UUID, ID y HDR.
+- **Create Shortcut**: se abre la confirmación del launcher de Android.
+- **Export Launcher File**: se abre el selector de documentos.
+
 Pendiente:
 
-- Prueba visual/táctil en teléfono, tablet y TV; no había dispositivo ADB
-  conectado durante la implementación.
+- Prueba en teléfono/tablet/TV físico y revisión del texto en español.
+- El cliente de pruebas `pruebas` tiene permiso `50331648`, sin `server_cmd`;
+  no se usó para probar energía.
 
 ---
 
@@ -1349,7 +1362,8 @@ Pendiente:
 - [x] UI-21 Fase 3B: endpoint autenticado de energía + botones en la lista de PCs.
 - [ ] UI-21 Fase 2A (opcional): botones de energía también en el menú en juego.
 - [ ] Prueba end-to-end de energía desde un dispositivo Artemis.
-- [ ] Probar la Fase 1 en dispositivo/tablet/TV.
+- [x] Probar UI-05 en emulador Android 17 contra el host real.
+- [ ] Probar la Fase 1 en dispositivo/tablet/TV físico.
 - [ ] Implementar `MotionRange.getFlat()` como deadzone mínima de sticks.
 - [ ] Evaluar auto-centrado al conectar.
 - [ ] Corregir el `|=` de fusión de ejes/gatillos.
