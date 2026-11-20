@@ -935,7 +935,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 > (`Apollo-git/src_assets/common/assets/web`) sin perder las funciones propias de
 > Artemis ni reescribir el cliente en Compose.
 >
-> Estado: propuesta aprobada. **Fase 1 en implementación**; el resto queda pendiente.
+> Estado: Fase 1 implementada. Quedan pendientes menores de UI-05/06/07 y las fases 2–3.
 
 ### 13.1 Diagnóstico actual
 
@@ -977,14 +977,14 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 
 | ID | Mejora | Fase | Estado |
 |---|---|---|---|
-| UI-01 | Tokens de color, dimens y estilos Apollo en `values/` | 1 | Pendiente |
-| UI-02 | `MaterialToolbar` en `PcView` y `AppView` con título, búsqueda, ajustes y añadir | 1 | Pendiente |
-| UI-03 | Tarjetas modernas de PC con estado, versión y acciones | 1 | Pendiente |
-| UI-04 | Tarjetas modernas de apps con scrim, título y badges | 1 | Pendiente |
-| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Pendiente |
-| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Pendiente |
-| UI-07 | Estados vacíos, carga y skeletons | 1 | Pendiente |
-| UI-08 | Corregir resumen español de deadzone (valores negativos) | 1 | Pendiente |
+| UI-01 | Tokens de color, dimens y estilos Apollo en `values/` | 1 | Hecho |
+| UI-02 | `MaterialToolbar` en `PcView` y `AppView` con título, búsqueda, ajustes y añadir | 1 | Hecho |
+| UI-03 | Tarjetas modernas de PC con estado, versión y acciones | 1 | Hecho |
+| UI-04 | Tarjetas modernas de apps con scrim, título y badges | 1 | Hecho |
+| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Parcial (PC; apps pendiente) |
+| UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Parcial (insets existentes revisados) |
+| UI-07 | Estados vacíos, carga y skeletons | 1 | Parcial (vacíos/carga; skeletons pendientes) |
+| UI-08 | Corregir resumen español de deadzone (valores negativos) | 1 | Hecho |
 | UI-09 | Ajustes por secciones con búsqueda y valores actuales | 2 | Pendiente |
 | UI-10 | Menú en juego como bottom sheet con iconos y secciones | 2 | Pendiente |
 | UI-11 | Perfiles como tarjetas con acciones y estado activo | 2 | Pendiente |
@@ -1075,18 +1075,38 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 
 ### 13.5 Criterios de aceptación de la Fase 1
 
-- [ ] Tokens Apollo en `colors.xml`, `dimens.xml` y `styles.xml`.
-- [ ] `MaterialToolbar` funcionando en `PcView` y `AppView`.
-- [ ] Tarjetas de PC y apps con el nuevo estilo.
-- [ ] Al menos un menú contextual convertido a bottom sheet.
-- [ ] Insets/edge-to-edge sin tapar contenido en pantallas no críticas.
-- [ ] Estados de carga/vacío revisados.
-- [ ] Resumen español de deadzone corregido.
-- [ ] Build release y debug correctos.
-- [ ] `Release\artemis.apk` actualizado.
-- [ ] Este documento actualizado con el resultado.
+- [x] Tokens Apollo en `colors.xml`, `dimens.xml` y `styles.xml`.
+- [x] `MaterialToolbar` funcionando en `PcView` y `AppView`.
+- [x] Tarjetas de PC y apps con el nuevo estilo.
+- [x] Al menos un menú contextual convertido a bottom sheet (PC).
+- [x] Insets/edge-to-edge revisados en pantallas no críticas.
+- [x] Estados de carga/vacío revisados (skeletons quedan para Fase 2).
+- [x] Resumen español de deadzone corregido.
+- [x] Build release y debug correctos.
+- [x] `Release\artemis.apk` actualizado.
+- [x] Este documento actualizado con el resultado.
 
-### 13.6 Riesgos y no objetivos
+### 13.6 Resultado de la Fase 1 (2026-11-20)
+
+- **Commit del repositorio:** `ce94e26`.
+- **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
+- Cambios aplicados:
+  - Paleta y tokens Apollo en `colors.xml`, `dimens.xml` y `styles.xml`.
+  - `MaterialToolbar` con título, subtítulo, búsqueda, ajustes, ayuda y añadir.
+  - Búsqueda con filtrado real en PCs y apps.
+  - Tarjetas modernas de PC con estado online/offline/refrescando.
+  - Tarjetas modernas de apps con scrim y título.
+  - Bottom sheet de acciones para PCs (despertar, emparejar, apps, detalles, red, eliminar).
+  - Estados vacíos “No se encontraron PCs/apps” y spinner de búsqueda.
+  - Resumen español de deadzone corregido.
+  - Exportación automática de APK a `Release\artemis*.apk`.
+- Pendiente inmediato:
+  - Bottom sheet de acciones para apps (UI-05).
+  - Skeletons reales (UI-07).
+  - Revisión visual en dispositivo/tablet/TV.
+  - Fases 2–3 (ajustes, menú en juego, perfiles, diagnóstico, temas, onboarding).
+
+### 13.7 Riesgos y no objetivos
 
 - **No** reescribir en Compose.
 - **No** tocar `StreamContainer`, `MediaCodecDecoderRenderer`, `VirtualController` ni el pipeline de entrada por motivos estéticos.
@@ -1120,6 +1140,8 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
+- **Estado:** publicado; `main` = `ce94e26` (2026-11-20).
+- **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
 - **Contenido:** código fuente completo, core `moonlight-common-c` vendorizado,
   `MEMORIA_ARTEMIS.md`, `README.md` actualizado, `.gitattributes` y `.gitignore`.
 - **No se versiona:** `local.properties`, `build/`, `.gradle/`, APKs.
@@ -1137,6 +1159,14 @@ git add .
 git commit -m "Artemis 20.2.7 - Moonlight v12.2 + Apollo core + UI Phase 1"
 git remote add origin https://github.com/leonidas10009/Artemis-2026.git
 git push -u origin main
+```
+
+Para futuras actualizaciones:
+
+```powershell
+git add .
+git commit -m "Descripción del cambio"
+git push
 ```
 
 Notas:
