@@ -615,19 +615,19 @@ Release (sin firmar):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.147.332 B | `435238643A0547DBBD49678150D6850D8968705F3CFFB495DA4770AAAB5A83FD` |
-| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.349.510 B | `D52BFB1EBE7B401910440195FBA7A2C3FE50BCC116AA6B7D2EB4AADEA14BAC93` |
-| `release/app-nonRoot_game-x86-release-unsigned.apk` | 47.947.154 B | `9B227E151343C0A71ECAED4BFA3FCCEE1671B4278C25F27F15509E2649988DDB` |
-| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.400.001 B | `01FB403B7E7894CD196C354EDC42248EE7CDE75A0DF835714D29A93BC7895772` |
+| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.148.136 B | `76E0758DB93E2E799F52CCB505776206A86D069503BEB658B0BC5522BA5B2AEC` |
+| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.350.314 B | `315359E686645E783138B35F4DBF4EB6578317245191DDEF5C272B34AC59D1DB` |
+| `release/app-nonRoot_game-x86-release-unsigned.apk` | 47.947.958 B | `5BCC61023ABB6F324C1DDA41B9D87E1199140A9EA822891049F927E74C85E791` |
+| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.400.805 B | `FFC9F8682ECB0CAD2631C2960765A25C3389E47D8583B68B339149DB05F819F0` |
 
 Debug (firmado con clave debug de Android):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 45.522.603 B | `E2EDB5CFD8BCA29D5CCDE99C5917983E885334D5E6AB3198AE712C0ECAD12FAC` |
-| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 42.344.981 B | `12BF9606D1C437DF1363D9943A195A23B25D8A60DB30F89EE67F64F5C514DC79` |
-| `debug/app-nonRoot_game-x86-debug.apk` | 54.670.385 B | `C1F73FFB621F437ED293A06350E891DEEDF140172622DD40F2C7FD1E232995DA` |
-| `debug/app-nonRoot_game-x86_64-debug.apk` | 61.357.404 B | `FDBBD43DD410B29974AB127776BAD6AB4C2C1713289E59620E80BC210A8CA773` |
+| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 45.410.851 B | `D20416447FE8AEDECC47A5EC415BCA8201118DCE86BFAEC599F12747E2D4F462` |
+| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 42.233.217 B | `0E2B328FA3F2A060D437E81B8F7D99375D1F092EA4B1FC8C8E9E871EE0E6867E` |
+| `debug/app-nonRoot_game-x86-debug.apk` | 54.558.641 B | `5B7CC6A9E6D989C7405CF87D49F54934B00E4B01C6A9511A363AB5DECF605F7B` |
+| `debug/app-nonRoot_game-x86_64-debug.apk` | 61.245.652 B | `C7B26EE963ECE54A09C66D248BF0F776BA808988B73258E918E2D7BE65C5D003` |
 
 - Debug: `com.limelight.noirdebug`, label **Diana**, firmado con el certificado
   `CN=Android Debug` (SHA-256 `c4db76d6bf9440f12ddee1a98c5e2e088a8ceb437e381280b5b9529195cce937`).
@@ -636,7 +636,7 @@ Debug (firmado con clave debug de Android):
 
 > Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI,
 > correspondiente a la compilación del **2026-11-20** que incluye la Fase 1 de
-> interfaz y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
+> interfaz, UI-05 (acciones de apps) y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
 > `artemis.apk` y `artemis-debug.apk` (arm64-v8a); el resto queda en
 > `app/build/outputs/apk/` para quien lo necesite.
 
@@ -652,8 +652,8 @@ Nombres:
 
 | Archivo exportado | Origen | Tamaño | SHA-256 | Firma | Uso |
 |---|---|---:|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.147.332 B | `435238643A0547DBBD49678150D6850D8968705F3CFFB495DA4770AAAB5A83FD` | Sin firmar | Firmar y publicar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.522.603 B | `E2EDB5CFD8BCA29D5CCDE99C5917983E885334D5E6AB3198AE712C0ECAD12FAC` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.148.136 B | `76E0758DB93E2E799F52CCB505776206A86D069503BEB658B0BC5522BA5B2AEC` | Sin firmar | Firmar y publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.410.851 B | `D20416447FE8AEDECC47A5EC415BCA8201118DCE86BFAEC599F12747E2D4F462` | Firmado con clave debug | **Pruebas en dispositivo** |
 | `LEEME_APK.txt` | — | — | — | — | Explica cuál usar |
 
 Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
@@ -913,7 +913,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | Versión | versionCode | Base | Notas |
 |---|---:|---|---|
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
-| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + energía 3B; build OK |
+| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + UI-05 + energía 3B; build OK |
 | — | — | — | Próxima: decidir si se sube a 20.3.x o se mantiene la línea 20.2.x |
 
 ---
@@ -990,7 +990,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | UI-02 | `MaterialToolbar` en `PcView` y `AppView` con título, búsqueda, ajustes y añadir | 1 | Hecho |
 | UI-03 | Tarjetas modernas de PC con estado, versión y acciones | 1 | Hecho |
 | UI-04 | Tarjetas modernas de apps con scrim, título y badges | 1 | Hecho |
-| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Parcial — cerrar en Fase 2 (apps) |
+| UI-05 | Menús contextuales a `BottomSheetDialog` | 1 | Hecho (Fase 2) |
 | UI-06 | Edge-to-edge e insets en pantallas no críticas | 1 | Parcial — revisar en Fase 2 |
 | UI-07 | Estados vacíos, carga y skeletons | 1 | Parcial — skeletons en Fase 2 |
 | UI-08 | Corregir resumen español de deadzone (valores negativos) | 1 | Hecho |
@@ -1111,7 +1111,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
   - Resumen español de deadzone corregido.
   - Exportación automática de APK a `Release\artemis*.apk`.
 - Pendiente inmediato:
-  - Bottom sheet de acciones para apps (UI-05).
+  - UI-05 completado en Fase 2 (ver 13.10).
   - Skeletons reales (UI-07).
   - Revisión visual en dispositivo/tablet/TV.
   - Fases 2–3; el alcance y orden de la Fase 2 está detallado en 13.7.
@@ -1299,6 +1299,42 @@ Configuración del host:
 - **Pendiente:** prueba end-to-end desde el dispositivo (no había ADB conectado
   durante la implementación).
 
+### 13.10 Resultado UI-05 — acciones de apps en bottom sheet (2026-11-20)
+
+**Estado: implementado; build debug y release correctos.**
+
+Comportamiento:
+
+- **Long-press** sobre una app abre la hoja de acciones.
+- **Clic normal** conserva el inicio directo. Si hay una sesión activa, abre la
+  hoja para elegir reanudar, cerrar o cambiar de app.
+- La hoja muestra el nombre de la app y el PC, con las mismas acciones que el
+  menú contextual anterior:
+  - iniciar / reanudar;
+  - iniciar en pantalla virtual o primaria;
+  - cerrar sesión;
+  - cerrar la app actual e iniciar la seleccionada;
+  - ocultar o **mostrar** la app;
+  - ver detalles;
+  - crear acceso directo (solo si la portada está cargada);
+  - exportar archivo `.art`.
+- Se eliminó el `ContextMenu` duplicado: ya no se registra el menú contextual
+  clásico. Las acciones conservan los mismos IDs y la misma lógica de
+  confirmación, permisos, perfiles y `ServerHelper`.
+
+Archivos:
+
+| Archivo | Cambio |
+|---|---|
+| `AppView.java` | `showAppActions`, `addSheetAction`, `handleAppAction`; long-press y clic con sesión activa |
+| `values/strings.xml` | “Show App” |
+| `values-es/strings.xml` | “Mostrar aplicación” |
+
+Pendiente:
+
+- Prueba visual/táctil en teléfono, tablet y TV; no había dispositivo ADB
+  conectado durante la implementación.
+
 ---
 
 ## 14. Pendientes
@@ -1308,7 +1344,8 @@ Configuración del host:
 - [x] Copia automática de APK a `artemis_V2026\Release` (solo `artemis.apk` y `artemis-debug.apk`).
 - [x] Limpieza de APK antiguos y variantes ABI no usadas.
 - [x] Incluir esta memoria en el repositorio.
-- [ ] Fase 2: UI-05, UI-06, UI-07, UI-12, UI-09, UI-11 y UI-10 (ver 13.7).
+- [x] UI-05: acciones de apps en bottom sheet.
+- [ ] Fase 2: UI-06, UI-07, UI-12, UI-09, UI-11 y UI-10 (ver 13.7).
 - [x] UI-21 Fase 3B: endpoint autenticado de energía + botones en la lista de PCs.
 - [ ] UI-21 Fase 2A (opcional): botones de energía también en el menú en juego.
 - [ ] Prueba end-to-end de energía desde un dispositivo Artemis.
