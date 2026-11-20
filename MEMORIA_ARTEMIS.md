@@ -1427,10 +1427,16 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 | `Artemis-1.0.0-arm64-v8a.apk` | 40.477.222 B | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
 | `Artemis-1.0.0-armeabi-v7a.apk` | 37.679.382 B | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
 | `Artemis-1.0.0-x86_64.apk` | 54.729.877 B | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
+| `Artemis-1.0.0-universal.apk` | 104.289.396 B | `21F0315616FC65501002443550F1E3D9E38F5E6391CE932123282BF0691D0983` |
 
 - **Android TV:** el manifest incluye `LEANBACK_LAUNCHER`, banner de TV y no
   exige pantalla táctil. Los APKs arm64/armv7 sirven para TV; x86_64 para
   Chromebooks/emuladores.
+- **Compatibilidad Android 13/16:** AVDs `Artemis_API_33_Tablet` y
+  `Artemis_API_36_Tablet` (x86_64). Los APKs x86_64 y universal instalan y
+  arrancan correctamente; arm64 falla solo por ABI en un emulador x86_64.
+- **Fallback universal:** `Artemis-1.0.0-universal.apk` incluye arm64, armv7,
+  x86 y x86_64; útil si el dispositivo rechaza un APK por ABI o split.
 - **README y CHANGELOG:** reescritos con procedencia Moonlight → Artemis →
   Artemis 2026, descargas, TV, compilación, firma y limitaciones.
 - **Tests:** la compilación de tests se corrigió con un stub test-only de

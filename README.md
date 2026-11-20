@@ -34,6 +34,7 @@ Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artem
 | `Artemis-1.0.0-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
 | `Artemis-1.0.0-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
 | `Artemis-1.0.0-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
+| `Artemis-1.0.0-universal.apk` | Fallback si el instalador rechaza el APK de una ABI; incluye todas |
 
 ### SHA-256
 
@@ -42,6 +43,7 @@ Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artem
 | `Artemis-1.0.0-arm64-v8a.apk` | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
 | `Artemis-1.0.0-armeabi-v7a.apk` | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
 | `Artemis-1.0.0-x86_64.apk` | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
+| `Artemis-1.0.0-universal.apk` | `21F0315616FC65501002443550F1E3D9E38F5E6391CE932123282BF0691D0983` |
 
 ### Android TV
 
