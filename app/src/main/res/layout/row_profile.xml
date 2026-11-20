@@ -55,7 +55,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/profile_manager_edit_profile"
             android:src="@drawable/ic_edit"
-            android:tint="@color/artemis_text" />
+            app:tint="@color/artemis_text" />
 
         <ImageButton
             android:id="@+id/deleteProfile"
@@ -64,7 +64,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/profile_manager_delete_profile"
             android:src="@drawable/ic_delete"
-            android:tint="@color/artemis_danger" />
+            app:tint="@color/artemis_danger" />
 
     </LinearLayout>
 

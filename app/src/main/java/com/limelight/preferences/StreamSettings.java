@@ -11,6 +11,7 @@ import android.media.MediaCodecInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -140,6 +141,7 @@ public class StreamSettings extends AppCompatActivity {
     }
 
     @Override
+    @SuppressLint("MissingSuperCall")
     // NOTE: This will NOT be called on Android 13+ with android:enableOnBackInvokedCallback="true"
     public void onBackPressed() {
         finish();

@@ -30,6 +30,14 @@ Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artem
 | `Artemis-1.0.0-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
 | `Artemis-1.0.0-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
 
+### SHA-256
+
+| APK | SHA-256 |
+|---|---|
+| `Artemis-1.0.0-arm64-v8a.apk` | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
+| `Artemis-1.0.0-armeabi-v7a.apk` | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
+| `Artemis-1.0.0-x86_64.apk` | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
+
 ### Android TV
 
 El APK incluye la actividad **LEANBACK_LAUNCHER**, banner de TV y no exige pantalla táctil. Funciona en Android TV/Google TV con mando o gamepad; el APK `arm64-v8a` o `armeabi-v7a` es el adecuado según el dispositivo.
