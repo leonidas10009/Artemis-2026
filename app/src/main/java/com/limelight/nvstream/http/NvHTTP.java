@@ -936,4 +936,16 @@ public class NvHTTP {
             return false;
         }
     }
+
+    /**
+     * Ask the host to execute one of its configured server commands.
+     * Requires the paired client to have the server_cmd permission.
+     *
+     * @param commandIndex Index into the host's server_cmd list.
+     */
+    public void sendServerCommand(int commandIndex) throws IOException {
+        openHttpConnectionToString(httpClientLongConnectTimeout, getHttpsUrl(true),
+                "servercmd", "index=" + commandIndex,
+                RequestBody.create("", MediaType.parse("text/plain")));
+    }
 }

@@ -3,6 +3,8 @@ package com.limelight;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Locale;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -13,6 +15,7 @@ import com.limelight.computers.ComputerManagerService;
 import com.limelight.grid.PcGridAdapter;
 import com.limelight.grid.assets.DiskAssetLoader;
 import com.limelight.nvstream.http.ComputerDetails;
+import com.limelight.nvstream.http.HostHttpResponseException;
 import com.limelight.nvstream.http.NvApp;
 import com.limelight.nvstream.http.NvHTTP;
 import com.limelight.nvstream.http.PairingManager;
@@ -957,6 +960,8 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
             addSheetAction(container, dialog, computer, FULL_APP_LIST_ID, R.string.pcview_menu_app_list);
         }
 
+        addPowerActions(container, dialog, computer);
+
         addSheetAction(container, dialog, computer, TEST_NETWORK_ID, R.string.pcview_menu_test_network);
         addSheetAction(container, dialog, computer, VIEW_DETAILS_ID, R.string.pcview_menu_details);
         addSheetAction(container, dialog, computer, DELETE_ID, R.string.pcview_menu_delete_pc);
@@ -991,6 +996,131 @@ public class PcView extends AppCompatActivity implements AdapterFragmentCallback
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.topMargin = (int) (2 * density);
         container.addView(row, params);
+    }
+
+    private void addPowerActions(LinearLayout container, BottomSheetDialog dialog, final ComputerObject computer) {
+        List<String> commands = computer.details.serverCommands;
+        if (commands == null || commands.isEmpty()) {
+            return;
+        }
+
+        int shutdownIndex = findServerCommand(commands,
+                "apagar", "shutdown", "shut down", "poweroff", "power off", "power-off");
+        int rebootIndex = findServerCommand(commands,
+                "reiniciar", "restart", "reboot");
+        int cancelIndex = findServerCommand(commands,
+                "cancelar apagado", "cancel shutdown", "shutdown /a", "cancelar");
+
+        if (shutdownIndex < 0 && rebootIndex < 0 && cancelIndex < 0) {
+            return;
+        }
+
+        addSheetSectionTitle(container, R.string.power_section);
+
+        if (shutdownIndex >= 0) {
+            addPowerAction(container, dialog, computer, shutdownIndex,
+                    R.string.power_off,
+                    R.string.power_off_confirm_title,
+                    R.string.power_off_confirm_message,
+                    R.color.artemis_danger);
+        }
+        if (rebootIndex >= 0) {
+            addPowerAction(container, dialog, computer, rebootIndex,
+                    R.string.power_reboot,
+                    R.string.power_reboot_confirm_title,
+                    R.string.power_reboot_confirm_message,
+                    R.color.artemis_warning);
+        }
+        if (cancelIndex >= 0) {
+            addPowerAction(container, dialog, computer, cancelIndex,
+                    R.string.power_cancel_shutdown,
+                    R.string.power_cancel_shutdown,
+                    R.string.power_cancel_shutdown_message,
+                    R.color.artemis_text_muted);
+        }
+    }
+
+    private void addSheetSectionTitle(LinearLayout container, int titleRes) {
+        float density = getResources().getDisplayMetrics().density;
+        TextView title = new TextView(this);
+        title.setText(titleRes);
+        title.setTextColor(ContextCompat.getColor(this, R.color.artemis_text_muted));
+        title.setTextSize(12);
+        title.setAllCaps(true);
+        title.setPadding((int) (8 * density), (int) (16 * density),
+                (int) (8 * density), (int) (4 * density));
+        container.addView(title);
+    }
+
+    private void addPowerAction(LinearLayout container, BottomSheetDialog dialog,
+                                final ComputerObject computer, final int commandIndex,
+                                int labelRes, int titleRes, int messageRes, int colorRes) {
+        float density = getResources().getDisplayMetrics().density;
+        TextView row = new TextView(this);
+        row.setText(labelRes);
+        row.setTextColor(ContextCompat.getColor(this, colorRes));
+        row.setTextSize(16);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setMinHeight((int) (48 * density));
+        row.setPadding((int) (8 * density), 0, (int) (8 * density), 0);
+
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+        row.setBackgroundResource(outValue.resourceId);
+
+        row.setOnClickListener(v -> {
+            dialog.dismiss();
+            UiHelper.displayConfirmationDialog(
+                    PcView.this,
+                    getString(titleRes),
+                    getString(messageRes),
+                    getString(R.string.proceed),
+                    getString(R.string.cancel),
+                    () -> sendServerCommand(computer, commandIndex),
+                    null);
+        });
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = (int) (2 * density);
+        container.addView(row, params);
+    }
+
+    private int findServerCommand(List<String> commands, String... keywords) {
+        for (int i = 0; i < commands.size(); i++) {
+            String name = commands.get(i).toLowerCase(Locale.ROOT);
+            for (String keyword : keywords) {
+                if (name.contains(keyword)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private void sendServerCommand(final ComputerObject computer, final int commandIndex) {
+        if (managerBinder == null) {
+            Toast.makeText(PcView.this, R.string.error_manager_not_running, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        new Thread(() -> {
+            try {
+                NvHTTP httpConn = new NvHTTP(ServerHelper.getCurrentAddressFromComputer(computer.details),
+                        computer.details.httpsPort, managerBinder.getUniqueId(),
+                        computer.details.serverCert, PlatformBinding.getCryptoProvider(PcView.this));
+                httpConn.sendServerCommand(commandIndex);
+                runOnUiThread(() -> Toast.makeText(PcView.this,
+                        R.string.power_command_sent, Toast.LENGTH_SHORT).show());
+            } catch (HostHttpResponseException e) {
+                runOnUiThread(() -> Toast.makeText(PcView.this,
+                        R.string.power_permission_denied, Toast.LENGTH_LONG).show());
+            } catch (Exception e) {
+                runOnUiThread(() -> Toast.makeText(PcView.this,
+                        getString(R.string.power_command_failed, String.valueOf(e.getMessage())),
+                        Toast.LENGTH_LONG).show());
+            }
+        }).start();
     }
 
     private int getPcStatusString(ComputerDetails.State state) {

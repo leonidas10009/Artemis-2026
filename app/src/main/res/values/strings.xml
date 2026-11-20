@@ -769,4 +769,18 @@
     <string name="pc_card_action_quit">Quit session</string>
     <string name="pc_card_action_resume">Resume</string>
     <string name="pc_card_action_network">Test network</string>
+
+    <!-- Remote power -->
+    <string name="power_section">Power</string>
+    <string name="power_off">Shut down PC</string>
+    <string name="power_reboot">Restart PC</string>
+    <string name="power_cancel_shutdown">Cancel shutdown</string>
+    <string name="power_off_confirm_title">Shut down PC</string>
+    <string name="power_off_confirm_message">Shut down the host PC? The streaming session and the computer will be closed.</string>
+    <string name="power_reboot_confirm_title">Restart PC</string>
+    <string name="power_reboot_confirm_message">Restart the host PC? The streaming session and the computer will be restarted.</string>
+    <string name="power_cancel_shutdown_message">Cancel the pending shutdown/restart of the host PC?</string>
+    <string name="power_command_sent">Power command sent</string>
+    <string name="power_command_failed">Could not send the power command: %1$s</string>
+    <string name="power_permission_denied">The host denied the server command permission.</string>
 </resources>

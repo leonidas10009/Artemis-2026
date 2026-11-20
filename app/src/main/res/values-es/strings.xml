@@ -305,4 +305,18 @@
     <string name="pc_card_offline">Desconectado</string>
     <string name="pc_card_unknown">Actualizando</string>
     <string name="pc_card_actions">Acciones del PC</string>
+
+    <!-- Energía remota -->
+    <string name="power_section">Energía</string>
+    <string name="power_off">Apagar PC</string>
+    <string name="power_reboot">Reiniciar PC</string>
+    <string name="power_cancel_shutdown">Cancelar apagado</string>
+    <string name="power_off_confirm_title">Apagar PC</string>
+    <string name="power_off_confirm_message">¿Apagar el PC anfitrión? Se cerrará la sesión y el equipo se apagará.</string>
+    <string name="power_reboot_confirm_title">Reiniciar PC</string>
+    <string name="power_reboot_confirm_message">¿Reiniciar el PC anfitrión? Se cerrará la sesión y el equipo se reiniciará.</string>
+    <string name="power_cancel_shutdown_message">¿Cancelar el apagado/reinicio pendiente del PC anfitrión?</string>
+    <string name="power_command_sent">Comando de energía enviado</string>
+    <string name="power_command_failed">No se pudo enviar el comando de energía: %1$s</string>
+    <string name="power_permission_denied">El host denegó el permiso de comandos de servidor.</string>
 </resources>
