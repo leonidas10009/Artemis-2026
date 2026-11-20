@@ -3,7 +3,7 @@
 > Documento permanente de trabajo para el cliente **Artemis** de Apollo 2026.
 > Última actualización: **2026-11-20**.
 > Ruta del cliente: `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Artemis\moonlight-android-moonlight-noir`
-> Versión desplegada: **Artemis 20.2.7 (versionCode 58)**, base **Moonlight v12.2**.
+> Versión desplegada: **Artemis 2026 1.0.0 (versionCode 1)**, base **Artemis 20.2.7 / Moonlight v12.2**.
 >
 > Este documento sustituye notas sueltas: aquí queda el estado actual, la arquitectura,
 > las decisiones de la fusión, los comandos de compilación, el diagnóstico de mandos y
@@ -18,8 +18,8 @@
 - **Base Moonlight:** tag **v12.2**, commit `b48494cb96bff23d8886c4775cc4f39a1075495d` (2026-09-12).
 - **Punto de bifurcación:** `27ded2add8c36b3130115e8a3fd1f89967bc0114` (2024-11-15).
 - **Núcleo `moonlight-common-c`:** fork de ClassicOldSong `c999436858471dfefa7617af3b7dc03ec1644ce4` fusionado con upstream `874ac9548f1bd6f095ef2b435c42cdde460e7821` (v12.2). Merge local de referencia: `cb182ee904c378f99b01ce25c1bc1a82f49d6751`.
-- **Resultado:** APK release y debug generados; el release queda **sin firmar** y el debug firmado con la clave de Android Studio.
-- **Copia automática:** cada compilación de `nonRoot_game` deja en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` solo `artemis.apk` (release arm64 sin firmar) y `artemis-debug.apk` (debug arm64 firmado), más `LEEME_APK.txt` (ver 6.5).
+- **Resultado:** APK release y debug generados y **firmados**; el release usa la keystore de Artemis 2026 y el debug la clave de Android Studio.
+- **Copia automática:** cada compilación de `nonRoot_game` deja en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` `artemis.apk` (release arm64 firmado) y `artemis-debug.apk` (debug arm64 firmado), más los assets versionados y `LEEME_APK.txt` (ver 6.5).
 - **Incidencia abierta:** “drift fantasma” con un mando Xbox que **no** tiene drift real, solo en **algunos juegos y frontends de emulación**. Ver sección 8.
 
 ---
@@ -31,14 +31,15 @@
 | Elemento | Valor |
 |---|---|
 | Producto | Artemis (cliente Android de Apollo/Sunshine) |
-| Versión Artemis actual | **20.2.7** |
-| versionCode | **58** |
+| Versión Artemis actual | **1.0.0** |
+| versionCode | **1** |
+| Base Artemis | **20.2.7** |
 | Base Moonlight | **v12.2** (`b48494c`) |
-| Paquete release | `com.limelight.noir` |
-| Paquete debug | `com.limelight.noirdebug` |
+| Paquete release | `com.leonidas10009.artemis2026` |
+| Paquete debug | `com.leonidas10009.artemis2026.debug` |
 | Paquete root | `com.limelight.root` |
 | Label release | `Artemis` |
-| Label debug | `Artemis` (paquete `com.limelight.noirdebug`) |
+| Label debug | `Artemis` (paquete `com.leonidas10009.artemis2026.debug`) |
 | minSdk | 21 |
 | targetSdk | 36 |
 | compileSdk | 37 |
@@ -611,33 +612,34 @@ Ruta base:
 app/build/outputs/apk/nonRoot_game/
 ```
 
-Release (sin firmar):
+Release (firmado con la keystore de Artemis 2026):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `release/app-nonRoot_game-arm64-v8a-release-unsigned.apk` | 40.360.259 B | `570023A87D72B9CC2F5297629558A9685830421691D1BF84F62FF1960351F12D` |
-| `release/app-nonRoot_game-armeabi-v7a-release-unsigned.apk` | 37.562.437 B | `16D462E2DE9F2ED7F9C50226C747FB46497233A9E21054D9121C68B426CA4688` |
-| `release/app-nonRoot_game-x86-release-unsigned.apk` | 48.160.081 B | `AA2B02DA9CF3FBD35758C5E1183344461532C7EC3452CE9E89C5C0E60E93B715` |
-| `release/app-nonRoot_game-x86_64-release-unsigned.apk` | 54.612.928 B | `F3ECE03F5C45C94BD397497124BE69A8EA90F8F202AF5C529BF79AFDFF665884` |
+| `release/app-nonRoot_game-arm64-v8a-release.apk` | 40.477.222 B | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
+| `release/app-nonRoot_game-armeabi-v7a-release.apk` | 37.679.382 B | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
+| `release/app-nonRoot_game-x86-release.apk` | 48.277.016 B | `9B860CE21D5BDBB01CD86F3B1676671430F84002D24CE0014425F0CB9D205BAF` |
+| `release/app-nonRoot_game-x86_64-release.apk` | 54.729.877 B | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
 
 Debug (firmado con clave debug de Android):
 
 | APK | Tamaño | SHA-256 |
 |---|---:|---|
-| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 47.182.950 B | `20EE13266907AB5A629F4FD70838D7DBC01F9E654323384AAC95B4E20D70C4B8` |
-| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 44.005.316 B | `0F07A85CB493206FCA22696A04DB12E673FA59672016F6B5458BC7C7EA398E51` |
-| `debug/app-nonRoot_game-x86-debug.apk` | 56.330.740 B | `56A715152F2CA30118F7DEE0CABECF0A60597E17CF02D75460E4A737B62C758F` |
-| `debug/app-nonRoot_game-x86_64-debug.apk` | 63.017.751 B | `665B9C0FEF20DFA29DAEB62420DC5F58F9D0043EE668F001B332A34C14851BBD` |
+| `debug/app-nonRoot_game-arm64-v8a-debug.apk` | 45.758.803 B | `814F5C4AD2EBE5B1D32D3E85EF9B25A0F8EA2437B9DF3C0045B17D59557E6C2A` |
+| `debug/app-nonRoot_game-armeabi-v7a-debug.apk` | 42.581.165 B | `8507308F5604AA5303DE84332B5E9F868F39C55F1447F6160BEBBECD5DC6B11C` |
+| `debug/app-nonRoot_game-x86-debug.apk` | 54.906.573 B | `9225BD4512A71B3ECAB6372A86A4260D69DDF016EB7FAD477F0E6035D04083A8` |
+| `debug/app-nonRoot_game-x86_64-debug.apk` | 61.593.612 B | `F6089E34B983A3E1B530E0C68591DC12BD14882D0932E4885111974CB5FB72ED` |
 
-- Debug: `com.limelight.noirdebug`, label **Artemis**, firmado con el certificado
+- Debug: `com.leonidas10009.artemis2026.debug`, label **Artemis**, firmado con el certificado
   `CN=Android Debug` (SHA-256 `c4db76d6bf9440f12ddee1a98c5e2e088a8ceb437e381280b5b9529195cce937`).
-- Release: `com.limelight.noir`, label **Artemis**, **sin firmar**. Para publicar hay
-  que firmarlo con la keystore habitual.
+- Release: `com.leonidas10009.artemis2026`, label **Artemis**, **firmado** con la
+  keystore de release de Artemis 2026 (fuera del repositorio).
 
 > Nota: las tablas de 6.4 son la salida completa de Gradle para todas las ABI,
-> correspondiente a la compilación del **2026-11-20** que incluye la Fase 1 de
-> interfaz, UI-05 (acciones de apps), UI-07 (skeletons), optimización tablet,
-> el icono Artemis 2026 y la energía remota (Fase 3B). La carpeta curada `Release` solo recibe
+> correspondiente a la compilación **1.0.0** del **2026-11-20**, con package
+> `com.leonidas10009.artemis2026`, APKs firmados, Fase 1 de interfaz, UI-05,
+> UI-07, optimización tablet, icono Artemis 2026 y energía remota (Fase 3B).
+> La carpeta curada `Release` solo recibe
 > `artemis.apk` y `artemis-debug.apk` (arm64-v8a); el resto queda en
 > `app/build/outputs/apk/` para quien lo necesite.
 
@@ -653,8 +655,8 @@ Nombres:
 
 | Archivo exportado | Origen | Tamaño | SHA-256 | Firma | Uso |
 |---|---|---:|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.360.259 B | `570023A87D72B9CC2F5297629558A9685830421691D1BF84F62FF1960351F12D` | Sin firmar | Firmar y publicar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 47.182.950 B | `20EE13266907AB5A629F4FD70838D7DBC01F9E654323384AAC95B4E20D70C4B8` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.477.222 B | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` | Firmado con clave release | Publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.758.803 B | `814F5C4AD2EBE5B1D32D3E85EF9B25A0F8EA2437B9DF3C0045B17D59557E6C2A` | Firmado con clave debug | **Pruebas en dispositivo** |
 | `LEEME_APK.txt` | — | — | — | — | Explica cuál usar |
 
 Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
@@ -862,8 +864,8 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - **AGP 9.4:** `getDefaultProguardFile('proguard-android.txt')` ya no está permitido.
 - **SDK no escribible:** el SDK de `Program Files (x86)` no permite instalar el NDK sin
   administrador; usar el SDK de `AppData\Local`.
-- **Firma:** el release se genera sin firmar. No usar el APK release sin firmar para
-  publicar.
+- **Firma:** el release se firma con `keystore.properties` (ignorado por Git). No
+  publicar un APK release sin firmar ni subir la keystore/contraseña.
 - **`local.properties`:** no se debe versionar; contiene rutas absolutas.
 
 ---
@@ -914,8 +916,9 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | Versión | versionCode | Base | Notas |
 |---|---:|---|---|
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
-| **20.2.7** | **58** | Artemis `c5cf27f` + Moonlight **v12.2** | Actualización + UI Fase 1 + UI-05 + UI-07 + tablet + icono + energía 3B; build OK |
-| — | — | — | Próxima: decidir si se sube a 20.3.x o se mantiene la línea 20.2.x |
+| 20.2.7 | 58 | Artemis `c5cf27f` + Moonlight **v12.2** | Base de la actualización; UI Fase 1 + UI-05 + UI-07 + tablet + icono + energía 3B |
+| **1.0.0** | **1** | Artemis `20.2.7` + Moonlight **v12.2** | Primera release pública: package propio, APKs firmados, TV, UI y energía |
+| — | — | — | Próxima: mantener la línea 1.0.x con cambios compatibles |
 
 ---
 
@@ -1403,11 +1406,41 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 - Se conserva el **fondo original continuo** (`#04081B`); el contenido se reduce
   al **78%** y se centra por su caja real para que la máscara del launcher no lo
   corte. Android sigue aplicando su máscara exterior (círculo/squircle).
-- Etiqueta visible en debug y release: **Artemis** (los paquetes siguen siendo
-  `com.limelight.noirdebug` y `com.limelight.noir`).
+- Etiqueta visible en debug y release: **Artemis** (paquetes
+  `com.leonidas10009.artemis2026.debug` y `com.leonidas10009.artemis2026`).
 - Se retiró el `monochrome` para no perder el fondo en iconos temáticos.
 - Vista previa: `artemis_V2026\iconos\artemis_icon_preview.png`.
 - Captura real en launcher: `artemis_V2026\iconos\artemis_icon_launcher.png`.
+
+### 13.14 Preparación de la primera release 1.0.0 (2026-11-20)
+
+- **Versión:** `1.0.0` (versionCode `1`).
+- **Package release:** `com.leonidas10009.artemis2026`.
+- **Package debug:** `com.leonidas10009.artemis2026.debug`.
+- **Firma:** keystore nueva en `artemis_V2026\keystore\artemis-release.jks`,
+  alias `artemis`; `keystore.properties` está ignorado por Git. La contraseña se
+  guarda en `artemis_V2026\keystore\LEEME_KEYSTORE.txt`; no se versiona.
+- **APKs firmados:**
+
+| Asset | Tamaño | SHA-256 |
+|---|---:|---|
+| `Artemis-1.0.0-arm64-v8a.apk` | 40.477.222 B | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` |
+| `Artemis-1.0.0-armeabi-v7a.apk` | 37.679.382 B | `4F341D51C02A3AC7042A454EE6B75BAC94AE034EFE6CC94F80765855081C33B8` |
+| `Artemis-1.0.0-x86_64.apk` | 54.729.877 B | `2923953624A8501582B1788C4B26792B6F93ED2DA72B01B8DE58D8FBC71C7D6C` |
+
+- **Android TV:** el manifest incluye `LEANBACK_LAUNCHER`, banner de TV y no
+  exige pantalla táctil. Los APKs arm64/armv7 sirven para TV; x86_64 para
+  Chromebooks/emuladores.
+- **README y CHANGELOG:** reescritos con procedencia Moonlight → Artemis →
+  Artemis 2026, descargas, TV, compilación, firma y limitaciones.
+- **Tests:** la compilación de tests se corrigió con un stub test-only de
+  `FingerprintManager`; el worker de Gradle sigue fallando al arrancar
+  (`ClassNotFoundException: Files`). No afecta al APK.
+- **Release publicada:** tag `v1.0.0` (commit `7d7d6d9`) y release
+  <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.0> con los
+  tres APKs firmados y checksums.
+- **Pendiente:** probar el APK firmado en tablet/TV físico y la energía
+  end-to-end.
 
 ---
 
@@ -1423,6 +1456,9 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 - [x] UI-07: skeletons de carga en PCs y apps.
 - [x] UI-22: diseño responsive móvil/tablet con `sw600dp`.
 - [x] Icono Artemis 2026 con fondo original.
+- [x] Package propio `com.leonidas10009.artemis2026` y versión 1.0.0.
+- [x] APKs firmados arm64/armv7/x86_64 y soporte Android TV.
+- [x] README y CHANGELOG revisados para la release.
 - [ ] Fase 2: UI-12, UI-09, UI-11 (duplicar/exportar) y UI-10 (ver 13.7).
 - [x] UI-21 Fase 3B: endpoint autenticado de energía + botones en la lista de PCs.
 - [ ] UI-21 Fase 2A (opcional): botones de energía también en el menú en juego.
@@ -1437,10 +1473,11 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 - [ ] Añadir logs de ejes elegidos y valores en reposo.
 - [ ] Probar Virtual HID con `xseries`/`ds5`.
 - [ ] Probar el mando Xbox en los juegos/frontends afectados y documentar resultados.
-- [ ] Firmar el release con la keystore definitiva.
+- [x] Firmar el release con la keystore definitiva.
 - [x] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
-- [ ] Crear tag/release de GitHub cuando el APK release esté firmado.
-- [ ] Añadir changelog de la versión 58 en `fastlane` si se publica.
+- [ ] Probar el APK release firmado en tablet/TV físico.
+- [x] Crear tag/release `v1.0.0` en GitHub y subir los APKs.
+- [x] Añadir `CHANGELOG.md` con la versión 1.0.0.
 - [ ] Actualizar este documento tras cada nueva actualización.
 
 ---
@@ -1449,13 +1486,16 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
-- **Estado:** publicado; rama `main` activa. Commits relevantes: `b39ed02` (energía
-  remota), `ebbde69` (documentación de commits) y `50d119d` (release Apollo 1.0.1).
-  Consultar `git log -1` para el HEAD exacto.
+- **Estado:** publicado; rama `main` activa y release pública **1.0.0** disponible
+  en <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.0>.
+- **Último commit:** `7d7d6d9`; tag anotado `v1.0.0`.
 - **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
+- **Package:** `com.leonidas10009.artemis2026` (release) y
+  `com.leonidas10009.artemis2026.debug` (debug).
 - **Contenido:** código fuente completo, core `moonlight-common-c` vendorizado,
-  `MEMORIA_ARTEMIS.md`, `README.md` actualizado, `.gitattributes` y `.gitignore`.
-- **No se versiona:** `local.properties`, `build/`, `.gradle/`, APKs.
+  `MEMORIA_ARTEMIS.md`, `README.md`, `CHANGELOG.md`, `.gitattributes` y `.gitignore`.
+- **No se versiona:** `local.properties`, `build/`, `.gradle/`, APKs,
+  `keystore.properties`, la keystore y su contraseña.
 - **Primer commit:** `Artemis 20.2.7 — actualización a Moonlight v12.2, core Apollo
   fusionado y Fase 1 de interfaz Apollo 2026`.
 
@@ -1484,8 +1524,8 @@ Notas:
 - Al estar el core vendorizado, no se necesita `git submodule update`.
 - Para futuras actualizaciones, conservar la lógica de Artemis y actualizar el core
   junto con el JNI.
-- Los APK de release se generan sin firmar; usar la keystore definitiva antes de
-  publicarlos en GitHub Releases.
+- Los APK de release se firman automáticamente si existe `keystore.properties`.
+  No subir la keystore ni su contraseña; publicar solo APKs firmados y verificados.
 
 ---
 
