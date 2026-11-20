@@ -3,7 +3,7 @@
 > Documento permanente de trabajo para el cliente **Artemis** de Apollo 2026.
 > Última actualización: **2026-11-20**.
 > Ruta del cliente: `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Artemis\moonlight-android-moonlight-noir`
-> Versión desplegada: **Artemis 2026 1.0.0 (versionCode 1)**, base **Artemis 20.2.7 / Moonlight v12.2**.
+> Versión desplegada: **Artemis 2026 1.0.1 (versionCode 2)**, base **Artemis 20.2.7 / Moonlight v12.2**.
 >
 > Este documento sustituye notas sueltas: aquí queda el estado actual, la arquitectura,
 > las decisiones de la fusión, los comandos de compilación, el diagnóstico de mandos y
@@ -31,8 +31,8 @@
 | Elemento | Valor |
 |---|---|
 | Producto | Artemis (cliente Android de Apollo/Sunshine) |
-| Versión Artemis actual | **1.0.0** |
-| versionCode | **1** |
+| Versión Artemis actual | **1.0.1** |
+| versionCode | **2** |
 | Base Artemis | **20.2.7** |
 | Base Moonlight | **v12.2** (`b48494c`) |
 | Paquete release | `com.leonidas10009.artemis2026` |
@@ -917,7 +917,8 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 |---|---:|---|---|
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
 | 20.2.7 | 58 | Artemis `c5cf27f` + Moonlight **v12.2** | Base de la actualización; UI Fase 1 + UI-05 + UI-07 + tablet + icono + energía 3B |
-| **1.0.0** | **1** | Artemis `20.2.7` + Moonlight **v12.2** | Primera release pública: package propio, APKs firmados, TV, UI y energía |
+| 1.0.0 | 1 | Artemis `20.2.7` + Moonlight **v12.2** | Primera release pública: package propio, APKs firmados, TV, UI y energía |
+| **1.0.1** | **2** | Artemis `20.2.7` + Moonlight **v12.2** | Corrige Play Protect eliminando permisos heredados de LiteRT y `CAPTURE_KEYBOARD` |
 | — | — | — | Próxima: mantener la línea 1.0.x con cambios compatibles |
 
 ---
@@ -1448,6 +1449,41 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 - **Pendiente:** probar el APK firmado en tablet/TV físico y la energía
   end-to-end.
 
+### 13.15 Release 1.0.1 — corrección del bloqueo de Play Protect (2026-11-21)
+
+Play Protect bloqueaba el paquete nuevo con el mensaje “Aplicación bloqueada para
+proteger tu dispositivo”. La causa no era la firma:
+
+- `org.tensorflow.lite.gpu.api` tiene `targetSdkVersion < 4`; el manifest merger
+  añadía `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE` y
+  `WRITE_EXTERNAL_STORAGE`.
+- El fork declaraba además `CAPTURE_KEYBOARD`, que el Artemis original no
+  declara y el código no usa.
+
+Solución en 1.0.1:
+
+- `tools:node="remove"` para los tres permisos heredados de LiteRT.
+- Eliminado `CAPTURE_KEYBOARD`.
+- Se conserva `KeyboardAccessibilityService` y `BIND_ACCESSIBILITY_SERVICE`,
+  igual que en Artemis original.
+- Versión `1.0.1` (versionCode `2`).
+- Release: <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.1>
+- Assets:
+
+| Asset | Tamaño | SHA-256 |
+|---|---:|---|
+| `Artemis-1.0.1-arm64-v8a.apk` | 40.477.091 B | `22E742BCCB139C441CA8C86B1C01162239B387313CA4F991DB41EBE02E6F4040` |
+| `Artemis-1.0.1-armeabi-v7a.apk` | 37.679.258 B | `A5B1111CDFF44C59CD00FACF35B8FA702D43C6F845F689BE1DE5937E15E6E9CB` |
+| `Artemis-1.0.1-x86_64.apk` | 54.729.751 B | `E9338C0E1430A6342B2541A0C3E8992FFD58057822AF131B6F319DA3E7335110` |
+| `Artemis-1.0.1-universal.apk` | 104.289.282 B | `F4CD75C88A537112647F8F716DD7FD989FCC1947521C7960AB649518B681A4C9` |
+
+Verificado en Android 13 y 16 x86_64: instalación, actualización desde 1.0.0 y
+arranque. Falta la confirmación en los dispositivos ARM del usuario.
+
+Si Play Protect mantiene el bloqueo por reputación del paquete nuevo:
+desactivar temporalmente el escaneo, instalar y reactivarlo; o instalar por ADB
+con `verifier_verify_adb_installs=0` y restaurarlo después.
+
 ---
 
 ## 14. Pendientes
@@ -1481,9 +1517,10 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 - [ ] Probar el mando Xbox en los juegos/frontends afectados y documentar resultados.
 - [x] Firmar el release con la keystore definitiva.
 - [x] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
-- [ ] Probar el APK release firmado en tablet/TV físico.
+- [ ] Probar el APK release firmado en tablet/TV ARM físico.
 - [x] Crear tag/release `v1.0.0` en GitHub y subir los APKs.
-- [x] Añadir `CHANGELOG.md` con la versión 1.0.0.
+- [x] Release `v1.0.1`: eliminar permisos heredados de LiteRT y `CAPTURE_KEYBOARD` que disparaban Play Protect.
+- [x] Añadir `CHANGELOG.md` con las versiones 1.0.0 y 1.0.1.
 - [ ] Actualizar este documento tras cada nueva actualización.
 
 ---
@@ -1492,9 +1529,10 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
-- **Estado:** publicado; rama `main` activa y release pública **1.0.0** disponible
-  en <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.0>.
-- **Último commit:** `7d7d6d9`; tag anotado `v1.0.0`.
+- **Estado:** publicado; rama `main` activa y release pública **1.0.1** disponible
+  en <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.1>.
+- **Último commit de la release:** `4d65e8c`; tag anotado `v1.0.1`.
+- **Release anterior:** `v1.0.0` (se conserva).
 - **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
 - **Package:** `com.leonidas10009.artemis2026` (release) y
   `com.leonidas10009.artemis2026.debug` (debug).
