@@ -24,7 +24,9 @@ Corrección definitiva del bloqueo de Play Protect.
 
 Corrección de instalación y Play Protect.
 
-- Eliminado el permiso `CAPTURE_KEYBOARD`, que el original Artemis no declara y el código no usa.
+- Eliminado el permiso `CAPTURE_KEYBOARD`, que el Artemis original no declara. El
+  código sí lo usa para la captura nativa de Android 16.1, pero se retiró para
+  minimizar permisos; no está en la lista de Play Protect.
 - Eliminados los permisos heredados de `org.tensorflow.lite.gpu.api`:
   `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE` y `WRITE_EXTERNAL_STORAGE`.
 - Se conservó el servicio de accesibilidad para captura de teclado, igual que Artemis
