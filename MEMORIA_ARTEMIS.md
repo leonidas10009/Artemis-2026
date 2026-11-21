@@ -19,7 +19,10 @@
 - **Punto de bifurcación:** `27ded2add8c36b3130115e8a3fd1f89967bc0114` (2024-11-15).
 - **Núcleo `moonlight-common-c`:** fork de ClassicOldSong `c999436858471dfefa7617af3b7dc03ec1644ce4` fusionado con upstream `874ac9548f1bd6f095ef2b435c42cdde460e7821` (v12.2). Merge local de referencia: `cb182ee904c378f99b01ce25c1bc1a82f49d6751`.
 - **Resultado:** APK release y debug generados y **firmados**; el release usa la keystore de Artemis 2026 y el debug la clave de Android Studio.
-- **Copia automática:** cada compilación de `nonRoot_game` deja en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` `artemis.apk` (release arm64 firmado) y `artemis-debug.apk` (debug arm64 firmado), más los assets versionados y `LEEME_APK.txt` (ver 6.5).
+- **Copia automática:** cada compilación de `nonRoot_game` actualiza en
+  `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` `artemis.apk` (release
+  arm64 firmado) y `artemis-debug.apk` (debug arm64 firmado). Los assets versionados
+  de cada release y `LEEME_APK.txt` se preparan aparte al publicar (ver 6.5).
 - **Play Protect:** resuelto en **1.0.2**. El bloqueo lo disparaba el servicio de
   accesibilidad `KeyboardAccessibilityService`, no la firma ni los permisos de LiteRT.
   Ver 13.15 y 13.16.
@@ -483,7 +486,7 @@ Se hizo un **merge real de 3 vías con Git**:
 | `KeyboardTranslator.java` | Se conservó `translate(keycode, scancode, deviceId)`. Se añadieron F13–F24, PRINT y SCREENSHOT. |
 | `UiHelper.java` | Se conservó el aviso/null de `GameManager` de Artemis. Se añadió el `try/catch` para Meta Quest. |
 | `XboxOneController.java` | Se conservó GameSir; se añadieron 8BitDo, Xbox Series S/X y sus paquetes de init. |
-| `AndroidManifest.xml` | Solo se añadió `android.permission.CAPTURE_KEYBOARD`. |
+| `AndroidManifest.xml` | Solo se añadió `android.permission.CAPTURE_KEYBOARD` (retirado en 1.0.1; ver 3.10). |
 | `arrays.xml` / `locales_config.xml` | Se añadieron `eo`, `lv` y `ta`. |
 | Traducciones | Merge por clave: se conservaron las claves propias de Artemis y se actualizaron las que Artemis no había tocado. |
 | `app/build.gradle` debug | Se cambió `proguard-android.txt` por `proguard-android-optimize.txt` porque AGP 9.4 ya no admite el primero. |
@@ -556,7 +559,8 @@ Parches Apollo conservados:
 
 ### 5.8 Cambios funcionales de Moonlight 12.2 incorporados
 
-- Captura nativa de teclado en Android 16.1 (`CAPTURE_KEYBOARD`).
+- Captura nativa de teclado en Android 16.1 (`CAPTURE_KEYBOARD`; permiso retirado
+  en 1.0.1 para minimizar permisos, ver 3.10).
 - `setProducerThrottlingEnabled(false)` en Android 16+.
 - Keycodes F13–F24, PRINT, SCREENSHOT.
 - Shift para la tecla `+`.
@@ -648,9 +652,9 @@ Debug (firmado con clave debug de Android):
 > correspondiente a la compilación **1.0.0** del **2026-11-20**, con package
 > `com.leonidas10009.artemis2026`, APKs firmados, Fase 1 de interfaz, UI-05,
 > UI-07, optimización tablet, icono Artemis 2026 y energía remota (Fase 3B).
-> La carpeta curada `Release` solo recibe
-> `artemis.apk` y `artemis-debug.apk` (arm64-v8a); el resto queda en
-> `app/build/outputs/apk/` para quien lo necesite.
+> La exportación automática solo actualiza `artemis.apk` y `artemis-debug.apk`
+> (arm64-v8a); los assets versionados de cada release se copian aparte y el resto
+> de ABI queda en `app/build/outputs/apk/` para quien lo necesite.
 
 ### 6.5 Salida automática a `artemis_V2026\Release`
 
@@ -664,13 +668,14 @@ Nombres:
 
 | Archivo exportado | Origen | Tamaño | SHA-256 | Firma | Uso |
 |---|---|---:|---|---|---|
-| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.477.222 B | `586531A1771B9E9E0D93CA088208D0CFE679E2CB32FFBBB5A4A6644B160933F0` | Firmado con clave release | Publicar |
-| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 45.758.803 B | `814F5C4AD2EBE5B1D32D3E85EF9B25A0F8EA2437B9DF3C0045B17D59557E6C2A` | Firmado con clave debug | **Pruebas en dispositivo** |
+| `artemis.apk` | `release/...-arm64-v8a-...apk` | 40.472.186 B | `D32CBFBA09195CA2C5074A88B8C037D6FCB519BEB8DB674862246F6EFB1D0827` | Firmado con clave release | Publicar |
+| `artemis-debug.apk` | `debug/...-arm64-v8a-...apk` | 43.508.923 B | `4B2E28587740C8DB08ED8B833DDE0F7F8959C209B7C514DAFC49A557E78B4E9C` | Firmado con clave debug | **Pruebas en dispositivo** |
 | `LEEME_APK.txt` | — | — | — | — | Explica cuál usar |
 
-Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan** a `Release`
-para evitar duplicados y confusión. Si hicieran falta, se generan en
-`app/build/outputs/apk/nonRoot_game/`.
+Las demás ABI (`armeabi-v7a`, `x86`, `x86_64`) **no se exportan
+automáticamente** a `Release` para evitar duplicados y confusión. Los assets
+versionados de una release (`Artemis-1.0.2-*.apk`) se copian a mano desde
+`app/build/outputs/apk/nonRoot_game/` al prepararla.
 
 Se implementó en `app/build.gradle` con dos tareas `Copy`:
 
@@ -685,9 +690,10 @@ Y se engancharon con `finalizedBy` a:
 Así se ejecutan **cada vez** que se compila la variante, también desde Android Studio
 (Build → Make Project / Run) si la tarea de ensamblado se ejecuta.
 
-> `artemis.apk` es el APK release de `arm64-v8a`, pero **no está firmado**. Para
-> instalarlo/publicarlo hay que firmarlo con la keystore definitiva. Para pruebas
-> rápidas, usar `artemis-debug.apk`, que ya está firmado con la clave debug.
+> `artemis.apk` es el APK release de `arm64-v8a` y se firma con la keystore de
+> Artemis 2026 cuando existe `keystore.properties`. Para pruebas rápidas se puede
+> usar `artemis-debug.apk`, firmado con la clave debug. Los APKs 1.0.1 se
+> conservan en `Release\old-1.0.1` solo como histórico.
 
 
 ---
@@ -852,7 +858,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - [ ] Vibración, gatillos, LED RGB.
 - [ ] Touchpad y botón touchpad.
 - [ ] Sensores de movimiento y fallback.
-- [ ] Teclado físico, teclado virtual y captura nativa (sin accesibilidad).
+- [ ] Teclado físico, teclado virtual y captura nativa en 16.1+ (si se restaura `CAPTURE_KEYBOARD`).
 - [ ] Ratón, trackpad y modos de ratón.
 - [ ] Perfiles y overlays.
 - [ ] Portapapeles.
@@ -1460,6 +1466,10 @@ La app usa recursos responsivos; **no hay una variante excluyente**:
 
 ### 13.15 Release 1.0.1 — corrección del bloqueo de Play Protect (2026-11-21)
 
+> Esta sección documenta el **primer intento** (1.0.1). Fue insuficiente porque
+> conservó el servicio de accesibilidad; la causa real y la corrección definitiva
+> están en **13.16**.
+
 Play Protect bloqueaba el paquete nuevo con el mensaje “Aplicación bloqueada para
 proteger tu dispositivo”. La causa no era la firma:
 
@@ -1638,8 +1648,8 @@ en la página de Play Protect para desarrolladores.
 - **Rama principal:** `main`
 - **Estado:** rama `main` con release pública **1.0.2** disponible en
   <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.2>.
-- **Tag de la release:** `v1.0.2` sobre el commit que elimina el servicio de
-  accesibilidad y actualiza la documentación.
+- **Tag de la release:** `v1.0.2` sobre el commit `25d871a`, que elimina el
+  servicio de accesibilidad y actualiza la documentación.
 - **Release anterior:** `v1.0.1` (se conserva).
 - **Release 1.0.2:** APKs firmados arm64, armv7, x86_64 y universal publicados
   como assets, con sus hashes en el README y en el cuerpo de la release.

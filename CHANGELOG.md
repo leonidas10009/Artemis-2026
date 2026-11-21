@@ -15,7 +15,7 @@ Corrección definitiva del bloqueo de Play Protect.
   `CAPTURE_KEYBOARD` (nivel normal, no incluido en la lista de Play Protect); se
   omite en 1.0.2 para minimizar permisos y puede restaurarse si hace falta.
 - El APK final ya no contiene servicios de accesibilidad ni permisos sensibles.
-  Solo conserva permisos normales: red, notificaciones, vibración, wake lock,
+  Solo conserva permisos habituales: red, notificaciones, vibración, wake lock,
   estado de Wi-Fi y EPG de TV.
 - Versión `1.0.2` (versionCode `3`).
 - APKs firmados para `arm64-v8a`, `armeabi-v7a`, `x86_64` y universal.
