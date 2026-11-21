@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.limelight.ui.AppPosterImageView
             android:id="@+id/grid_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:cropToPadding="false"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitCenter" />
 
         <View
             android:id="@+id/grid_scrim"

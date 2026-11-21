@@ -3,7 +3,7 @@
 > Documento permanente de trabajo para el cliente **Artemis** de Apollo 2026.
 > Última actualización: **2026-11-21**.
 > Ruta del cliente: `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Artemis\moonlight-android-moonlight-noir`
-> Versión desplegada: **Artemis 2026 1.0.2 (versionCode 3)**, base **Artemis 20.2.7 / Moonlight v12.2**.
+> Versión desplegada: **Artemis 2026 1.0.3 (versionCode 4)**, base **Artemis 20.2.7 / Moonlight v12.2**.
 >
 > Este documento sustituye notas sueltas: aquí queda el estado actual, la arquitectura,
 > las decisiones de la fusión, los comandos de compilación, el diagnóstico de mandos y
@@ -1696,3 +1696,36 @@ Notas:
 > **Regla de oro:** Artemis no debe perder sus funciones propias en una actualización.
 > Ante un conflicto, conservar la lógica de Artemis y adaptar solo lo necesario de
 > Moonlight. El core debe actualizarse siempre junto con el JNI y el protocolo.
+
+---
+
+## 13.18 Portadas de apps y etiquetas Apollo (Artemis 1.0.3, 2026-11-21)
+
+- **Objetivo:** replicar en el cliente el tratamiento de portadas de la Web UI
+  de Apollo: imagen completa sin recorte y fondo oscurecido rellenando el
+  espacio sobrante.
+- **Componente:** `app/src/main/java/com/limelight/ui/AppPosterImageView.java`.
+  Dibuja una copia `centerCrop` oscurecida y desaturada detrás del `fitCenter`
+  normal de la imagen.
+- **Layouts:** `app_grid_item.xml` y `app_grid_item_small.xml` usan
+  `AppPosterImageView` con `android:scaleType="fitCenter"`.
+- **R8:** se agregó una regla `-keep` en `app/proguard-rules.pro` porque la vista
+  se instancia desde XML.
+- **Textos:** `pair_pairing_help` y `searching_pc` dejaron de mencionar Sunshine
+  y ahora dicen Apollo en los 22 archivos de localización. Las cadenas de
+  exportación de lanzadores siguen mencionando Sunshine a propósito porque
+  describen ese formato.
+- **Build:** `:app:assembleNonRoot_gameRelease` correcto; APKs release firmados
+  (`CN=Artemis 2026`), versión `1.0.3` / `versionCode 4`.
+  `Release\artemis.apk` actualizado (arm64-v8a, 40.472.456 B, SHA-256
+  `04CD4887EA918D448453DABBEF1D4CF869749543B3BA6E0720BCD9D07098C13F`).
+- **Artefactos 1.0.3:**
+  - `Artemis-1.0.3-arm64-v8a.apk` — 40.472.456 B —
+    `04CD4887EA918D448453DABBEF1D4CF869749543B3BA6E0720BCD9D07098C13F`
+  - `Artemis-1.0.3-armeabi-v7a.apk` — 37.674.619 B —
+    `0EB25D0603EC1D8904607A52AF637B35F704A770803A758D2D28254154419DC4`
+  - `Artemis-1.0.3-x86_64.apk` — 54.725.104 B —
+    `CCCCE9A75A1789073D8EC6576241DE2FFE3F29D96CC7053005E799FF06A31C36`
+  - `Artemis-1.0.3-universal.apk` — 104.284.635 B —
+    `84F2DE6DE0DB6E72658A328B23ECA969BBD4FA52BE17E7078184DB23BE8B95C4`
+- **Captura:** `artemis_V2026\capturas\28_artemis_103_posters.png`.

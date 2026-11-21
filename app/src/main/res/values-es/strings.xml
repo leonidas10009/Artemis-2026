@@ -48,7 +48,7 @@
     <string name="conn_terminated_msg">La conexión ha finalizado.</string>
     <!-- General strings -->
     <string name="ip_hint">Dirección IP del host del ordenador</string>
-    <string name="searching_pc">Buscando anfitriones en tu red local...\n\n Asegúrate de que Sunshine se está ejecutando en el PC anfitrión o de que GameStream está activado en los ajustes de GeForce Experience SHIELD.</string>
+    <string name="searching_pc">Buscando anfitriones en tu red local...\n\n Asegúrate de que Apollo se está ejecutando en el PC anfitrión o de que GameStream está activado en los ajustes de GeForce Experience SHIELD.</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="lost_connection">Conexión perdida</string>
@@ -261,7 +261,7 @@
     <string name="title_checkbox_reduce_refresh_rate">Permitir reducción de la tasa de refresco</string>
     <string name="title_full_range">Forzar video de rango completo (Experimental)</string>
     <string name="summary_full_range">Esto provocará la pérdida de detalles en las áreas claras y oscuras si su dispositivo no muestra correctamente el contenido de video de rango completo.</string>
-    <string name="pair_pairing_help">Si el ordenador anfitrión está ejecutando Sunshine, navegue a la interfaz web de Sunshine para ingresar el PIN.</string>
+    <string name="pair_pairing_help">Si el ordenador anfitrión está ejecutando Apollo, navegue a la interfaz web de Apollo para ingresar el PIN.</string>
     <string name="pcview_menu_eol">Fin de servicio de NVIDIA GameStream</string>
     <string name="fps_suffix_fps">FPS</string>
     <string name="title_native_fps_dialog">Advertencia sobre FPS nativos</string>
@@ -324,5 +324,7 @@
     <string name="summary_software_update">Artemis 2026: visita GitHub Releases para la última versión firmada</string>
     <string name="title_follow_update">Ver releases</string>
     <string name="summary_follow_update">Abre la página de releases de Artemis 2026 en GitHub</string>
+    <string name="title_export_sunshine_launcher_file">Exportar archivo de lanzamiento</string>
+    <string name="message_export_sunshine_launcher_file">Exportar un archivo de lanzamiento es inestable y puede fallar en cualquier momento. Tendrás que volver a exportarlo cada vez que cambies el nombre o la imagen de la app.\nUsa directamente la lista de apps de Apollo para una experiencia más estable.</string>
 
 </resources>

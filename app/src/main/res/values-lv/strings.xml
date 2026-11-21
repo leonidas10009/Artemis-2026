@@ -11,7 +11,7 @@
     <string name="wol_waking_pc">Pamodina datoru…</string>
     <string name="pcview_menu_app_list">Skatīt visas programmas</string>
     <string name="nettest_title_waiting">Notiek tīkla savienojuma pārbaude</string>
-    <string name="pair_pairing_help">Ja jūsu datorā ir uzstādīta Sunshine, dodieties uz Sunshine tīmekļa lietotāja saskarni un ievadiet PIN kodu tur.</string>
+    <string name="pair_pairing_help">Ja jūsu datorā ir uzstādīta Apollo, dodieties uz Apollo tīmekļa lietotāja saskarni un ievadiet PIN kodu tur.</string>
     <string name="pair_pc_offline">Dators ir izslēgts vai nav tiešsaistē</string>
     <string name="pair_pairing_msg">Lūdzu, ievadiet šo PIN kodu mērķa datorā:</string>
     <string name="no_video_received_error">Video no datora nav saņemts.</string>

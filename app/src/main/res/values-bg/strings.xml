@@ -141,7 +141,7 @@
     <string name="summary_checkbox_mouse_emulation">Натискането и задържането на бутона Старт ще превключи контролера в режим на мишка</string>
     <string name="title_checkbox_flip_face_buttons">Размяна на бутоните вдясно</string>
     <string name="error_code_prefix">Код на грешката:</string>
-    <string name="searching_pc">Търсене на достъпни компютри в локалната мрежа…\n\n Уверете се, че Sunshine работи на отдалечения компютър, или че GameStream е включен в настройките на GeForce Experience SHIELD.</string>
+    <string name="searching_pc">Търсене на достъпни компютри в локалната мрежа…\n\n Уверете се, че Apollo работи на отдалечения компютър, или че GameStream е включен в настройките на GeForce Experience SHIELD.</string>
     <string name="resolution_prefix_native">Локална</string>
     <string name="fps_suffix_fps">кадри/сек</string>
     <string name="title_native_fps_dialog">Предупреждение за локални кадри/сек</string>
@@ -162,7 +162,7 @@
     <string name="title_checkbox_xb1_driver">USB драйвер за контролери за Xbox 360/One</string>
     <string name="summary_seekbar_deadzone">Забележка: някои игри може да налагат по-голяма мъртва зона от тази, която е настроена в Moonlight.</string>
     <string name="title_checkbox_mouse_emulation">Симулиране на мишка чрез контролер</string>
-    <string name="pair_pairing_help">Ако на отдалечения компютър работи Sunshine, отворете уеб интерфейса на Sunshine и въведете ПИН кода.</string>
+    <string name="pair_pairing_help">Ако на отдалечения компютър работи Apollo, отворете уеб интерфейса на Apollo и въведете ПИН кода.</string>
     <string name="frame_conversion_error">Отдалеченият компютър докладва критична грешка при кодиране на видеото.\n\nОпитайте да изключите режима HDR, да промените резолюцията на потока или резолюцията на екрана на отдалечения компютър.</string>
     <string name="perf_overlay_hostprocessinglatency">Забавяне при обработката на отдалечения компютър – мин/макс/средно: %1$.1f/%2$.1f/%3$.1f мсек</string>
     <string name="category_on_screen_controls_settings">Настройки на екранните елементи за управление</string>

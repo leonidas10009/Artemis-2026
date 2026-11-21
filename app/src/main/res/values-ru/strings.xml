@@ -60,7 +60,7 @@
     <string name="ip_hint">IP-адрес хост-ПК</string>
     <string name="searching_pc">Поиск хост-ПК в вашей локальной сети…
 \n
-\n Убедитесь, что Sunshine работает на вашем хост-компьютере или GameStream включен в настройках GeForce Experience SHIELD.</string>
+\n Убедитесь, что Apollo работает на вашем хост-компьютере или GameStream включен в настройках GeForce Experience SHIELD.</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="lost_connection">Потеряно соединение с ПК</string>
@@ -289,7 +289,7 @@
     <string name="pan_zoom_mode_disabled">Режим прокрутки/масш. выключен</string>
     <string name="title_analog_scrolling">Использовать аналоговый джойстик для прокрутки</string>
     <string name="analogscroll_right">Правый аналоговый джойстик</string>
-    <string name="pair_pairing_help">Если на вашем хост-ПК установлен Sunshine, перейдите в веб-интерфейс Sunshine и введите PIN-код.</string>
+    <string name="pair_pairing_help">Если на вашем хост-ПК установлен Apollo, перейдите в веб-интерфейс Apollo и введите PIN-код.</string>
     <string name="error_code_prefix">Код ошибки:</string>
     <string name="perf_overlay_hostprocessinglatency">Задержка обработки хоста мин/макс/среднее: %1$.1f/%2$.1f/%3$.1f мс</string>
     <string name="summary_seekbar_vibrate_fallback_strength">Увеличьте или уменьшите интенсивность вибрации на вашем устройстве</string>
@@ -305,7 +305,7 @@
     <string name="analogscroll_none">Нет (оба джойстика перемещают мышь)</string>
     <string name="analogscroll_left">Левый аналоговый джойстик</string>
     <string name="pcview_menu_eol">NVIDIA GameStream обслуживание окончено</string>
-    <string name="message_export_sunshine_launcher_file">Экспорт лаунчера для Sunshine нестабилен и может ломаться. При изменении имени или картинки экспорт придётся делать заново.\nДля стабильности используйте Apollo.</string>
+    <string name="message_export_sunshine_launcher_file">Экспорт лаунчера для Apollo нестабилен и может ломаться. При изменении имени или картинки экспорт придётся делать заново.\nДля стабильности используйте Apollo.</string>
     <string name="title_enable_commit_text">Включить передачу готового текста (свайп/голос)</string>
     <string name="summary_enable_commit_text">Передаёт на ПК многосимвольный текст из экранных клавиатур (жестовый ввод, подсказки, голосовой ввод). Может нарушить работу игр, ожидающих посимвольного ввода.</string>
     <string name="menu_button">Меню</string>
@@ -612,7 +612,7 @@
     <string name="unexpected_error_during_file_export">При экспорте произошла непредвиденная ошибка.</string>
     <string name="file_export_cancelled">Экспорт отменён.</string>
     <string name="app_removed_from_pc">Приложение удалено с ПК</string>
-    <string name="title_export_sunshine_launcher_file">Экспорт файла запуска для Sunshine</string>
+    <string name="title_export_sunshine_launcher_file">Экспорт файла запуска для Apollo</string>
     <string name="title_checkbox_remember_zoom_pan">Запоминать прокрутку/масш.</string>
     <string name="summary_checkbox_remember_zoom_pan">Сохранять масштаб и позицию между сессиями</string>
     <string name="title_checkbox_enable_perf_overlay_bottom">Переместить панель вниз</string>

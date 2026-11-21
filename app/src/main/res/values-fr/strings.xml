@@ -49,7 +49,7 @@
     <string name="pair_pc_ingame">L\'ordinateur est actuellement dans un jeu. Vous devez fermer le jeu avant l\'appairage.</string>
     <string name="pair_pairing_title">Appariement</string>
     <string name="pair_pairing_msg">Veuillez entrer le code PIN suivant sur le PC cible :</string>
-    <string name="pair_pairing_help">Si votre PC hôte utilise Sunshine, accédez à l\'interface web de Sunshine pour saisir le code PIN.</string>
+    <string name="pair_pairing_help">Si votre PC hôte utilise Apollo, accédez à l\'interface web de Apollo pour saisir le code PIN.</string>
     <string name="pair_otp_pairing_msg">Appariement, veuillez patienter…</string>
     <string name="pair_otp_pairing_help">L\'appariement OTP n\'est disponible qu\'avec Apollo, entrez manuellement le code PIN que vous venez de fournir sur l\'interface web si vous utilisez un autre logiciel hôte.</string>
     <string name="pair_incorrect_pin">Code PIN ou phrase secrète incorrect</string>
@@ -105,7 +105,7 @@
 
     <!-- General strings -->
     <string name="ip_hint">Adresse IP du PC hôte</string>
-    <string name="searching_pc">Recherche de PC hôtes sur votre réseau local…\n\nAssurez-vous que Sunshine est en cours d\'exécution ou que GameStream est activé dans les paramètres GeForce Experience SHIELD.</string>
+    <string name="searching_pc">Recherche de PC hôtes sur votre réseau local…\n\nAssurez-vous que Apollo est en cours d\'exécution ou que GameStream est activé dans les paramètres GeForce Experience SHIELD.</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="lost_connection">Connexion perdue avec le PC</string>

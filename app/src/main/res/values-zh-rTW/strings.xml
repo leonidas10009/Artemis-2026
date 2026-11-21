@@ -54,7 +54,7 @@
 	<string name="pair_pc_ingame">電腦目前正在執行遊戲，必須先關閉遊戲才能配對。</string>
 	<string name="pair_pairing_title">正在配對</string>
 	<string name="pair_pairing_msg">請在目標電腦上輸入以下 PIN：</string>
-	<string name="pair_pairing_help">如果您的主機電腦正在執行 Sunshine，請進入 Sunshine 的網頁介面輸入 PIN。</string>
+	<string name="pair_pairing_help">如果您的主機電腦正在執行 Apollo，請進入 Apollo 的網頁介面輸入 PIN。</string>
 	<string name="pair_otp_pairing_msg">正在進行配對，請稍候…</string>
 	<string name="pair_otp_pairing_help">OTP 配對僅適用於 Apollo，如果您使用其他主機軟體，請在網頁介面手動輸入剛剛提供的 PIN。</string>
 	<string name="pair_incorrect_pin">PIN 或密碼短語錯誤</string>
@@ -748,8 +748,8 @@
 	<!-- AppView Toast Messages -->
 	<string name="file_export_cancelled">已取消匯出。</string>
 	<string name="app_removed_from_pc">已自電腦移除應用程式</string>
-	<string name="title_export_sunshine_launcher_file">為 Sunshine 匯出啟動檔</string>
-	<string name="message_export_sunshine_launcher_file">為 Sunshine 匯出啟動檔不夠穩定，可能隨時失效。每次變更應用程式名稱或圖片後都需要重新匯出。\n欲獲得更穩定體驗，請使用 Apollo。</string>
+	<string name="title_export_sunshine_launcher_file">為 Apollo 匯出啟動檔</string>
+	<string name="message_export_sunshine_launcher_file">為 Apollo 匯出啟動檔不夠穩定，可能隨時失效。每次變更應用程式名稱或圖片後都需要重新匯出。\n欲獲得更穩定體驗，請使用 Apollo。</string>
 
 	<string name="title_enable_commit_text">啟用 commit-text 輸入（滑動/語音）</string>
 	<string name="summary_enable_commit_text">將軟體鍵盤的多字元輸入（手勢輸入、建議字詞、語音聽寫）轉送到主機。可能會影響依賴逐鍵輸入的遊戲。</string>

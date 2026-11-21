@@ -48,7 +48,7 @@
     <string name="conn_terminated_msg">De verbinding is beëindigd.</string>
     <!-- General strings -->
     <string name="ip_hint">IP-adres van de host-PC</string>
-    <string name="searching_pc">Zoeken naar host-PC\'s in uw lokale netwerk...\n\nZorg ervoor dat Sunshine draait op uw host-PC of dat GameStream is ingeschakeld in de GeForce Experience SHIELD-instellingen.</string>
+    <string name="searching_pc">Zoeken naar host-PC\'s in uw lokale netwerk...\n\nZorg ervoor dat Apollo draait op uw host-PC of dat GameStream is ingeschakeld in de GeForce Experience SHIELD-instellingen.</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="lost_connection">Verbinding met PC verloren</string>
@@ -211,7 +211,7 @@
     <string name="title_enable_commit_text">Commit-tekstinvoer inschakelen (veeg/stem)</string>
     <string name="summary_enable_commit_text">Stuurt meerteksts invoer van softwaretoetsenborden (veegtypen, voorspellingen, spraakdicteren) door naar de pc. Kan problemen geven bij games die per-toetsinvoer vereisen.</string>
     <string name="title_checkbox_stretch_video">Rek video uit tot volledig scherm</string>
-    <string name="pair_pairing_help">Als uw host-PC Sunshine draait, navigeert u naar de Sunshine-webinterface om de PIN in te voeren.</string>
+    <string name="pair_pairing_help">Als uw host-PC Apollo draait, navigeert u naar de Apollo-webinterface om de PIN in te voeren.</string>
     <string name="error_code_prefix">Fout­code:</string>
     <string name="resolution_prefix_native_portrait">(portret)</string>
     <string name="suffix_seekbar_vibrate_fallback_strength">%</string>

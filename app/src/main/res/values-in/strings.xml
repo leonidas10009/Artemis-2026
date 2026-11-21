@@ -57,7 +57,7 @@
     <string name="conn_terminated_title">Koneksi dihentikan</string>
     <string name="conn_terminated_msg">Koneksi telah terputus.</string>
     <string name="ip_hint">Alamat IP komputer host</string>
-    <string name="searching_pc">Mencari host PC di jaringan lokal Anda...\n\nPastikan Sunshine berjalan di PC host Anda atau GameStream diaktifkan dalam pengaturan SHIELD Pengalaman GeForce.</string>
+    <string name="searching_pc">Mencari host PC di jaringan lokal Anda...\n\nPastikan Apollo berjalan di PC host Anda atau GameStream diaktifkan dalam pengaturan SHIELD Pengalaman GeForce.</string>
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="lost_connection">Koneksi dengan komputer hilang</string>
@@ -180,7 +180,7 @@
     <string name="title_checkbox_reduce_refresh_rate">Izinkan pengurangan kecepatan penyegaran</string>
     <string name="summary_checkbox_reduce_refresh_rate">Kecepatan refresh tampilan yang lebih rendah dapat menghemat daya dengan mengorbankan beberapa latensi video tambahan</string>
     <string name="applist_refresh_error_title">Kesalahan</string>
-    <string name="pair_pairing_help">Jika PC host Anda menjalankan Sunshine, buka UI web Sunshine untuk memasukkan PIN.</string>
+    <string name="pair_pairing_help">Jika PC host Anda menjalankan Apollo, buka UI web Apollo untuk memasukkan PIN.</string>
     <string name="applist_quit_app">Berhenti</string>
     <string name="perf_overlay_renderingfps">Frekuensi gambar rendering: %1$.2f FPS</string>
     <string name="perf_overlay_netlatency">Rata-rata latensi jaringan: %1$d ms (variasi: %2$d ms)</string>

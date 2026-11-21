@@ -1,5 +1,18 @@
 # Changelog
 
+## Artemis 2026 1.0.3 - 2026-11-21
+
+UI update for application cards and Apollo branding.
+
+- Application cards now use a full-poster `fitCenter` foreground with a
+  darkened, center-cropped copy behind it, matching the Apollo Web UI cards
+  without cropping square or landscape artwork.
+- Pairing and host-discovery help strings now refer to **Apollo** instead of
+  Sunshine across the localized string resources. Launcher export labels are
+  now generic or refer to Apollo.
+- Version `1.0.3` (versionCode `4`); release APKs signed for `arm64-v8a`,
+  `armeabi-v7a`, `x86_64` and universal.
+
 ## Artemis 2026 1.0.2 - 2026-11-21
 
 Corrección definitiva del bloqueo de Play Protect.

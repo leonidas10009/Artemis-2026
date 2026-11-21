@@ -4,6 +4,9 @@
 # Our code
 -keep class com.limelight.binding.input.evdev.* {*;}
 
+# Custom views instantiated from XML layouts
+-keep class com.limelight.ui.AppPosterImageView { *; }
+
 # KeyMapper - keep all VK_* fields for reflection
 -keep class com.limelight.utils.KeyMapper {*;}
 
