@@ -246,21 +246,11 @@
         <activity android:name=".DebugInfoActivity"
             android:launchMode="singleTask"/>
 
-        <!-- 无障碍 实体键盘 屏蔽某些快捷键 -->
-        <service
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:name="com.limelight.KeyboardAccessibilityService"
-            android:label="@string/keyboard_service_label"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/keyboard_accessibility_service" />
-        </service>
-
+        <!-- The keyboard accessibility service was removed because Play Protect
+             blocks Internet-sideloaded apps that declare ACCESSIBILITY, even when
+             the service is optional and never enabled by the app. Physical
+             keyboards keep working through normal KeyEvents, the Samsung
+             SemWindowManager capture API, and native keyboard capture on API 36.1+. -->
 
         <provider
             android:name="androidx.core.content.FileProvider"

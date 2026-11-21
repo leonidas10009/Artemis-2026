@@ -1,9 +1,9 @@
 # MEMORIA ARTEMIS 2026
 
 > Documento permanente de trabajo para el cliente **Artemis** de Apollo 2026.
-> Última actualización: **2026-11-20**.
+> Última actualización: **2026-11-21**.
 > Ruta del cliente: `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Artemis\moonlight-android-moonlight-noir`
-> Versión desplegada: **Artemis 2026 1.0.1 (versionCode 2)**, base **Artemis 20.2.7 / Moonlight v12.2**.
+> Versión desplegada: **Artemis 2026 1.0.2 (versionCode 3)**, base **Artemis 20.2.7 / Moonlight v12.2**.
 >
 > Este documento sustituye notas sueltas: aquí queda el estado actual, la arquitectura,
 > las decisiones de la fusión, los comandos de compilación, el diagnóstico de mandos y
@@ -20,6 +20,9 @@
 - **Núcleo `moonlight-common-c`:** fork de ClassicOldSong `c999436858471dfefa7617af3b7dc03ec1644ce4` fusionado con upstream `874ac9548f1bd6f095ef2b435c42cdde460e7821` (v12.2). Merge local de referencia: `cb182ee904c378f99b01ce25c1bc1a82f49d6751`.
 - **Resultado:** APK release y debug generados y **firmados**; el release usa la keystore de Artemis 2026 y el debug la clave de Android Studio.
 - **Copia automática:** cada compilación de `nonRoot_game` deja en `E:\ProyectoProgramacion\apolo_V2026\artemis_V2026\Release` `artemis.apk` (release arm64 firmado) y `artemis-debug.apk` (debug arm64 firmado), más los assets versionados y `LEEME_APK.txt` (ver 6.5).
+- **Play Protect:** resuelto en **1.0.2**. El bloqueo lo disparaba el servicio de
+  accesibilidad `KeyboardAccessibilityService`, no la firma ni los permisos de LiteRT.
+  Ver 13.15 y 13.16.
 - **Incidencia abierta:** “drift fantasma” con un mando Xbox que **no** tiene drift real, solo en **algunos juegos y frontends de emulación**. Ver sección 8.
 
 ---
@@ -31,8 +34,8 @@
 | Elemento | Valor |
 |---|---|
 | Producto | Artemis (cliente Android de Apollo/Sunshine) |
-| Versión Artemis actual | **1.0.1** |
-| versionCode | **2** |
+| Versión Artemis actual | **1.0.2** |
+| versionCode | **3** |
 | Base Artemis | **20.2.7** |
 | Base Moonlight | **v12.2** (`b48494c`) |
 | Paquete release | `com.leonidas10009.artemis2026` |
@@ -316,11 +319,17 @@ Cambios de Moonlight v12.2 incorporados:
   - Artemis añadió el parámetro `scancode` para layouts no QWERTY.
   - Moonlight v12.2 añadió F13–F24, PRINT y SCREENSHOT.
   - Se conservaron ambos.
-- `KeyboardAccessibilityService.java`: captura de teclas física cuando Android las
-  intercepta.
 - Teclado virtual completo y teclado en pantalla propio de Artemis.
-- En Android 16.1 se usa la captura nativa de teclado
-  (`CAPTURE_KEYBOARD` + `setKeyboardCaptureEnabled`).
+- En Android 16.1 existe captura nativa de teclado (`setKeyboardCaptureEnabled`).
+  El permiso `CAPTURE_KEYBOARD` es de nivel **normal** y **no** está en la lista de
+  Play Protect, pero se retiró en 1.0.1 para minimizar permisos. Sin él, Android
+  ignora la captura y usa el comportamiento normal; se puede restaurar si se
+  necesita esa función en Android 16.1+.
+- En Samsung se usa la API `SemWindowManager` para capturar teclas meta.
+- **`KeyboardAccessibilityService` fue eliminado en 1.0.2.** Play Protect bloquea las
+  apps de carga lateral que declaran `ACCESSIBILITY`, aunque el servicio sea opcional.
+  No se pierde funcionalidad: el código nunca lo activaba y el teclado físico usa las
+  rutas anteriores.
 
 ### 3.11 Perfiles
 
@@ -843,7 +852,7 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 - [ ] Vibración, gatillos, LED RGB.
 - [ ] Touchpad y botón touchpad.
 - [ ] Sensores de movimiento y fallback.
-- [ ] Teclado físico, teclado virtual y accesibilidad.
+- [ ] Teclado físico, teclado virtual y captura nativa (sin accesibilidad).
 - [ ] Ratón, trackpad y modos de ratón.
 - [ ] Perfiles y overlays.
 - [ ] Portapapeles.
@@ -886,7 +895,6 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | `preferences.xml` | UI de ajustes |
 | `MediaCodecDecoderRenderer.java` | Decodificación, frame pacing, estadísticas |
 | `KeyboardTranslator.java` | Keycodes Android → GFS |
-| `KeyboardAccessibilityService.java` | Captura de teclado |
 | `VirtualController*.java` | Controlador en pantalla |
 | `ProfilesManager.java` | Perfiles |
 | `Stereo3DRenderer.java` | SBS 3D |
@@ -918,7 +926,8 @@ logs temporales en `createControllerContext()` y `handleAxisSet()`.
 | 20.2.6 | 57 | Artemis `c5cf27f` | Estado previo a esta actualización |
 | 20.2.7 | 58 | Artemis `c5cf27f` + Moonlight **v12.2** | Base de la actualización; UI Fase 1 + UI-05 + UI-07 + tablet + icono + energía 3B |
 | 1.0.0 | 1 | Artemis `20.2.7` + Moonlight **v12.2** | Primera release pública: package propio, APKs firmados, TV, UI y energía |
-| **1.0.1** | **2** | Artemis `20.2.7` + Moonlight **v12.2** | Corrige Play Protect eliminando permisos heredados de LiteRT y `CAPTURE_KEYBOARD` |
+| 1.0.1 | 2 | Artemis `20.2.7` + Moonlight **v12.2** | Elimina permisos heredados de LiteRT y `CAPTURE_KEYBOARD`; insuficiente porque conserva accesibilidad |
+| **1.0.2** | **3** | Artemis `20.2.7` + Moonlight **v12.2** | Elimina el servicio de accesibilidad: corrección real del bloqueo de Play Protect |
 | — | — | — | Próxima: mantener la línea 1.0.x con cambios compatibles |
 
 ---
@@ -1457,14 +1466,15 @@ proteger tu dispositivo”. La causa no era la firma:
 - `org.tensorflow.lite.gpu.api` tiene `targetSdkVersion < 4`; el manifest merger
   añadía `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE` y
   `WRITE_EXTERNAL_STORAGE`.
-- El fork declaraba además `CAPTURE_KEYBOARD`, que el Artemis original no
-  declara y el código no usa.
+- El fork declaraba además `CAPTURE_KEYBOARD`, que el Artemis original no declara.
+  El código sí lo usa para la captura nativa de Android 16.1, pero se retiró para
+  minimizar permisos; no está en la lista de Play Protect.
 
 Solución en 1.0.1:
 
 - `tools:node="remove"` para los tres permisos heredados de LiteRT.
 - Eliminado `CAPTURE_KEYBOARD`.
-- Se conserva `KeyboardAccessibilityService` y `BIND_ACCESSIBILITY_SERVICE`,
+- Se conservó `KeyboardAccessibilityService` y `BIND_ACCESSIBILITY_SERVICE`,
   igual que en Artemis original.
 - Versión `1.0.1` (versionCode `2`).
 - Release: <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.1>
@@ -1478,11 +1488,105 @@ Solución en 1.0.1:
 | `Artemis-1.0.1-universal.apk` | 104.289.282 B | `F4CD75C88A537112647F8F716DD7FD989FCC1947521C7960AB649518B681A4C9` |
 
 Verificado en Android 13 y 16 x86_64: instalación, actualización desde 1.0.0 y
-arranque. Falta la confirmación en los dispositivos ARM del usuario.
+arranque. **La corrección fue insuficiente**: el servicio de accesibilidad seguía
+presente y Play Protect volvía a bloquear la instalación. Ver 13.16.
 
-Si Play Protect mantiene el bloqueo por reputación del paquete nuevo:
-desactivar temporalmente el escaneo, instalar y reactivarlo; o instalar por ADB
-con `verifier_verify_adb_installs=0` y restaurarlo después.
+### 13.16 Release 1.0.2 — causa real y corrección definitiva (2026-11-21)
+
+**Diagnóstico.** La captura del usuario mostraba el diálogo exacto de Play Protect:
+
+> “Aplicación bloqueada para proteger tu dispositivo”
+> “Esta aplicación puede solicitar acceso a datos sensibles. Esto puede aumentar el
+> riesgo de robo de identidad o fraude financiero.”
+
+Según la guía oficial de Play Protect, ese mensaje se aplica a las apps descargadas
+desde Internet (navegador, mensajería o gestor de archivos) que declaran alguno de
+estos permisos sensibles: `READ_SMS`, `RECEIVE_SMS`, `NOTIFICATION_LISTENER` o
+`ACCESSIBILITY`.
+
+El APK 1.0.1 ya no tenía SMS, notificaciones ni los permisos de LiteRT. El único
+detonante que quedaba era el servicio de accesibilidad:
+
+- `AndroidManifest.xml` declaraba `com.limelight.KeyboardAccessibilityService` con
+  `android.permission.BIND_ACCESSIBILITY_SERVICE`.
+- `res/xml/keyboard_accessibility_service.xml` pedía
+  `flagRequestFilterKeyEvents`, `flagRetrieveInteractiveWindows` y
+  `canRetrieveWindowContent="true"`.
+- El servicio se podía habilitar a mano en Ajustes de Android, pero **ninguna parte
+  de Artemis lo activaba ni lo mencionaba**: no había preferencia, botón ni
+  `Intent` a los ajustes de accesibilidad. Era un remanente del fork original.
+
+Play Protect analiza la **declaración** del servicio, no si está habilitado en
+tiempo de ejecución. Por eso el bloqueo persistía aunque el usuario nunca lo activara.
+
+**Corrección en 1.0.2:**
+
+- Eliminado el bloque `<service>` de `KeyboardAccessibilityService` y su
+  `meta-data` del manifiesto principal.
+- Eliminados `app/src/main/java/com/limelight/KeyboardAccessibilityService.java`
+  y `app/src/main/res/xml/keyboard_accessibility_service.xml`.
+- Eliminadas las cadenas `keyboard_service_label` y
+  `accessibility_description_text` de `values`, `values-fr`, `values-ru`,
+  `values-vi`, `values-zh-rCN` y `values-zh-rTW`.
+- Se mantiene la eliminación de los permisos heredados de LiteRT y de
+  `CAPTURE_KEYBOARD` introducida en 1.0.1.
+- Versión `1.0.2` (versionCode `3`).
+
+**Funcionalidad de teclado conservada:**
+
+- `KeyEvent` normal de la actividad `Game`.
+- API `SemWindowManager` de Samsung para teclas meta.
+- Captura nativa de Android 16.1+ (`setKeyboardCaptureEnabled`): la llamada sigue
+  en el código, pero sin `CAPTURE_KEYBOARD` el sistema la ignora. El permiso es de
+  nivel normal y puede restaurarse si se necesita esa función.
+- Teclado virtual y teclado en pantalla propios de Artemis.
+
+No se pierde ninguna función que el usuario pudiera activar desde la interfaz: el
+servicio de accesibilidad no tenía preferencia, botón ni `Intent` de activación.
+
+**Verificación del APK final (arm64 y universal):**
+
+- `versionName=1.0.2`, `versionCode=3`.
+- Sin servicios de accesibilidad y sin `BIND_ACCESSIBILITY_SERVICE`.
+- Permisos declarados: `INTERNET`, `ACCESS_NETWORK_STATE`, `POST_NOTIFICATIONS`,
+  `REORDER_TASKS`, `VIBRATE`, `WAKE_LOCK`, `ACCESS_WIFI_STATE`,
+  `CHANGE_WIFI_MULTICAST_STATE` (máx. API 33), `READ_EPG_DATA`/`WRITE_EPG_DATA`
+  de TV y el permiso interno de receivers dinámicos.
+- Firma verificada con `apksigner`: esquemas v1/v2, certificado
+  `CN=Artemis 2026` (SHA-256
+  `b7b07afec618eabc7ca1985ac19026ebcfe7a7b380f3bc963d2d066931a9819c`).
+- Build release, debug y universal correctos.
+- Instalado y arrancado en emulador **Android 17 x86_64**
+  (`Medium_Phone_API_37.0`): `versionName=1.0.2`, `versionCode=3`, sin
+  `FATAL EXCEPTION`, detecta el host Apollo. Captura:
+  `artemis_V2026\capturas\27_artemis_102_emulador.png`.
+- Play Protect no se puede validar de forma concluyente en el emulador; falta la
+  prueba en el dispositivo físico del usuario.
+
+**Assets 1.0.2:**
+
+| Asset | Tamaño | SHA-256 |
+|---|---:|---|
+| `Artemis-1.0.2-arm64-v8a.apk` | 40.472.186 B | `D32CBFBA09195CA2C5074A88B8C037D6FCB519BEB8DB674862246F6EFB1D0827` |
+| `Artemis-1.0.2-armeabi-v7a.apk` | 37.674.369 B | `7917886148AB03A3CB67728DF0345C31A5BC3BC38F4BBDF81DED5224637055F2` |
+| `Artemis-1.0.2-x86_64.apk` | 54.724.843 B | `254FA552A87A792B6BAFBC75AF091C40703C33823802975F748892DA98124524` |
+| `Artemis-1.0.2-universal.apk` | 104.284.377 B | `35406A456825C4063B36804CD178D21F96F79FD567182E45637C6FD53E132CAF` |
+| `artemis-debug.apk` | 43.508.923 B | `4B2E28587740C8DB08ED8B833DDE0F7F8959C209B7C514DAFC49A557E78B4E9C` |
+
+`Release/artemis.apk` es una copia idéntica del APK arm64 1.0.2.
+
+**Instalación recomendada:**
+
+1. Desinstalar la versión bloqueada (1.0.0 o 1.0.1) y reiniciar el dispositivo.
+2. Instalar `Artemis-1.0.2-arm64-v8a.apk` o el universal.
+3. Si Play Protect aún muestra el aviso, puede ser la caché de reputación del
+   paquete: esperar unos minutos, borrar datos/caché de Play Store o instalar por
+   ADB con `verifier_verify_adb_installs=0` y restaurar el valor después.
+4. No es necesario desactivar Play Protect de forma permanente.
+
+**Pendiente:** confirmar la instalación en los dispositivos ARM físicos del usuario
+y, si Play Protect mantiene el bloqueo pese al APK limpio, presentar una apelación
+en la página de Play Protect para desarrolladores.
 
 ---
 
@@ -1519,8 +1623,11 @@ con `verifier_verify_adb_installs=0` y restaurarlo después.
 - [x] Verificar que `Release\artemis.apk` se actualiza en cada compilación.
 - [ ] Probar el APK release firmado en tablet/TV ARM físico.
 - [x] Crear tag/release `v1.0.0` en GitHub y subir los APKs.
-- [x] Release `v1.0.1`: eliminar permisos heredados de LiteRT y `CAPTURE_KEYBOARD` que disparaban Play Protect.
-- [x] Añadir `CHANGELOG.md` con las versiones 1.0.0 y 1.0.1.
+- [x] Release `v1.0.1`: eliminar permisos heredados de LiteRT y `CAPTURE_KEYBOARD` (insuficiente: faltaba retirar el servicio de accesibilidad).
+- [x] Release `v1.0.2`: eliminar el servicio de accesibilidad y verificar el APK limpio.
+- [x] Añadir `CHANGELOG.md` con las versiones 1.0.0, 1.0.1 y 1.0.2.
+- [x] Publicar `v1.0.2` en GitHub Releases con los cuatro APKs y sus hashes.
+- [ ] Confirmar la instalación de 1.0.2 en los dispositivos ARM físicos del usuario.
 - [ ] Actualizar este documento tras cada nueva actualización.
 
 ---
@@ -1529,10 +1636,13 @@ con `verifier_verify_adb_installs=0` y restaurarlo después.
 
 - **Repositorio:** <https://github.com/leonidas10009/Artemis-2026>
 - **Rama principal:** `main`
-- **Estado:** publicado; rama `main` activa y release pública **1.0.1** disponible
-  en <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.1>.
-- **Último commit de la release:** `4d65e8c`; tag anotado `v1.0.1`.
-- **Release anterior:** `v1.0.0` (se conserva).
+- **Estado:** rama `main` con release pública **1.0.2** disponible en
+  <https://github.com/leonidas10009/Artemis-2026/releases/tag/v1.0.2>.
+- **Tag de la release:** `v1.0.2` sobre el commit que elimina el servicio de
+  accesibilidad y actualiza la documentación.
+- **Release anterior:** `v1.0.1` (se conserva).
+- **Release 1.0.2:** APKs firmados arm64, armv7, x86_64 y universal publicados
+  como assets, con sus hashes en el README y en el cuerpo de la release.
 - **Remoto:** `origin` → `https://github.com/leonidas10009/Artemis-2026.git`
 - **Package:** `com.leonidas10009.artemis2026` (release) y
   `com.leonidas10009.artemis2026.debug` (debug).

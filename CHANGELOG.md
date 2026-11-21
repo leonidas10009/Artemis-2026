@@ -1,5 +1,25 @@
 # Changelog
 
+## Artemis 2026 1.0.2 - 2026-11-21
+
+Corrección definitiva del bloqueo de Play Protect.
+
+- Eliminado el servicio de accesibilidad `KeyboardAccessibilityService` y su
+  configuración `res/xml/keyboard_accessibility_service.xml`. Play Protect bloquea
+  las apps instaladas desde Internet que declaran `ACCESSIBILITY`, aunque el servicio
+  sea opcional y la app nunca lo active.
+- Eliminadas las cadenas `keyboard_service_label` y `accessibility_description_text`
+  de los idiomas que las tenían.
+- El teclado físico sigue funcionando mediante `KeyEvent` y la API
+  `SemWindowManager` de Samsung. La captura nativa de Android 16.1+ requiere
+  `CAPTURE_KEYBOARD` (nivel normal, no incluido en la lista de Play Protect); se
+  omite en 1.0.2 para minimizar permisos y puede restaurarse si hace falta.
+- El APK final ya no contiene servicios de accesibilidad ni permisos sensibles.
+  Solo conserva permisos normales: red, notificaciones, vibración, wake lock,
+  estado de Wi-Fi y EPG de TV.
+- Versión `1.0.2` (versionCode `3`).
+- APKs firmados para `arm64-v8a`, `armeabi-v7a`, `x86_64` y universal.
+
 ## Artemis 2026 1.0.1 - 2026-11-21
 
 Corrección de instalación y Play Protect.
@@ -7,7 +27,9 @@ Corrección de instalación y Play Protect.
 - Eliminado el permiso `CAPTURE_KEYBOARD`, que el original Artemis no declara y el código no usa.
 - Eliminados los permisos heredados de `org.tensorflow.lite.gpu.api`:
   `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE` y `WRITE_EXTERNAL_STORAGE`.
-- Se conserva el servicio de accesibilidad para captura de teclado, igual que Artemis original.
+- Se conservó el servicio de accesibilidad para captura de teclado, igual que Artemis
+  original. Esta decisión fue insuficiente: el servicio seguía disparando el bloqueo
+  de Play Protect y se retiró en 1.0.2.
 - APKs arm64, armv7, x86_64 y universal firmados.
 - Verificado en Android 13 y 16 x86_64: instalación y arranque correctos.
 

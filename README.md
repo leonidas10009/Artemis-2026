@@ -6,7 +6,7 @@
 
 Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moonlight Noir)** y **Moonlight**.
 
-> **Versión:** `1.0.1` (versionCode `2`)  
+> **Versión:** `1.0.2` (versionCode `3`)  
 > **Paquete release:** `com.leonidas10009.artemis2026`  
 > **Paquete debug:** `com.leonidas10009.artemis2026.debug`  
 > **Base:** Artemis `20.2.7` + Moonlight `v12.2` (`b48494c`)  
@@ -31,19 +31,22 @@ Los APKs se publican en [GitHub Releases](https://github.com/leonidas10009/Artem
 
 | APK | Uso recomendado |
 |---|---|
-| `Artemis-1.0.1-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
-| `Artemis-1.0.1-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
-| `Artemis-1.0.1-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
-| `Artemis-1.0.1-universal.apk` | Fallback si el instalador rechaza el APK de una ABI; incluye todas |
+| `Artemis-1.0.2-arm64-v8a.apk` | Móviles, tablets y Android TV modernos (recomendado) |
+| `Artemis-1.0.2-armeabi-v7a.apk` | Dispositivos y TV de 32 bits más antiguos |
+| `Artemis-1.0.2-x86_64.apk` | Chromebooks, emuladores y equipos x86_64 |
+| `Artemis-1.0.2-universal.apk` | Fallback si el instalador rechaza el APK de una ABI; incluye todas |
 
 ### SHA-256
 
 | APK | SHA-256 |
 |---|---|
-| `Artemis-1.0.1-arm64-v8a.apk` | `22E742BCCB139C441CA8C86B1C01162239B387313CA4F991DB41EBE02E6F4040` |
-| `Artemis-1.0.1-armeabi-v7a.apk` | `A5B1111CDFF44C59CD00FACF35B8FA702D43C6F845F689BE1DE5937E15E6E9CB` |
-| `Artemis-1.0.1-x86_64.apk` | `E9338C0E1430A6342B2541A0C3E8992FFD58057822AF131B6F319DA3E7335110` |
-| `Artemis-1.0.1-universal.apk` | `F4CD75C88A537112647F8F716DD7FD989FCC1947521C7960AB649518B681A4C9` |
+| `Artemis-1.0.2-arm64-v8a.apk` | `D32CBFBA09195CA2C5074A88B8C037D6FCB519BEB8DB674862246F6EFB1D0827` |
+| `Artemis-1.0.2-armeabi-v7a.apk` | `7917886148AB03A3CB67728DF0345C31A5BC3BC38F4BBDF81DED5224637055F2` |
+| `Artemis-1.0.2-x86_64.apk` | `254FA552A87A792B6BAFBC75AF091C40703C33823802975F748892DA98124524` |
+| `Artemis-1.0.2-universal.apk` | `35406A456825C4063B36804CD178D21F96F79FD567182E45637C6FD53E132CAF` |
+
+El APK `arm64-v8a` y `artemis.apk` son idénticos
+(`D32CBFBA09195CA2C5074A88B8C037D6FCB519BEB8DB674862246F6EFB1D0827`).
 
 ### Android TV
 
@@ -61,17 +64,45 @@ El APK incluye la actividad **LEANBACK_LAUNCHER**, banner de TV y no exige panta
 
 ### Play Protect
 
-Si Android muestra **“Aplicación bloqueada para proteger tu dispositivo”**, es Play Protect, no la firma del APK. Puede ocurrir con paquetes nuevos que declaran accesibilidad o permisos sensibles.
+Si Android muestra **“Aplicación bloqueada para proteger tu dispositivo”** con el texto
+“Esta aplicación puede solicitar acceso a datos sensibles”, el aviso lo genera Play
+Protect y no la firma del APK.
 
-- La versión **1.0.1** elimina los permisos heredados que disparaban el aviso.
-- Si Play Protect sigue bloqueando, desactiva temporalmente **Play Store → perfil → Play Protect → ajustes → Escanear apps con Play Protect**, instala y vuelve a activarlo.
+Google bloquea las apps instaladas desde Internet (navegador, mensajería o gestor de
+archivos) que declaran alguno de estos permisos: `READ_SMS`, `RECEIVE_SMS`, acceso a
+notificaciones o **accesibilidad**. Artemis no usa SMS ni notificaciones. El detonante
+era el servicio de accesibilidad `KeyboardAccessibilityService`, que se conservaba desde
+el fork original aunque el código no lo activa.
+
+- **1.0.2** elimina por completo el servicio de accesibilidad y su configuración.
+  El APK final ya no declara `ACCESSIBILITY` ni permisos sensibles.
+- **1.0.1** solo eliminó los permisos heredados de LiteRT y `CAPTURE_KEYBOARD`; el
+  servicio de accesibilidad seguía presente y Play Protect podía seguir bloqueando.
+- Si Play Protect todavía muestra el aviso con el APK 1.0.2, puede deberse a la caché
+  de reputación del paquete anterior: desinstala la versión bloqueada, reinicia el
+  dispositivo e instala `Artemis-1.0.2-arm64-v8a.apk` (o el universal). Como último
+  recurso, desactiva temporalmente **Play Store → perfil → Play Protect → ajustes →
+  Escanear apps con Play Protect**, instala y vuelve a activarlo.
 - En Samsung, revisa también **Auto Blocker**; en Android 16, **Protección avanzada**.
 - Alternativa: instalar por ADB con `verifier_verify_adb_installs=0` y restaurarlo después.
+- Si el APK 1.0.2 sigue bloqueado pese a estar limpio, se puede presentar una
+  apelación siguiendo la
+  [guía oficial de Play Protect](https://developers.google.com/android/play-protect/warning-dev-guidance).
+
+El teclado físico no depende de accesibilidad: Artemis usa `KeyEvent` y la API
+`SemWindowManager` de Samsung. La captura nativa de Android 16.1+ requiere
+`CAPTURE_KEYBOARD` (permiso normal, no incluido en la lista de Play Protect); se
+omite en 1.0.2 para minimizar permisos y puede restaurarse si hace falta.
 
 
-## Novedades de la versión 1.0.1
+## Novedades de la versión 1.0.2
 
-- **1.0.1:** eliminados `CAPTURE_KEYBOARD` y los permisos heredados de LiteRT (`READ_PHONE_STATE`, almacenamiento externo) que podían hacer que Play Protect bloqueara la instalación.
+- **1.0.2:** eliminado el servicio de accesibilidad que disparaba el bloqueo de Play
+  Protect. El APK ya no declara `ACCESSIBILITY` ni permisos sensibles.
+- **1.0.1:** eliminados `CAPTURE_KEYBOARD` y los permisos heredados de LiteRT
+  (`READ_PHONE_STATE`, almacenamiento externo).
+- Teclado físico mediante `KeyEvent` y Samsung `SemWindowManager`. La captura nativa
+  de Android 16.1+ requiere `CAPTURE_KEYBOARD`, omitido en 1.0.2 para minimizar permisos.
 - Base actualizada a Artemis `20.2.7` + Moonlight `v12.2`.
 - Interfaz Apollo 2026: tokens, toolbar, tarjetas, búsqueda, estados vacíos y skeletons de carga.
 - Hoja de acciones para apps: iniciar/reanudar, cerrar, ocultar/mostrar, detalles, acceso directo y exportar `.art`.
