@@ -16,6 +16,8 @@ Cliente Android de streaming para **Apollo/Sunshine**, basado en **Artemis (Moon
 
 **Este es un fork no oficial.** No está afiliado a ClassicOldSong, Moonlight Stream ni LizardByte.
 
+**Documentación:** [Apollo 2026 docs](https://leonidas10009.github.io/apollo-2026-docs/) · [Guía de Android TV](https://leonidas10009.github.io/apollo-2026-docs/es/android-tv/)
+
 ## Origen y atribución
 
 - **Moonlight original:** <https://github.com/moonlight-stream/moonlight-android>
